@@ -16,12 +16,7 @@ import java.util.Scanner;
 	 *  @version	1.0
 	 */
 
-/*
- * 	QUESTION:
- * 	Difference between  Most Revenue Product Report
- * and Item Order Priority Report??
- * 
- */
+
 
 /*
  * Suggest:
@@ -64,12 +59,13 @@ public class Report {
 			 * */
 		try {
 			writer.write("Most Revenue Product Report\n");
-			writer.write("Name\tID\tConsumption");
-			for (Product element : system.mostPopularItem())
-			{
-				writer.write(element.getName() + "\t" + 
-						element.getId() + "\t" + element.getConsumption());
-			}
+			writer.write("Name\tID\tProfit");
+			// incomplete
+//			for (Product element : system.mostPopularItem())
+//			{
+//				writer.write(element.getName() + "\t" + 
+//						element.getId() + "\t" + element.getConsumption());
+//			}
 			// Record manager id(can be delete if it's unnecessary)
 			writer.write("\n"manager.getId());
 			// Record report generate date
@@ -123,7 +119,18 @@ public class Report {
 		}
 		
 		try {
-			// Incmplete
+			writer.write("Item Order Priority Report\n");
+			writer.write("Name\tID\tConsumption");
+			for (Product element : system.mostPopularItem())
+			{
+				writer.write(element.getName() + "\t" + 
+						element.getId() + "\t" + element.getConsumption());
+			}
+			// Record manager id(can be delete if it's unnecessary)
+			writer.write("\n"manager.getId());
+			// Record report generate date
+			writer.write(dateFormat.format(date));			
+			writer.close();
 		} catch (IOException e) {
 			System.out.println("Fail to output the Report!");
 		}
