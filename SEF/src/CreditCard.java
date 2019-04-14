@@ -23,4 +23,9 @@ public class CreditCard {
 	{
 		this.credit_card_num = credit_card_num;
 	}
+	
+	public int getNumber()
+	{
+		return credit_card_num;
+	}
 }
