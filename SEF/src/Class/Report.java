@@ -46,7 +46,7 @@ public class Report {
 	 * a Manager object or Manager id.
 	 * */
 	
-	public void getRevenuePRReport(Manager manager, SystemImpl system) {
+	public void getRevenuePRReport(Employee manager, SystemImpl system) {
 		try {
 			report = new File("Most_Revenue_Product_Report.txt");
 			writer = new FileWriter(report);
@@ -68,7 +68,7 @@ public class Report {
 //						element.getId() + "\t" + element.getConsumption());
 //			}
 			// Record manager id(can be delete if it's unnecessary)
-			writer.write("\n"manager.getId());
+			writer.write("\n" + manager.GetID());
 			// Record report generate date
 			writer.write(dateFormat.format(date));			
 			writer.close();
@@ -79,7 +79,7 @@ public class Report {
 		
 	}
 	
-	public void getPostcodeReport(Manager manager, SystemImpl system) {
+	public void getPostcodeReport(Employee manager, SystemImpl system) {
 		
 		try {
 			report = new File("Customer_Postcode_Report.txt");
@@ -100,7 +100,7 @@ public class Report {
 						element.getNumber());
 			}
 			// Record manager id(can be delete if it's unnecessary)
-			writer.write("\n"manager.getId());
+			writer.write("\n"+ manager.GetID());
 			// Record report generate date
 			writer.write(dateFormat.format(date));			
 			writer.close();
@@ -111,7 +111,7 @@ public class Report {
 		
 	}
 	
-	public void getItemOPReport(Manager manager, SystemImpl system) {
+	public void getItemOPReport(Employee manager, SystemImpl system) {
 		try {
 			report = new File("Item_Order_Priority_Report.txt");
 			writer = new FileWriter(report);
@@ -128,7 +128,7 @@ public class Report {
 						element.getId() + "\t" + element.getConsumption());
 			}
 			// Record manager id(can be delete if it's unnecessary)
-			writer.write("\n"manager.getId());
+			writer.write("\n" + manager.GetID());
 			// Record report generate date
 			writer.write(dateFormat.format(date));			
 			writer.close();
@@ -139,7 +139,7 @@ public class Report {
 		
 	}
 	
-	public void getPeriodReport(Manager manager, SystemImpl system) {
+	public void getPeriodReport(Employee manager, SystemImpl system) {
 		// Will need database in the area
 		System.out.println("Please enter the start day:(dd/mm/yyyy)");
 		sc = new Scanner(System.in);
@@ -176,7 +176,7 @@ public class Report {
 		System.out.println("Report generate successfully");
 	}
 	
-	public void getSupplyReport(Manager manager, SystemImpl system) {
+	public void getSupplyReport(Employee manager, SystemImpl system) {
 		try {
 			report = new File("Supply_Report.txt");
 			writer = new FileWriter(report);
