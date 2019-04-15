@@ -1,3 +1,4 @@
+package Class;
 	/**
 	 * Class for representing credit card.
 	 * 
