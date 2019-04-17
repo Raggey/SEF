@@ -15,7 +15,7 @@ public class Product {
 		this.productDetails = "";			//Set as when needed
 		this.productStock = 0;				//Updated by Supplier
 		this.producPrice = productPrice;
-		this.productDiscount = 0;			//No discount initially
+		//this.productDiscount = 0;			//No discount initially
 	}
 
 	public int getProductId() {
@@ -43,13 +43,13 @@ public class Product {
 		this.productStock = productStock;
 	}
 
-	public double getProductDiscount() {
-		return productDiscount;
-	}
-
-	public void setProductDiscount(double productDiscount) {
-		this.productDiscount = productDiscount;
-	}
+//	public double getProductDiscount() {
+//		return productDiscount;
+//	}
+//
+//	public void setProductDiscount(double productDiscount) {
+//		this.productDiscount = productDiscount;
+//	}
 
 	public double getProductPrice() {
 		return producPrice;
