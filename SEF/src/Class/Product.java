@@ -15,7 +15,7 @@ public class Product extends mainsef {
 		this.productDetails = "";			//Set as when needed
 		this.productStock = 0;				//Updated by Supplier
 		this.producPrice = productPrice;
-		this.productDiscount = 0;			//No discount initially
+		//this.productDiscount = 0;			//No discount initially
 	}
 
 	public int getProductId() {
@@ -43,13 +43,13 @@ public class Product extends mainsef {
 		this.productStock = productStock;
 	}
 
-	public double getProductDiscount() {
-		return productDiscount;
-	}
-
-	public void setProductDiscount(double productDiscount) {
-		this.productDiscount = productDiscount;
-	}
+//	public double getProductDiscount() {
+//		return productDiscount;
+//	}
+//
+//	public void setProductDiscount(double productDiscount) {
+//		this.productDiscount = productDiscount;
+//	}
 
 	public double getProductPrice() {
 		return producPrice;
@@ -57,6 +57,14 @@ public class Product extends mainsef {
 
 	public void setProductPrice(double producPrice) {
 		this.producPrice = producPrice;
+	}
+	
+	public void reduceStock(int i) {
+		this.productStock -= i;
+	}
+
+	public void increaseStock(int i) {
+		this.productStock += i;
 	}
 	
 
