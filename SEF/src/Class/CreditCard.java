@@ -12,7 +12,7 @@ package Class;
  * Add point be moved to customer class.
  */
 
-/*
+/* test
  * QUESTIONS:
  * Is this enough?
  */
