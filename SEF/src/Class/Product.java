@@ -59,6 +59,14 @@ public class Product {
 		this.producPrice = producPrice;
 	}
 	
+	public void reduceStock(int i) {
+		this.productStock -= i;
+	}
+
+	public void increaseStock(int i) {
+		this.productStock += i;
+	}
+	
 
 	
 }
