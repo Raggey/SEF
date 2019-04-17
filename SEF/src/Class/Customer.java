@@ -83,12 +83,17 @@ public class Customer {
 	}
 	
 	// Check if the point enough to get a discount, 
-	public int checkDiscount()
+	public int checkDiscount(int total)
 	{
 		if(points >= 20)
 		{
 			int discount = (int) (5*(Math.floor(points/20)));
 			points %= 20;
+			while (total < discount)
+			{
+				discount -= 5;
+				points += 20;
+			}
 			return discount;
 		}
 		else

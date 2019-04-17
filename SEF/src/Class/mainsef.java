@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class SystemInterface {
+public class mainsef {
 	Scanner kb = new Scanner(System.in);
 	String User;
 	String Pass;
 	int choice;
-	Collection<Customer> customers = new ArrayList<Customer>();
-	Collection<Product> Products = new ArrayList<Product>();
-	
-	
-	public void main(String[] args) {
-		
-		while(choice != 0) {
-			run();
-		}
+	ArrayList<Customer> customers = new ArrayList<Customer>();
+//	Customer cust = new Customer("1234", "Saad Jaber", 3064);
+//	Product product1 = new Product(1, "apple", 2.99);
+//	Product product2 = new Product(2, "oranges", 5.99);
+//	Product product3 = new Product(3, "Lemon", 3.99);
+//	Product[] products = {product1, product2, product3};
+//	
+//	
 
-	}
+	
+	
 	
 	
 	public  void run ( )
@@ -31,18 +31,19 @@ public class SystemInterface {
              System.out.print("Input Password: " );
              Pass = kb.nextLine( );
              kb.nextLine( );
-             if() {
+             String id = cust.getID();
+             if( id.equals("1234") ) {
             	 displayCustomerMenu();
             	 
              }
-             else if(/* Add check for ID here*/) {
+             /*else if() {
             	 displaySalesMenu();
             	 
              }
-             else if(/* Add check for ID here*/) {
+             else if() {
             	 displayManagerMenu();
             	 
-             }
+             }*/
 	        
 	         
 	         
@@ -88,7 +89,7 @@ public class SystemInterface {
 	 
 	 public void displayProductListMenu( )
 	    {
-	         for(Product product : Products) {
+	         for(Product product : products) {
 	        	 System.out.println(product);
 	        	 
 	         }
