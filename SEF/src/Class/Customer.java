@@ -22,7 +22,7 @@ public class Customer {
 	private int postcode;
 	private int times_visited;
 	// Record products.
-	//private LinkedList<Product> products = new LinkedList<Product>();
+	private LinkedList<Product> products = new LinkedList<Product>();
 	// To records card customer have.
 	private LinkedList<CreditCard> creditCards = new LinkedList<CreditCard>();
 	private boolean subscribe = true;
@@ -37,6 +37,12 @@ public class Customer {
 		money_spent = 0;
 	}
 	
+	public String getID()
+	{
+		return id;
+		
+	}
+	
 	// Record visited time.
 	public void logIn()
 	{
@@ -49,10 +55,10 @@ public class Customer {
 		return times_visited;
 	}
 	
-//	public void addProduct(Product product)
-//	{
-//		products.put(product);
-//	}
+	public void addProduct(Product product)
+	{
+		products.add(product);
+	}
 	
 	public int getPoint()
 	{
@@ -71,7 +77,7 @@ public class Customer {
 		money_spent += spent;
 		if (money_spent >= 10)
 		{
-			points += (Math.floor(money_spent/10));
+			points += (int)Math.floor(money_spent/10);
 			money_spent %= 10;
 		}
 	}
