@@ -50,7 +50,7 @@ public class SystemInterface {
 	 
 	 public void displayCustomerMenu( )
 	    {
-		 	User = id;
+		
 	         System.out.println("Customer Main menu" );
 	         System.out.println( "1. View Product List" );
 	         System.out.println( "2. View Cart" );
@@ -67,18 +67,18 @@ public class SystemInterface {
             	 displayProductListMenu();
             	 break;
              case 2:
-            	 User.getCart(id);
+            	 
             	 break;
              case 3:
-            	 Customers.remove(user);
+            	
             	 break;
              case 4:
-            	 User.getLoyaltyPoints();
+            	
             	 break;
              
              default:
             	 System.out.println("Choice : "+choice+" Is an invalid choice");
-            	 displayCustomerMenu(User);
+            	 displayCustomerMenu();
             	 break;
              	
              }
@@ -95,7 +95,7 @@ public class SystemInterface {
 	         
 	    }
 	 
-	 public void displaySalesMenu(String id )
+	 public void displaySalesMenu( )
 	    {
 	         System.out.println("Sales Assistant Main menu" );
 	         System.out.println( "1. Remove item from sale " );
@@ -105,12 +105,12 @@ public class SystemInterface {
              switch(choice) {
              
              	case 1:
-             		Sales.removeItem();
+             		
             	 break;
              	default:
              		System.out.println("Choice : "+choice+" Is an invalid choice");
              		
-             		displaySalesMenu(id);
+             		displaySalesMenu();
             	 break;
             	 
              }
@@ -118,7 +118,7 @@ public class SystemInterface {
 	         
 	    }
 	 
-	 public void displayManagerMenu(String id)
+	 public void displayManagerMenu()
 	    {
 		 
 	         System.out.println("Manager Main menu" );
@@ -142,7 +142,7 @@ public class SystemInterface {
             	 
              	default:
              		System.out.println("Choice : "+choice+" Is an invalid choice");
-             		displayManagerMenu(id);
+             		displayManagerMenu();
             	 break;
             	 
              }
