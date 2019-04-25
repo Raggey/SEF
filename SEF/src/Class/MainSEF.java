@@ -10,20 +10,14 @@ public class MainSEF {
 	private String id;
 	private String password;
 	//	int choice;
-	//	ArrayList<Customer> customers = new ArrayList<Customer>();
-	//	Customer cust = new Customer("1234", "Saad Jaber", 3064);
-	//	Product product1 = new Product(1, "apple", 2.99);
-	//	Product product2 = new Product(2, "oranges", 5.99);
-	//	Product product3 = new Product(3, "Lemon", 3.99);
-	//	Product[] products = {product1, product2, product3};
-
 	Product[] productList = new Product[20];
-	Customer[] customers = new Customer[20];
+	Customer[] customers = new Customer[50];
+	Employee[] empolyees = new Employee[20];
 	Customer currentCustomer = new Customer("c001", "Will", 3050);
 
 	public void run() {
 
-		addTenProduct();
+		addTenProduct(); //For the sake of Demo
 		login();	
 
 
@@ -81,20 +75,20 @@ public class MainSEF {
 		System.out.println("Current Loyalty Points: " + currentCustomer.getPoint() + "\n");
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
-		System.out.println("3. Remove Subscription");
+		System.out.println("3. Toggle Subscription");
 
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
 		switch(choice) {
 
-		case 1:
-			System.out.println("List of Products");
+		case 1: //1. View Product List
+			displayProductListMenu();
 			break;
-		case 2:
-			System.out.println("List items in Cart, if none say Cart Empty");
+		case 2: //2. View Cart
+			displayCart();
 			break;
-		case 3:
-			System.out.println("Allow removing subscription");
+		case 3: //3. Subscription
+			currentCustomer.subscribe();
 			break;
 
 		default:
@@ -105,80 +99,21 @@ public class MainSEF {
 
 	}
 
-	//	
-	//	public  void run ( )
-	//	    {
-	//	         System.out.println("Login:" );
-	//	         System.out.print("Input ID: " );
-	//             User = kb.nextLine( );
-	////             kb.nextLine( );
-	//             System.out.print("Input Password: " );
-	//             Pass = kb.nextLine( );
-	////             kb.nextLine( );
-	//             String id = cust.getID();
-	//             if( id.equals("1234") ) {
-	//            	 displayCustomerMenu();
-	//            	 
-	//             }
-	//             /*else if() {
-	//            	 displaySalesMenu();
-	//            	 
-	//             }
-	//             else if() {
-	//            	 displayManagerMenu();
-	//            	 
-	//             }*/
-	//	        
-	//	         
-	//	         
-	//	    }
-	//	 
-	//	 public void displayCustomerMenu( )
-	//	    {
-	//		
-	//	         System.out.println("Customer Main menu" );
-	//	         System.out.println( "1. View Product List" );
-	//	         System.out.println( "2. View Cart" );
-	//	         System.out.println("3. Remove Subscription" );
-	//	         System.out.println("4. Check Loyalty Points" );
-	//	         
-	//	         System.out.print("Enter Choice : " );
-	//             choice = kb.nextInt( );
-	//             kb.nextLine( );
-	//             
-	//             switch(choice) {
-	//             
-	//             case 1:
-	//            	 displayProductListMenu();
-	//            	 break;
-	//             case 2:
-	//            	 
-	//            	 break;
-	//             case 3:
-	//            	
-	//            	 break;
-	//             case 4:
-	//            	
-	//            	 break;
-	//             
-	//             default:
-	//            	 System.out.println("Choice : "+choice+" Is an invalid choice");
-	//            	 displayCustomerMenu();
-	//            	 break;
-	//             	
-	//             }
-	//	         
-	//	         
-	//	    }
-	//	 
-	//	 public void displayProductListMenu( )
-	//	    {
-	//	         for(Product product : products) {
-	//	        	 System.out.println(product);
-	//	        	 
-	//	         }
-	//	         
-	//	    }
+	public void displayProductListMenu() {
+		for(Product product : productList) {
+			if (product != null) {
+				System.out.println(product.getProductName());
+			}
+		}
+
+	}
+	
+	public void displayCart() {
+		
+		System.out.println(currentCustomer.getCart());
+	//	currentCustomer.getCart(); 
+		
+	}
 	//	 
 	//	 public void displaySalesMenu( )
 	//	    {

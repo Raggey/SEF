@@ -128,10 +128,12 @@ public class Customer {
 		if (subscribe)
 		{
 			subscribe = false;
+			System.out.println("Subscription is now OFF");
 		}
 		else
 		{
 			subscribe = true;
+			System.out.println("Subscription is now ON");
 		}
 		return subscribe;
 	}
