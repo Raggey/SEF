@@ -8,6 +8,7 @@ public class Product extends mainsef {
 	private int productStock;
 	private double productDiscount;
 	private double producPrice;
+	private int numberInCart;
 	
 	public Product (int productId, String productName, double productPrice) {
 		this.productId = productId;
@@ -15,6 +16,7 @@ public class Product extends mainsef {
 		this.productDetails = "";			//Set as when needed
 		this.productStock = 0;				//Updated by Supplier
 		this.producPrice = productPrice;
+		this.numberInCart = 0;
 		//this.productDiscount = 0;			//No discount initially
 	}
 
@@ -23,9 +25,9 @@ public class Product extends mainsef {
 	}
 
 	/*If required to get productName based on given ID */
-//	public String getProductName() {
-//		return productName;
-//	}
+	public String getProductName() {
+		return productName;
+	}
 
 	public String getProductDetails() {
 		return productDetails;
@@ -65,6 +67,11 @@ public class Product extends mainsef {
 
 	public void increaseStock(int i) {
 		this.productStock += i;
+	}
+	
+	public int getNumberInCart()
+	{
+		return numberInCart;
 	}
 	
 
