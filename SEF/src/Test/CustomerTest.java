@@ -38,7 +38,7 @@ public class CustomerTest {
 	@Test
 	public void TestMaxDiscount()	{
 		customer1.calculatePoints(2000);
-		customer1.checkDiscount(40);
+		//Buy more than discount:
 		assertEquals(customer1.checkDiscount(40), 40);
 		assertEquals(customer1.getPoint(), 40);
 	}

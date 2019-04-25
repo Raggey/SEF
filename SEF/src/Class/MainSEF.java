@@ -18,6 +18,31 @@ public class MainSEF {
 	
 	Product[] productStock = new Product[20];
 	Customer[] customers = new Customer[20];
+	Customer currentCustomer;
+	
+	private void addTenProduct()
+	{
+		Product apple = new Product(1, "Apple", 0.89, 100);
+		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100);
+		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100);
+		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100);
+		Product notebook = new Product(5, "A5 Notebook", 0.79, 100);
+		Product milk = new Product(6, "Pure milk", 2, 100);
+		Product bread = new Product(7, "Sandwich bread", 0.99, 100);
+		Product chicken = new Product(8, "Drumstick", 9, 100);
+		Product broccoli = new Product(9, "Broccoli", 0.69, 100);
+		Product pasta = new Product(10, "Delicious pasta", 0.89, 100);
+		productStock[0] = apple;
+		productStock[1] = biscuits;
+		productStock[2] = mints;
+		productStock[3] = pen;
+		productStock[4] = notebook;
+		productStock[5] = milk;
+		productStock[6] = bread;
+		productStock[7] = chicken;
+		productStock[8] = broccoli;
+		productStock[9] = pasta;
+	}
 	
 	
 	

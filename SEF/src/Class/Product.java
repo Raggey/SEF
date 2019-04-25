@@ -7,16 +7,19 @@ public class Product {
 	private String productDetails;
 	private int productStock;
 	private double productDiscount;
-	private double producPrice;
+	private double productPrice;
 	private int numberInCart;
+	private int consumption;
 	
-	public Product (int productId, String productName, double productPrice) {
+	
+	public Product (int productId, String productName, double productPrice, int productStock) {
 		this.productId = productId;
 		this.productName = productName;
 		this.productDetails = "";			//Set as when needed
-		this.productStock = 0;				//Updated by Supplier
-		this.producPrice = productPrice;
+		this.productStock = productStock;	
+		this.productPrice = productPrice;
 		this.numberInCart = 0;
+		this.consumption = 0;
 		//this.productDiscount = 0;			//No discount initially
 	}
 
@@ -54,11 +57,11 @@ public class Product {
 //	}
 
 	public double getProductPrice() {
-		return producPrice;
+		return productPrice;
 	}
 
 	public void setProductPrice(double producPrice) {
-		this.producPrice = producPrice;
+		this.productPrice = producPrice;
 	}
 	
 	public void reduceStock(int i) {
@@ -74,6 +77,18 @@ public class Product {
 		return numberInCart;
 	}
 	
+	public void setNumberInCart(int numberInCart)
+	{
+		this.numberInCart = numberInCart;
+	}
 
+	public void addConsumption(int consumption)
+	{
+		this.consumption += consumption;
+	}
 	
+	public String detailDisplay()
+	{
+		return "ID: " + productId + "\nName: " + productName + "\nPrice: " + productPrice + "\n Stock: " + productStock + "\n" ;
+	}
 }

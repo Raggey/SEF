@@ -22,7 +22,9 @@ public class Customer {
 	private int postcode;
 	private int times_visited;
 	// Record products.
-	private LinkedList<Product> products = new LinkedList<Product>();
+	// Change to Array!!!!!!!!!!!!!
+	private Product[] products = new Product[50];
+	//private LinkedList<Product> products = new LinkedList<Product>();
 	// To records card customer have.
 	private LinkedList<CreditCard> creditCards = new LinkedList<CreditCard>();
 	private boolean subscribe = true;
@@ -57,7 +59,25 @@ public class Customer {
 	
 	public void addProduct(Product product)
 	{
-		products.add(product);
+		boolean exist = false;
+		for(int i = 0; i < 50; i++)
+		{
+			if (products[i] == product)
+			{
+				product.setNumberInCart(product.getNumberInCart() + 1);
+				exist = true;
+			}
+		}
+		if (!exist)
+		{
+			for(int i = 0; i < 50; i++)
+			{
+				if (products[i] == null)
+				{
+					products[i] = product;
+				}
+			}
+		}
 	}
 	
 	public int getPoint()
@@ -139,6 +159,11 @@ public class Customer {
 			creditCards.add(newCard);
 			return true;
 		}
+	}
+	
+	public Product[] getCart()
+	{
+		return products;
 	}
 }
 

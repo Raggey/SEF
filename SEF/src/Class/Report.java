@@ -3,6 +3,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.Set;
 
 	/**
 	 * This class aims to generate different kinds of reports, including:
@@ -22,7 +23,6 @@ import java.util.Scanner;
 /*
  * Suggest:
  * Product class: 
- * 	toString()			return String detail of product
  * 	int consumption		to record consumption
  * 	getConsumption		return consumption
  * Manager class:
@@ -62,11 +62,11 @@ public class Report {
 			writer.write("Most Revenue Product Report\n");
 			writer.write("Name\tID\tProfit");
 			// incomplete
-//			for (Product element : system.mostPopularItem())
-//			{
-//				writer.write(element.getName() + "\t" + 
-//						element.getId() + "\t" + element.getConsumption());
-//			}
+			for (Product element : system.mostRevenueItem())
+			{
+				writer.write(element.getProductName() + "\t" + 
+						element.getProductId() + "\t" + element.getRevenue());
+			}
 			// Record manager id(can be delete if it's unnecessary)
 			writer.write("\n" + manager.GetID());
 			// Record report generate date
@@ -94,8 +94,44 @@ public class Report {
 		try {
 			writer.write("Customer Postcode Report\n");
 			writer.write("Postcode\tCustomer Number");
-			for (Location element : system.getLocationArray())
-			{
+//			String locationList[] = new String[system.getLocation().size()];
+//			String temp;
+//			for ( String element : system.getLocation().getkeySet())
+//			{
+//				if(locationList == null)
+//				{
+//					locationList[0] = system.getLocation().get(element);
+//				}
+//				else
+//				{
+//					for(int i = 0; i != locationList.length; i++)
+//					{
+//						if (locationList[i] != null)
+//						{
+//							if(i == 0)
+//							{
+//								if(system.getLocation().get(element) > system.getLocation().get(locationList[i]))
+//								{
+//									temp = locationList[i];
+//									locationList[i] = system.getLocation().get(element);
+//									locationList[i + 1] = temp;
+//								}
+//							}
+//							else
+//							{
+//								if(system.getLocation().get(element) > system.getLocation().get(locationList[i]) || system.getLocation().get(element) < system.getLocation().get(locationList[i - 1]))
+//								{
+//									locationList[i] 
+//								}
+//							}
+//						}
+//						else
+//						{
+//							
+//						}
+//					}
+//				}
+				
 				writer.write(element.getPostcode + "\t" + 
 						element.getNumber());
 			}
