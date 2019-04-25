@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 public class MainSEF {
 
-	MenuClass menu = new MenuClass();
-
 	Scanner scn = new Scanner(System.in);
 	private String id;
 	private String password;
@@ -72,12 +70,12 @@ public class MainSEF {
 		}
 		else {
 			//currentCustomer = CUSTOMERBASED ON ID ENTERED
-			customerMenu();
+			displayCustomerMenu();
 		}
 
 	}
 
-	private void customerMenu() {
+	private void displayCustomerMenu() {
 
 		System.out.println("***** MAIN MENU *****" );
 		System.out.println("Current Loyalty Points: " + currentCustomer.getPoint() + "\n");
@@ -101,7 +99,7 @@ public class MainSEF {
 
 		default:
 			System.out.println("Please select a valid choice!\n");
-			customerMenu();
+			displayCustomerMenu();
 			break;
 		}
 
