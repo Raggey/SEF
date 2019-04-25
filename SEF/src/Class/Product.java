@@ -1,6 +1,6 @@
 package Class;
 
-public class Product extends mainsef {
+public class Product {
 	
 	private int productId;
 	private String productName;

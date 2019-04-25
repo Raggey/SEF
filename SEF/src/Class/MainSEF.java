@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class mainsef {
+public class MainSEF {
 	Scanner kb = new Scanner(System.in);
 	String User;
 	String Pass;
 	int choice;
-	ArrayList<Customer> customers = new ArrayList<Customer>();
+//	ArrayList<Customer> customers = new ArrayList<Customer>();
 //	Customer cust = new Customer("1234", "Saad Jaber", 3064);
 //	Product product1 = new Product(1, "apple", 2.99);
 //	Product product2 = new Product(2, "oranges", 5.99);
 //	Product product3 = new Product(3, "Lemon", 3.99);
 //	Product[] products = {product1, product2, product3};
-//	
-//	
-
+	
+	Product[] productStock = new Product[20];
+	Customer[] customers = new Customer[20];
 	
 	
 	
@@ -27,10 +27,10 @@ public class mainsef {
 	         System.out.println("Login:" );
 	         System.out.print("Input ID: " );
              User = kb.nextLine( );
-             kb.nextLine( );
+//             kb.nextLine( );
              System.out.print("Input Password: " );
              Pass = kb.nextLine( );
-             kb.nextLine( );
+//             kb.nextLine( );
              String id = cust.getID();
              if( id.equals("1234") ) {
             	 displayCustomerMenu();
