@@ -1,15 +1,11 @@
 package Class;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainSEF {
 
 	Scanner scn = new Scanner(System.in);
 	private String id;
 	private String password;
-	//	int choice;
 	Product[] productList = new Product[20];
 	Customer[] customers = new Customer[50];
 	Employee[] empolyees = new Employee[20];
@@ -24,7 +20,7 @@ public class MainSEF {
 	}
 
 
-	private void addTenProduct()
+	private void addTenProduct() //Used for DEMO
 	{
 		Product apple = new Product(1, "Apple", 0.89, 100);
 		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100);
@@ -52,17 +48,17 @@ public class MainSEF {
 
 
 	public void login() {
-		System.out.println("***** LOGIN *****");
-		System.out.print("Input ID: ");
+		System.out.println("********** WELCOME **********");
+		System.out.print("Enter ID: ");
 		id = scn.nextLine();
 
 		if (id.charAt(0) != 'c') {
-			System.out.print("Input Password: ");
+			System.out.print("Enter Password: ");
 			password = scn.nextLine();
 			//Verify Password Done Later
 			displayManagerMenu();
 		}
-		else {
+		else { 
 			//currentCustomer = CUSTOMERBASED ON ID ENTERED
 			displayCustomerMenu();
 		}
@@ -108,13 +104,13 @@ public class MainSEF {
 
 	}
 	
-	public void displayCart() {
+	public void displayCart() { //GLORIA HELP ME LOOK AT THIS, SHOULD PRINT OUT THE CUSTOMER'S BASKET
 		
 		System.out.println(currentCustomer.getCart());
 	//	currentCustomer.getCart(); 
-		
 	}
-	//	 
+		
+	
 	//	 public void displaySalesMenu( )
 	//	    {
 	//	         System.out.println("Sales Assistant Main menu" );
