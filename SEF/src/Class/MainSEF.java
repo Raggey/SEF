@@ -5,21 +5,33 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class MainSEF {
+
+	MenuClass menu = new MenuClass();
+
 	Scanner scn = new Scanner(System.in);
 	private String id;
 	private String password;
-//	int choice;
-//	ArrayList<Customer> customers = new ArrayList<Customer>();
-//	Customer cust = new Customer("1234", "Saad Jaber", 3064);
-//	Product product1 = new Product(1, "apple", 2.99);
-//	Product product2 = new Product(2, "oranges", 5.99);
-//	Product product3 = new Product(3, "Lemon", 3.99);
-//	Product[] products = {product1, product2, product3};
-	
-	Product[] productStock = new Product[20];
+	//	int choice;
+	//	ArrayList<Customer> customers = new ArrayList<Customer>();
+	//	Customer cust = new Customer("1234", "Saad Jaber", 3064);
+	//	Product product1 = new Product(1, "apple", 2.99);
+	//	Product product2 = new Product(2, "oranges", 5.99);
+	//	Product product3 = new Product(3, "Lemon", 3.99);
+	//	Product[] products = {product1, product2, product3};
+
+	Product[] productList = new Product[20];
 	Customer[] customers = new Customer[20];
-	Customer currentCustomer;
-	
+	Customer currentCustomer = new Customer("c001", "Will", 3050);
+
+	public void run() {
+
+		addTenProduct();
+		login();	
+
+
+	}
+
+
 	private void addTenProduct()
 	{
 		Product apple = new Product(1, "Apple", 0.89, 100);
@@ -32,190 +44,219 @@ public class MainSEF {
 		Product chicken = new Product(8, "Drumstick", 9, 100);
 		Product broccoli = new Product(9, "Broccoli", 0.69, 100);
 		Product pasta = new Product(10, "Delicious pasta", 0.89, 100);
-		productStock[0] = apple;
-		productStock[1] = biscuits;
-		productStock[2] = mints;
-		productStock[3] = pen;
-		productStock[4] = notebook;
-		productStock[5] = milk;
-		productStock[6] = bread;
-		productStock[7] = chicken;
-		productStock[8] = broccoli;
-		productStock[9] = pasta;
+		productList[0] = apple;
+		productList[1] = biscuits;
+		productList[2] = mints;
+		productList[3] = pen;
+		productList[4] = notebook;
+		productList[5] = milk;
+		productList[6] = bread;
+		productList[7] = chicken;
+		productList[8] = broccoli;
+		productList[9] = pasta;
 	}
-	
-	
+
+
+
+
 	public void login() {
-		System.out.println("LOGIN");
+		System.out.println("***** LOGIN *****");
 		System.out.print("Input ID: ");
 		id = scn.nextLine();
-		System.out.print("Input Password: ");
-		password = scn.nextLine();
+
+		if (id.charAt(0) != 'c') {
+			System.out.print("Input Password: ");
+			password = scn.nextLine();
+			//Verify Password Done Later
+			displayManagerMenu();
+		}
+		else {
+			//currentCustomer = CUSTOMERBASED ON ID ENTERED
+			customerMenu();
+		}
+
 	}
 
-	public void customerMenu() {
+	private void customerMenu() {
 
-		System.out.println("Customer Main menu" );
+		System.out.println("***** MAIN MENU *****" );
+		System.out.println("Current Loyalty Points: " + currentCustomer.getPoint() + "\n");
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
 		System.out.println("3. Remove Subscription");
-		System.out.println("4. Check Loyalty Points");
+
+		System.out.print("Select Option: " );
+		int choice = Integer.parseInt(scn.nextLine());
+		switch(choice) {
+
+		case 1:
+			System.out.println("List of Products");
+			break;
+		case 2:
+			System.out.println("List items in Cart, if none say Cart Empty");
+			break;
+		case 3:
+			System.out.println("Allow removing subscription");
+			break;
+
+		default:
+			System.out.println("Please select a valid choice!\n");
+			customerMenu();
+			break;
+		}
 
 	}
-	
-//	
-//	public  void run ( )
-//	    {
-//	         System.out.println("Login:" );
-//	         System.out.print("Input ID: " );
-//             User = kb.nextLine( );
-////             kb.nextLine( );
-//             System.out.print("Input Password: " );
-//             Pass = kb.nextLine( );
-////             kb.nextLine( );
-//             String id = cust.getID();
-//             if( id.equals("1234") ) {
-//            	 displayCustomerMenu();
-//            	 
-//             }
-//             /*else if() {
-//            	 displaySalesMenu();
-//            	 
-//             }
-//             else if() {
-//            	 displayManagerMenu();
-//            	 
-//             }*/
-//	        
-//	         
-//	         
-//	    }
-//	 
-//	 public void displayCustomerMenu( )
-//	    {
-//		
-//	         System.out.println("Customer Main menu" );
-//	         System.out.println( "1. View Product List" );
-//	         System.out.println( "2. View Cart" );
-//	         System.out.println("3. Remove Subscription" );
-//	         System.out.println("4. Check Loyalty Points" );
-//	         
-//	         System.out.print("Enter Choice : " );
-//             choice = kb.nextInt( );
-//             kb.nextLine( );
-//             
-//             switch(choice) {
-//             
-//             case 1:
-//            	 displayProductListMenu();
-//            	 break;
-//             case 2:
-//            	 
-//            	 break;
-//             case 3:
-//            	
-//            	 break;
-//             case 4:
-//            	
-//            	 break;
-//             
-//             default:
-//            	 System.out.println("Choice : "+choice+" Is an invalid choice");
-//            	 displayCustomerMenu();
-//            	 break;
-//             	
-//             }
-//	         
-//	         
-//	    }
-//	 
-//	 public void displayProductListMenu( )
-//	    {
-//	         for(Product product : products) {
-//	        	 System.out.println(product);
-//	        	 
-//	         }
-//	         
-//	    }
-//	 
-//	 public void displaySalesMenu( )
-//	    {
-//	         System.out.println("Sales Assistant Main menu" );
-//	         System.out.println( "1. Remove item from sale " );
-//	         System.out.print("Enter Choice : " );
-//             choice = kb.nextInt( );
-//             kb.nextLine( );
-//             switch(choice) {
-//             
-//             	case 1:
-//             		
-//            	 break;
-//             	default:
-//             		System.out.println("Choice : "+choice+" Is an invalid choice");
-//             		
-//             		displaySalesMenu();
-//            	 break;
-//            	 
-//             }
-//	        
-//	         
-//	    }
-//	 
-//	 public void displayManagerMenu()
-//	    {
-//		 
-//	         System.out.println("Manager Main menu" );
-//	         System.out.println( "1. Access Report Menu" );
-//	         System.out.println( "2. Manage Staff" );
-//	         System.out.println("3. Manage Sales" );
-//	         System.out.print("Enter Choice : " );
-//             choice = kb.nextInt( );
-//             kb.nextLine( );
-//             switch(choice) {
-//             
-//             	case 1:
-//             		displayReportMenu();
-//            	 break;
-//             	case 2:
-//             		manageStaff();
-//            	 break;
-//             	case 3:
-//             		manageSale();
-//            	 break;
-//            	 
-//             	default:
-//             		System.out.println("Choice : "+choice+" Is an invalid choice");
-//             		displayManagerMenu();
-//            	 break;
-//            	 
-//             }
-//	        
-//	         
-//	    }
-//
-//
-//	private void manageSale() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//
-//	private void manageStaff() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//
-//	private void displayReportMenu() {
-//		// TODO Auto-generated method stub
-//		 System.out.println("Manager Main menu" );
-//         System.out.println( "1. Access Report Menu" );
-//         System.out.println( "2. Manage Staff" );
-//         System.out.println("3. Manage Sales" );
-//		
-//	}
-//	 
-//	 
-//	 
-	
+
+	//	
+	//	public  void run ( )
+	//	    {
+	//	         System.out.println("Login:" );
+	//	         System.out.print("Input ID: " );
+	//             User = kb.nextLine( );
+	////             kb.nextLine( );
+	//             System.out.print("Input Password: " );
+	//             Pass = kb.nextLine( );
+	////             kb.nextLine( );
+	//             String id = cust.getID();
+	//             if( id.equals("1234") ) {
+	//            	 displayCustomerMenu();
+	//            	 
+	//             }
+	//             /*else if() {
+	//            	 displaySalesMenu();
+	//            	 
+	//             }
+	//             else if() {
+	//            	 displayManagerMenu();
+	//            	 
+	//             }*/
+	//	        
+	//	         
+	//	         
+	//	    }
+	//	 
+	//	 public void displayCustomerMenu( )
+	//	    {
+	//		
+	//	         System.out.println("Customer Main menu" );
+	//	         System.out.println( "1. View Product List" );
+	//	         System.out.println( "2. View Cart" );
+	//	         System.out.println("3. Remove Subscription" );
+	//	         System.out.println("4. Check Loyalty Points" );
+	//	         
+	//	         System.out.print("Enter Choice : " );
+	//             choice = kb.nextInt( );
+	//             kb.nextLine( );
+	//             
+	//             switch(choice) {
+	//             
+	//             case 1:
+	//            	 displayProductListMenu();
+	//            	 break;
+	//             case 2:
+	//            	 
+	//            	 break;
+	//             case 3:
+	//            	
+	//            	 break;
+	//             case 4:
+	//            	
+	//            	 break;
+	//             
+	//             default:
+	//            	 System.out.println("Choice : "+choice+" Is an invalid choice");
+	//            	 displayCustomerMenu();
+	//            	 break;
+	//             	
+	//             }
+	//	         
+	//	         
+	//	    }
+	//	 
+	//	 public void displayProductListMenu( )
+	//	    {
+	//	         for(Product product : products) {
+	//	        	 System.out.println(product);
+	//	        	 
+	//	         }
+	//	         
+	//	    }
+	//	 
+	//	 public void displaySalesMenu( )
+	//	    {
+	//	         System.out.println("Sales Assistant Main menu" );
+	//	         System.out.println( "1. Remove item from sale " );
+	//	         System.out.print("Enter Choice : " );
+	//             choice = kb.nextInt( );
+	//             kb.nextLine( );
+	//             switch(choice) {
+	//             
+	//             	case 1:
+	//             		
+	//            	 break;
+	//             	default:
+	//             		System.out.println("Choice : "+choice+" Is an invalid choice");
+	//             		
+	//             		displaySalesMenu();
+	//            	 break;
+	//            	 
+	//             }
+	//	        
+	//	         
+	//	    }
+	//	 
+	public void displayManagerMenu()
+	{
+
+		System.out.println("Manager Main menu" );
+		System.out.println( "1. Access Report Menu" );
+		System.out.println( "2. Manage Staff" );
+		System.out.println("3. Manage Sales" );
+		System.out.print("Enter Choice : " );
+		int choice = scn.nextInt( );
+		scn.nextLine( );
+		switch(choice) {
+
+		case 1:
+			displayReportMenu();
+			break;
+		case 2:
+			manageStaff();
+			break;
+		case 3:
+			manageSale();
+			break;
+
+		default:
+			System.out.println("Choice : "+choice+" Is an invalid choice");
+			displayManagerMenu();
+			break;
+
+		}
+		//	        
+		//	         
+	}
+
+
+	private void manageSale() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	private void manageStaff() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	private void displayReportMenu() {
+		// TODO Auto-generated method stub
+		System.out.println("Manager Main menu" );
+		System.out.println( "1. Access Report Menu" );
+		System.out.println( "2. Manage Staff" );
+		System.out.println("3. Manage Sales" );
+
+	}
+
 }
