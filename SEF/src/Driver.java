@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 
 import Class.Customer;
+import Class.MenuClass;
 import Class.Product;
-import Class.mainsef;
+
 
 public class Driver {
 
 	public static void main(String[] args) {
 	
-		mainsef main = new mainsef();
-		main.run();
+	MenuClass a = new MenuClass();
+	
+	a.login();
+	a.customerMenu();
+	
+	
+	
 
 }
 	
