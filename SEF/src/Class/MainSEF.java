@@ -55,6 +55,7 @@ public class MainSEF {
 		if (id.charAt(0) != 'c') {
 			System.out.print("Enter Password: ");
 			password = scn.nextLine();
+			System.out.println();
 			//Verify Password Done Later
 			displayManagerMenu();
 		}
@@ -137,13 +138,13 @@ public class MainSEF {
 	public void displayManagerMenu()
 	{
 
-		System.out.println("Manager Main menu" );
-		System.out.println( "1. Access Report Menu" );
-		System.out.println( "2. Manage Staff" );
-		System.out.println("3. Manage Sales" );
-		System.out.print("Enter Choice : " );
-		int choice = scn.nextInt( );
-		scn.nextLine( );
+		System.out.println("***** MANAGER MENU *****");
+		System.out.println("1. Display Report Menu");
+		System.out.println("2. Manage Staff");
+		System.out.println("3. Manage Sales");
+		
+		System.out.print("Select Option: " );
+		int choice = Integer.parseInt(scn.nextLine());
 		switch(choice) {
 
 		case 1:
@@ -157,7 +158,7 @@ public class MainSEF {
 			break;
 
 		default:
-			System.out.println("Choice : "+choice+" Is an invalid choice");
+			System.out.println("Please select a valid choice!\n");
 			displayManagerMenu();
 			break;
 
@@ -180,11 +181,10 @@ public class MainSEF {
 
 
 	private void displayReportMenu() {
-		// TODO Auto-generated method stub
-		System.out.println("Manager Main menu" );
-		System.out.println( "1. Access Report Menu" );
-		System.out.println( "2. Manage Staff" );
-		System.out.println("3. Manage Sales" );
+		System.out.println("*** REPORT MENU ***");
+		System.out.println("1. ...REPORT");
+		System.out.println("1. ...REPORT");
+		System.out.println("1. ...REPORT");
 
 	}
 
