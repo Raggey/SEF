@@ -113,7 +113,7 @@ public class MainSEF {
 		
 	
 	//	 public void displaySalesMenu( )
-	//	    {
+	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );
 	//	         System.out.println( "1. Remove item from sale " );
 	//	         System.out.print("Enter Choice : " );
