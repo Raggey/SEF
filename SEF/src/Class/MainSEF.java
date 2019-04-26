@@ -73,6 +73,7 @@ public class MainSEF {
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
 		System.out.println("3. Toggle Subscription");
+		System.out.println("4. Quit");
 
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
@@ -80,12 +81,21 @@ public class MainSEF {
 
 		case 1: //1. View Product List
 			displayProductListMenu();
+			addProductInCart();
+			backToMenu();
 			break;
 		case 2: //2. View Cart
 			displayCart();
+			backToMenu();
 			break;
 		case 3: //3. Subscription
 			currentCustomer.subscribe();
+			backToMenu();
+			break;
+		case 4: //4. Quit
+			System.out.println("~~~~~~~~~~~~~~~~~~~");
+			System.out.println("|See you soon! : D|");
+			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			break;
 
 		default:
@@ -95,20 +105,109 @@ public class MainSEF {
 		}
 
 	}
+	
+	private void backToMenu()
+	{
+		try {
+			System.out.println("Taking you back to the main menu...");
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			System.out.println("Fail to load waiting time.");
+		}
+		displayCustomerMenu();
+	}
 
-	public void displayProductListMenu() {
-		for(Product product : productList) {
-			if (product != null) {
-				System.out.println(product.getProductName());
+	private void displayProductListMenu() {
+		for(int i = 0; i < productList.length; i++) {
+			if (productList[i] != null) {
+				System.out.println((i+1) + ". " + productList[i].getProductName() + "\t\t$" + productList[i].getProductPrice());
 			}
 		}
 
 	}
 	
-	public void displayCart() { //GLORIA HELP ME LOOK AT THIS, SHOULD PRINT OUT THE CUSTOMER'S BASKET
-		
-		System.out.println(currentCustomer.getCart());
-	//	currentCustomer.getCart(); 
+	private void addProductInCart()
+	{
+		int prodN = -1;
+		boolean intN = false;
+		boolean quit = false;
+		boolean valid = false;
+		String answer = "";
+		while(!quit)
+		{
+			System.out.println("\nPlease select the product you want to buy(enter the number).");
+			while(!intN)
+			{
+				// Input control between 1 to 10 for now.
+				try {
+					prodN = scn.nextInt();
+					if(prodN < 1 || prodN > 10)
+					{
+						System.out.println("Please enter a valid input for your select product.\n");
+					}
+					else
+					{
+						intN = true;
+					}
+				}
+				catch(InputMismatchException e)
+				{
+					System.out.println("Please enter a valid input for your select product.\n");
+				}
+			}
+			currentCustomer.addProduct(productList[prodN - 1]);
+			System.out.println("Add item successfully! ");
+			valid = false;
+			System.out.println("Is there anything else you want to add to you shopping cart?(Y/N)");
+			while(!valid)
+			{
+				try {
+					//NEED HELP HERE!!!! RUN THE PROGRAM, SELECT A PRODUCT AND YOU WILL KNOW WHERE I NEED HELP!!! 
+					answer = scn.nextLine();	
+				}
+				catch(InputMismatchException e){
+					System.out.println("Please enter a valid input(Y/N):");
+				}
+				if (answer.equals("Y") || answer.equals("y"))
+				{
+					valid = true;
+					intN = false;
+				}
+				else if(answer.equals("N") || answer.equals("n"))
+				{
+					quit = true;
+					valid = true;
+				}
+				else
+				{
+					System.out.println("Please enter a valid input(Y/N):");
+				}
+				
+			}
+		}
+		System.out.println("\nWhat's in your cart so far:");
+		displayCart();
+	}
+	
+	private void displayCart() { 
+		//For this moment, the Cart just have 50 index
+		String cart = "";
+		for (int i = 0; i < 50; i++)
+		{
+			if (currentCustomer.getCart()[i] != null)
+			{
+				cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
+			}
+		}
+		if (cart.equals(""))
+		{
+			System.out.println("Opps, it seems like you haven't add anything yet.");
+		}
+		else
+		{
+			System.out.println("Name\t\tNumber");
+			System.out.println(cart + "\n");
+		}
 	}
 		
 	

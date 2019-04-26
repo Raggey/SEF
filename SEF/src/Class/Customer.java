@@ -64,7 +64,6 @@ public class Customer {
 		{
 			if (products[i] == product)
 			{
-				product.setNumberInCart(product.getNumberInCart() + 1);
 				exist = true;
 			}
 		}
@@ -75,9 +74,11 @@ public class Customer {
 				if (products[i] == null)
 				{
 					products[i] = product;
+					break;
 				}
 			}
 		}
+		product.setNumberInCart(product.getNumberInCart() + 1);
 	}
 	
 	public int getPoint()
