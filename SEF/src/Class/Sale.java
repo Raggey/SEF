@@ -1,3 +1,4 @@
+package Class;
 public class Sale {
 	private double profit = 0;
 	private Customer person;
