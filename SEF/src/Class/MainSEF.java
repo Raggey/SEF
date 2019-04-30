@@ -9,14 +9,13 @@ public class MainSEF {
 	Product[] productList = new Product[20];
 	Customer[] customers = new Customer[50];
 	Employee[] empolyees = new Employee[20];
-	Customer currentCustomer = new Customer("c001", "Will", 3050);
+	Customer currentCustomer = null;
 
 	public void run() {
 
+		currentCustomer = new Customer("c001", "Will", 3050);
 		addTenProduct(); //For the sake of Demo
 		login();	
-
-
 	}
 
 
@@ -42,6 +41,8 @@ public class MainSEF {
 		productList[7] = chicken;
 		productList[8] = broccoli;
 		productList[9] = pasta;
+
+
 	}
 
 
@@ -51,7 +52,7 @@ public class MainSEF {
 		System.out.println("********** WELCOME **********");
 		System.out.print("Enter ID: ");
 		id = scn.nextLine();
-		
+
 
 		if (id.charAt(0) != 'c') {
 			System.out.print("Enter Password: ");
@@ -67,12 +68,13 @@ public class MainSEF {
 		}
 
 	}
-	
+
 	private void backToMenu()
 	{
 		try {
 			System.out.println("Taking you back to the main menu...");
-			Thread.sleep(2000);
+			System.out.println();
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			System.out.println("Fail to load waiting time.");
 		}
@@ -119,9 +121,9 @@ public class MainSEF {
 		}
 
 	}
-	
+
 	private void displayProductListMenu() {
-		
+
 		System.out.println("***** PRODUCTS *****");
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
@@ -129,75 +131,116 @@ public class MainSEF {
 				double price = productList[i].getProductPrice();
 				String menu = String.format("%-30s %.2f", product, price);
 				System.out.println(menu);
-//				System.out.println((i+1) + ". " + productList[i].getProductName() + "\t\t$" + productList[i].getProductPrice());
 			}
 		}
 
 	}
-	
+
 	private void addProductInCart()
 	{
-		int prodN = -1;
-		boolean intN = false;
+		int prodN = 0; // WHY IS THIS NEGATIVE ONE?
 		boolean quit = false;
-		boolean valid = false;
 		String answer = "";
+		//
+		//		int prodN = -1; // WHY IS THIS NEGATIVE ONE?
+		//		boolean intN = false;
+		//		boolean quit = false;
+		//		boolean valid = false;
+		//		String answer = "";
+
+		System.out.println("Select product to add to cart(enter the number) or press ENTER to exit.");
+
 		while(!quit)
 		{
-			System.out.println("\nPlease select the product you want to buy(enter the number).");
-			while(!intN)
-			{
-				// Input control between 1 to 10 for now.
-				try {
-					prodN = scn.nextInt();
-					if(prodN < 1 || prodN > 10)
-					{
-						System.out.println("Please enter a valid input for your select product.\n");
-					}
-					else
-					{
-						intN = true;
-					}
-				}
-				catch(InputMismatchException e)
-				{
-					System.out.println("Please enter a valid input for your select product.\n");
-				}
+			answer = scn.nextLine();
+			if (answer.isEmpty()) {
+				System.out.println("\nWhat's in your cart so far:");
+				displayCart();
+				System.out.println("Press ENTER to continue..");
+				scn.nextLine();
+				backToMenu();
 			}
-			currentCustomer.addProduct(productList[prodN - 1]);
-			System.out.println("Add item successfully! ");
-			valid = false;
-			System.out.println("Is there anything else you want to add to you shopping cart?(Y/N)");
-			while(!valid)
-			{
+			else {
+
 				try {
-					//NEED HELP HERE!!!! RUN THE PROGRAM, SELECT A PRODUCT AND YOU WILL KNOW WHERE I NEED HELP!!! 
-					answer = scn.nextLine();	
+					prodN = Integer.parseInt(answer); 
+					System.out.println(prodN);
+					if(prodN < 1 || prodN > 10) { //edit
+						throw new InputMismatchException("Please enter a valid input for your select product.\n");
+					}
+					else {
+						currentCustomer.addProduct(productList[prodN - 1]);
+						System.out.println("Add item successfully! ");
+						System.out.println("Select another product or press ENTER to exit");
+					}
 				}
-				catch(InputMismatchException e){
-					System.out.println("Please enter a valid input(Y/N):");
+				catch(InputMismatchException e) {
+					System.out.println(e.getMessage());
 				}
-				if (answer.equals("Y") || answer.equals("y"))
-				{
-					valid = true;
-					intN = false;
-				}
-				else if(answer.equals("N") || answer.equals("n"))
-				{
-					quit = true;
-					valid = true;
-				}
-				else
-				{
-					System.out.println("Please enter a valid input(Y/N):");
-				}
-				
+
 			}
+
 		}
-		System.out.println("\nWhat's in your cart so far:");
-		displayCart();
+		//
+		//		while(!quit)
+		//		{
+		//			System.out.println("\nPlease select the product you want to buy(enter the number).");
+		//			while(!intN)
+		//			{
+		//				// Input control between 1 to 10 for now.
+		//				try {
+		//					prodN = scn.nextInt();
+		//					if(prodN < 1 || prodN > 10)
+		//					{
+		//						throw new InputMismatchException("Please enter a valid input for your select product.\n");
+		//					}
+		//					else
+		//					{
+		//						intN = true;
+		//					}
+		//				}
+		//				catch(InputMismatchException e)
+		//				{
+		//					System.out.println(e.getMessage());
+		//				}
+		//			}
+		//			currentCustomer.addProduct(productList[prodN - 1]);
+		//			System.out.println("Add item successfully! ");
+		//			
+		//			
+		//			
+		//			valid = false;
+		//			System.out.println("Is there anything else you want to add to you shopping cart?(Y/N)");
+		//			while(!valid)
+		//			{
+		//				try {
+		//					//NEED HELP HERE!!!! RUN THE PROGRAM, SELECT A PRODUCT AND YOU WILL KNOW WHERE I NEED HELP!!! 
+		//					answer = scn.nextLine();	
+		//				}
+		//				catch(InputMismatchException e){
+		//					System.out.println("Please enter a valid input(Y/N):");
+		//				}
+		//				if (answer.equals("Y") || answer.equals("y"))
+		//				{
+		//					valid = true;
+		//					intN = false;
+		//				}
+		//				else if(answer.equals("N") || answer.equals("n"))
+		//				{
+		//					quit = true;
+		//					valid = true;
+		//				}
+		//				else
+		//				{
+		//					System.out.println("Please enter a valid input(Y/N):");
+		//				}
+		//				
+		//			}
+		//		}
+		//		System.out.println("\nWhat's in your cart so far:");
+		//		displayCart();
 	}
-	
+
 	private void displayCart() { 
 		//For this moment, the Cart just have 50 index
 		String cart = "";
@@ -218,12 +261,12 @@ public class MainSEF {
 			System.out.println(cart + "\n");
 		}
 	}
-	
+
 	private void checkOut() {
-		
+
 	}
-		
-	
+
+
 	//	 public void displaySalesMenu( )
 	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );
@@ -254,7 +297,7 @@ public class MainSEF {
 		System.out.println("1. Display Report Menu");
 		System.out.println("2. Manage Staff");
 		System.out.println("3. Manage Sales");
-		
+
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
 		System.out.println();
