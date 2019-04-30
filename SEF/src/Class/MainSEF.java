@@ -51,19 +51,32 @@ public class MainSEF {
 		System.out.println("********** WELCOME **********");
 		System.out.print("Enter ID: ");
 		id = scn.nextLine();
+		
 
 		if (id.charAt(0) != 'c') {
 			System.out.print("Enter Password: ");
 			password = scn.nextLine();
-			System.out.println();
 			//Verify Password Done Later
+			System.out.println();
 			displayManagerMenu();
 		}
 		else { 
 			//currentCustomer = CUSTOMERBASED ON ID ENTERED
+			System.out.println();
 			displayCustomerMenu();
 		}
 
+	}
+	
+	private void backToMenu()
+	{
+		try {
+			System.out.println("Taking you back to the main menu...");
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			System.out.println("Fail to load waiting time.");
+		}
+		displayCustomerMenu();
 	}
 
 	private void displayCustomerMenu() {
@@ -77,6 +90,7 @@ public class MainSEF {
 
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
+		System.out.println();
 		switch(choice) {
 
 		case 1: //1. View Product List
@@ -106,21 +120,16 @@ public class MainSEF {
 
 	}
 	
-	private void backToMenu()
-	{
-		try {
-			System.out.println("Taking you back to the main menu...");
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			System.out.println("Fail to load waiting time.");
-		}
-		displayCustomerMenu();
-	}
-
 	private void displayProductListMenu() {
+		
+		System.out.println("***** PRODUCTS *****");
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
-				System.out.println((i+1) + ". " + productList[i].getProductName() + "\t\t$" + productList[i].getProductPrice());
+				String product = (i+1) + ". " + productList[i].getProductName();
+				double price = productList[i].getProductPrice();
+				String menu = String.format("%-30s %.2f", product, price);
+				System.out.println(menu);
+//				System.out.println((i+1) + ". " + productList[i].getProductName() + "\t\t$" + productList[i].getProductPrice());
 			}
 		}
 
@@ -209,6 +218,10 @@ public class MainSEF {
 			System.out.println(cart + "\n");
 		}
 	}
+	
+	private void checkOut() {
+		
+	}
 		
 	
 	//	 public void displaySalesMenu( )
@@ -244,6 +257,7 @@ public class MainSEF {
 		
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
+		System.out.println();
 		switch(choice) {
 
 		case 1:
