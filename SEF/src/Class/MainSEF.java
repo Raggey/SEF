@@ -97,8 +97,8 @@ public class MainSEF {
 
 		case 1: //1. View Product List
 			displayProductListMenu();
+			System.out.println();
 			addProductInCart();
-			backToMenu();
 			break;
 		case 2: //2. View Cart
 			displayCart();
@@ -164,7 +164,7 @@ public class MainSEF {
 
 				try {
 					prodN = Integer.parseInt(answer); 
-					System.out.println(prodN);
+					System.out.println();
 					if(prodN < 1 || prodN > 10) { //edit
 						throw new InputMismatchException("Please enter a valid input for your select product.\n");
 					}
