@@ -63,6 +63,9 @@ public class MainSEF {
 		}
 		else { 
 			//currentCustomer = CUSTOMERBASED ON ID ENTERED
+			// If customer Exist if Customer dont exist
+			
+//			currentCustomer = currentCustomer.getCustomer(id);
 			System.out.println();
 			displayCustomerMenu();
 		}
@@ -173,7 +176,10 @@ public class MainSEF {
 					}
 					else {
 						currentCustomer.addProduct(productList[prodN - 1]);
-						System.out.println("Add item successfully! ");
+						displayProductListMenu();
+						System.out.println();
+						System.out.println("Item added successfully!");
+						System.out.println("Total number of " + productList[prodN - 1].getProductName() + " in cart: " + productList[prodN - 1].getNumberInCart());		
 						System.out.println("Select another product or press ENTER to exit");
 					}
 				}
