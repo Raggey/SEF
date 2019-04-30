@@ -8,18 +8,18 @@ public class MainSEF {
 	private String password;
 	Product[] productList = new Product[20];
 	Customer[] customers = new Customer[50];
-	Employee[] empolyees = new Employee[20];
+	Employee[] employees = new Employee[20];
 	Customer currentCustomer = null;
 
 	public void run() {
 
 		currentCustomer = new Customer("c001", "Will", 3050);
-		addTenProduct(); //For the sake of Demo
+		demoInitialise();
 		login();	
 	}
 
 
-	private void addTenProduct() //Used for DEMO
+	private void demoInitialise() //Used for DEMO
 	{
 		Product apple = new Product(1, "Apple", 0.89, 100);
 		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100);
@@ -42,6 +42,15 @@ public class MainSEF {
 		productList[8] = broccoli;
 		productList[9] = pasta;
 
+		currentCustomer = new Customer("c001", "Will", 3050);
+		Employee manager = new Employee(1, "Tom", "password1", 3);
+		Employee warehouse = new Employee(2, "Dick", "password2", 2);
+		Employee salestaff = new Employee(3, "Harry", "password3", 1);
+		
+		employees[0] = manager;
+		employees[1] = warehouse;
+		employees[2] = salestaff;
+		
 
 	}
 
@@ -51,8 +60,13 @@ public class MainSEF {
 	public void login() {
 		System.out.println("********** WELCOME **********");
 		System.out.print("Enter ID: ");
-		
+
 		id = scn.nextLine();
+		while (id.equals("")) {
+			System.out.print("Enter ID: ");
+			id = scn.nextLine();
+
+		}
 
 		if (id.charAt(0) != 'c') {
 			System.out.print("Enter Password: ");
@@ -64,8 +78,8 @@ public class MainSEF {
 		else { 
 			//currentCustomer = CUSTOMERBASED ON ID ENTERED
 			// If customer Exist if Customer dont exist
-			
-//			currentCustomer = currentCustomer.getCustomer(id);
+
+			//			currentCustomer = currentCustomer.getCustomer(id);
 			System.out.println();
 			displayCustomerMenu();
 		}
@@ -95,7 +109,7 @@ public class MainSEF {
 		System.out.println();
 		System.out.println("5. Quit");
 		System.out.println();
-		
+
 
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
@@ -272,7 +286,7 @@ public class MainSEF {
 				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart()) + "\n";
 
 				cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
-				
+
 				count++;
 			}
 		}
@@ -282,8 +296,8 @@ public class MainSEF {
 		}
 		else
 		{
-//			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
-//			System.out.printf("%-25s %d", left, right);
+			//			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
+			//			System.out.printf("%-25s %d", left, right);
 
 			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
@@ -293,7 +307,7 @@ public class MainSEF {
 	private void checkOut() {
 		Sale checkout = new Sale(currentCustomer);
 		checkout.PerformSale();
-		
+
 
 	}
 

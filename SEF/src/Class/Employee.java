@@ -13,6 +13,10 @@ public class Employee {
 		password = staffPassword;
 		level = staffLevel; // this possiblyy doesn't need a setter
 	}
+	
+	// Level 1 = SalesStaff,
+	// Level 2 = WareHouse,
+	// Level 3 = Manager
 
 	public void SetName(String newName) {
 		name = newName;
