@@ -171,8 +171,8 @@ public class MainSEF {
 					if(prodN < 1 || prodN > productList.length) {
 						throw new InputMismatchException("Please enter a valid input for your select product.");
 					}
-					if (productList[prodN] == null) {
-						throw new InputMismatchException("Please enter a valid input for your select product.c");
+					if (productList[prodN - 1] == null) {
+						throw new InputMismatchException("Please enter a valid input for your select product.");
 					}
 					else {
 						currentCustomer.addProduct(productList[prodN - 1]);
