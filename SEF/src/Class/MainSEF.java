@@ -141,17 +141,11 @@ public class MainSEF {
 		int prodN = 0; 
 		boolean quit = false;
 		String answer = "";
-		
-		//		int prodN = -1; // WHY IS THIS NEGATIVE ONE?
-		//		boolean intN = false;
-		//		boolean quit = false;
-		//		boolean valid = false;
-		//		String answer = "";
 
 		System.out.println("Select product to add to cart(enter the number) or press ENTER to exit.");
 
-		while(!quit)
-		{
+		while(!quit) {
+
 			answer = scn.nextLine();
 			if (answer.isEmpty()) {
 				System.out.println("\nWhat's in your cart so far:");
@@ -161,7 +155,6 @@ public class MainSEF {
 				backToMenu();
 			}
 			else {
-
 				try {
 					prodN = Integer.parseInt(answer); 
 					System.out.println();
@@ -180,10 +173,14 @@ public class MainSEF {
 				catch(InputMismatchException e) {
 					System.out.println(e.getMessage());
 				}
-
 			}
-
 		}
+
+		//		int prodN = -1; // WHY IS THIS NEGATIVE ONE?
+		//		boolean intN = false;
+		//		boolean quit = false;
+		//		boolean valid = false;
+		//		String answer = "";
 		//
 		//		while(!quit)
 		//		{
@@ -246,16 +243,24 @@ public class MainSEF {
 
 	private void displayCart() { 
 		//For this moment, the Cart just have 50 index
-//		String product = (i+1) + ". " + productList[i].getProductName();
-//		double price = productList[i].getProductPrice();
-//		String menu = String.format("%-30s %.2f", product, price);
-//		System.out.println(menu);
+		//		String product = (i+1) + ". " + productList[i].getProductName();
+		//		double price = productList[i].getProductPrice();
+		//		String menu = String.format("%-30s %.2f", product, price);
+		//		System.out.println(menu);
 		String cart = "";
+		String left = "";
+		String right = "";
+		int count = 0;
 		for (int i = 0; i < 50; i++)
 		{
 			if (currentCustomer.getCart()[i] != null)
 			{
+				left = (currentCustomer.getCart()[i].getProductName() + "\n");
+				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart()) + "\n";
+
 				cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
+				
+				count++;
 			}
 		}
 		if (cart.equals(""))
@@ -265,14 +270,17 @@ public class MainSEF {
 		else
 		{
 //			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
-//			System.out.printf("%-30s", cart);
-			
+//			System.out.printf("%-25s %d", left, right);
+
 			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
 		}
 	}
 
 	private void checkOut() {
+		Sale checkout = new Sale(currentCustomer);
+		checkout.PerformSale();
+		
 
 	}
 
