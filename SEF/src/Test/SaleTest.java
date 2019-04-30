@@ -1,10 +1,14 @@
+package Test;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SaleTTT {
+import Class.Sale;
+
+public class SaleTest {
 
 	Sale testSale;
 	
