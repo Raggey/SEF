@@ -10,10 +10,10 @@ public class MainSEF {
 	Customer[] customers = new Customer[50];
 	Employee[] employees = new Employee[20];
 	Customer currentCustomer = null;
+	Employee currentEmployee = null;
 
 	public void run() {
-
-		currentCustomer = new Customer("c001", "Will", 3050);
+		
 		demoInitialise();
 		login();	
 	}
@@ -42,15 +42,22 @@ public class MainSEF {
 		productList[8] = broccoli;
 		productList[9] = pasta;
 
-		currentCustomer = new Customer("c001", "Will", 3050);
-		Employee manager = new Employee(1, "Tom", "password1", 3);
-		Employee warehouse = new Employee(2, "Dick", "password2", 2);
-		Employee salestaff = new Employee(3, "Harry", "password3", 1);
-		
+
+		Employee manager = new Employee("e1", "Tom", "password1", 3);
+		Employee warehouse = new Employee("e2", "Dick", "password2", 2);
+		Employee salestaff = new Employee("e3", "Harry", "password3", 1);
+
 		employees[0] = manager;
 		employees[1] = warehouse;
 		employees[2] = salestaff;
-		
+
+		Customer one = new Customer("c001", "Will", 3050);
+		Customer two = new Customer("c002", "Jack", 3450);
+
+		customers[0] = one;
+		customers[1] = two;
+
+
 
 	}
 
@@ -65,33 +72,85 @@ public class MainSEF {
 		while (id.equals("")) {
 			System.out.print("Enter ID: ");
 			id = scn.nextLine();
-
 		}
+
+
+
 
 		if (id.charAt(0) != 'c') {
-			System.out.print("Enter Password: ");
-			password = scn.nextLine();
-			//Verify Password Done Later
-			System.out.println();
-			displayManagerMenu();
+
+			if (employees[0] == null) {
+				System.out.println("Error: No Employees Registered");
+				System.out.println();
+				login();
+			}
+			else {
+				System.out.print("Enter Password: ");
+				password = scn.nextLine();
+				while (id.equals("")) {
+					System.out.print("Enter Password: ");
+					id = scn.nextLine();
+				}
+			}
+			//Account Validation
+			for (int i = 0; i < employees.length; i++) {
+				if (employees[i] != null) {
+					if (employees[i].GetID().equals(id) && employees[i].GetPassword().equals(password)) {
+						System.out.println("*Log in Succuessful*" + "\n");
+						currentEmployee = employees[i];
+					}
+				}
+			}
+
+
+			if (currentEmployee == null) {
+
+				System.out.println("Invalid login, please try again!");
+				System.out.println();
+				login();
+
+				switch (currentEmployee.GetLevel()) {
+
+				case 1: displaySalesMenu();
+				break;
+
+				case 2: displayWarehouseMenu();
+				break;
+
+				case 3: displayManagerMenu();
+				break;
+
+				}
+			}
 		}
 		else { 
-			//currentCustomer = CUSTOMERBASED ON ID ENTERED
-			// If customer Exist if Customer dont exist
 
-			//			currentCustomer = currentCustomer.getCustomer(id);
-			System.out.println();
-			displayCustomerMenu();
+			for (int i = 0; i < customers.length; i++) {
+				if (customers[i] != null) {
+					if (customers[i].getID().equals(id)) {
+						currentCustomer = customers[i];
+						currentCustomer.logIn();					 //Customer visit count increased here
+						System.out.println();
+						displayCustomerMenu();
+					}
+				}
+			}
+			if (currentCustomer == null) {
+				System.out.println("Customer ID doesn't exist..");
+				System.out.println();
+				login();
+			}
 		}
-
 	}
+
+
 
 	private void backToMenu()
 	{
 		try {
 			System.out.println("Taking you back to the main menu...");
 			System.out.println();
-			Thread.sleep(3000);
+			Thread.sleep(2200);
 		} catch (InterruptedException e) {
 			System.out.println("Fail to load waiting time.");
 		}
@@ -112,8 +171,15 @@ public class MainSEF {
 
 
 		System.out.print("Select Option: " );
-		int choice = Integer.parseInt(scn.nextLine());
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+		int choice = Integer.parseInt(input);
 		System.out.println();
+
+
 		switch(choice) {
 
 		case 1: //1. View Product List
@@ -142,6 +208,7 @@ public class MainSEF {
 			System.out.println("Please select a valid choice!\n");
 			displayCustomerMenu();
 			break;
+
 		}
 
 	}
@@ -172,10 +239,8 @@ public class MainSEF {
 
 			answer = scn.nextLine();
 			if (answer.isEmpty()) {
-				System.out.println("\nWhat's in your cart so far:");
+				System.out.println("\nWhat's in your cart so far: \n");
 				displayCart();
-				System.out.println("Press ENTER to continue..");
-				scn.nextLine();
 				backToMenu();
 			}
 			else {
@@ -193,7 +258,7 @@ public class MainSEF {
 						displayProductListMenu();
 						System.out.println();
 						System.out.println("Item added successfully!");
-						System.out.println("Total number of " + productList[prodN - 1].getProductName() + " in cart: " + productList[prodN - 1].getNumberInCart());		
+						System.out.println("Total number of '" + productList[prodN - 1].getProductName() + "' in cart: " + productList[prodN - 1].getNumberInCart());		
 						System.out.println("Select another product or press ENTER to exit");
 					}
 				}
@@ -270,10 +335,7 @@ public class MainSEF {
 
 	private void displayCart() { 
 		//For this moment, the Cart just have 50 index
-		//		String product = (i+1) + ". " + productList[i].getProductName();
-		//		double price = productList[i].getProductPrice();
-		//		String menu = String.format("%-30s %.2f", product, price);
-		//		System.out.println(menu);
+		
 		String cart = "";
 		String left = "";
 		String right = "";
@@ -282,26 +344,28 @@ public class MainSEF {
 		{
 			if (currentCustomer.getCart()[i] != null)
 			{
-				left = (currentCustomer.getCart()[i].getProductName() + "\n");
-				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart()) + "\n";
-
-				cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
+				left = (currentCustomer.getCart()[i].getProductName());
+				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart());
+				 cart += String.format("%-25s %s\n", left, right);
+				//cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
 
 				count++;
 			}
 		}
-		if (cart.equals(""))
+		if (count == 0)//cart.equals(""))
 		{
 			System.out.println("Opps, it seems like you haven't add anything yet.");
 		}
 		else
 		{
-			//			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
-			//			System.out.printf("%-25s %d", left, right);
+						System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
+//						System.out.printf("%-25s %s", left, right);
 
-			System.out.println("Name\t\tNumber");
+//			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
 		}
+		System.out.println("Press ENTER to continue..");
+		scn.nextLine();
 	}
 
 	private void checkOut() {
@@ -311,8 +375,9 @@ public class MainSEF {
 
 	}
 
+	private void displayWarehouseMenu() {}
 
-	//	 public void displaySalesMenu( )
+	public void displaySalesMenu( ) {}
 	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );
 	//	         System.out.println( "1. Remove item from sale " );

@@ -3,11 +3,11 @@ package Class;
 
 public class Employee {
 	private String name;
-	private int number;
+	private String number;
 	private String password;
 	private int level;
 
-	public Employee(int staffID, String staffName, String staffPassword, int staffLevel) {
+	public Employee(String staffID, String staffName, String staffPassword, int staffLevel) {
 		number = staffID;
 		name = staffName;
 		password = staffPassword;
@@ -24,7 +24,7 @@ public class Employee {
 
 	}// end SetName
 
-	public void SetNumber(int newNumber) {
+	public void SetNumber(String newNumber) {
 		number = newNumber;
 		return;
 
@@ -50,7 +50,7 @@ public class Employee {
 
 	}// end GetName
 
-	public int GetID() {
+	public String GetID() {
 		return number;
 
 	}// end GetID
