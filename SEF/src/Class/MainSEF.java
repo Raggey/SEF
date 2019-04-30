@@ -138,10 +138,10 @@ public class MainSEF {
 
 	private void addProductInCart()
 	{
-		int prodN = 0; // WHY IS THIS NEGATIVE ONE?
+		int prodN = 0; 
 		boolean quit = false;
 		String answer = "";
-		//
+		
 		//		int prodN = -1; // WHY IS THIS NEGATIVE ONE?
 		//		boolean intN = false;
 		//		boolean quit = false;
@@ -165,8 +165,11 @@ public class MainSEF {
 				try {
 					prodN = Integer.parseInt(answer); 
 					System.out.println();
-					if(prodN < 1 || prodN > 10) { //edit
-						throw new InputMismatchException("Please enter a valid input for your select product.\n");
+					if(prodN < 1 || prodN > productList.length) {
+						throw new InputMismatchException("Please enter a valid input for your select product.");
+					}
+					if (productList[prodN] == null) {
+						throw new InputMismatchException("Please enter a valid input for your select product.c");
 					}
 					else {
 						currentCustomer.addProduct(productList[prodN - 1]);
@@ -243,6 +246,10 @@ public class MainSEF {
 
 	private void displayCart() { 
 		//For this moment, the Cart just have 50 index
+//		String product = (i+1) + ". " + productList[i].getProductName();
+//		double price = productList[i].getProductPrice();
+//		String menu = String.format("%-30s %.2f", product, price);
+//		System.out.println(menu);
 		String cart = "";
 		for (int i = 0; i < 50; i++)
 		{
@@ -257,6 +264,9 @@ public class MainSEF {
 		}
 		else
 		{
+//			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
+//			System.out.printf("%-30s", cart);
+			
 			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
 		}
