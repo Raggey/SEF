@@ -51,8 +51,8 @@ public class MainSEF {
 	public void login() {
 		System.out.println("********** WELCOME **********");
 		System.out.print("Enter ID: ");
+		
 		id = scn.nextLine();
-
 
 		if (id.charAt(0) != 'c') {
 			System.out.print("Enter Password: ");
@@ -88,7 +88,11 @@ public class MainSEF {
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
 		System.out.println("3. Toggle Subscription");
-		System.out.println("4. Quit");
+		System.out.println("4. PROCEED TO CHECKOUT");
+		System.out.println();
+		System.out.println("5. Quit");
+		System.out.println();
+		
 
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
@@ -108,7 +112,10 @@ public class MainSEF {
 			currentCustomer.subscribe();
 			backToMenu();
 			break;
-		case 4: //4. Quit
+		case 4: //3. Subscription
+			checkOut();
+			break;
+		case 5: //4. Quit
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
