@@ -57,7 +57,9 @@ public class MainSEF {
 		customers[0] = one;
 		customers[1] = two;
 		
-		one.calculatePoints(100);
+		one.calculatePoints(150); //spent 150 dollars get 15 points
+		
+		
 	}
 
 

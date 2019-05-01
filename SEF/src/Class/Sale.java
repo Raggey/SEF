@@ -26,7 +26,7 @@ public class Sale {
 		}
 		//check the points discount. It is false because we are only checking the price rather than confirming the sale
 		totalPrice = tempPrice - person.checkDiscount(tempPrice, false);	
-		System.out.println("The total price is %d" + totalPrice);
+		System.out.println("The total price is: " + totalPrice);
 		
 	}
 	
@@ -36,13 +36,14 @@ public class Sale {
 		int i = 0;
 		person.checkDiscount(totalPrice, true);
 		person.calculatePoints(totalPrice);
-		System.out.println("You have spent " + totalPrice);
+		System.out.println("You have spent " + totalPrice + "\n");
 		
 		while(productCart[i] != null){
-			System.out.println("The Stock was" + productCart[i].getProductStock());  //comment out later
+			System.out.println("Printing Stock for Demo");
+			System.out.println("The Stock was " + productCart[i].getProductStock());  //comment out later
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
 			
-			System.out.println("The Stock is now " + productCart[i].getProductStock()); //comment out later
+			System.out.println("The Stock is now " + productCart[i].getProductStock() + "\n"); //comment out later
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
