@@ -56,6 +56,8 @@ public class MainSEF {
 
 		customers[0] = one;
 		customers[1] = two;
+		
+		one.calculatePoints(100);
 
 
 
