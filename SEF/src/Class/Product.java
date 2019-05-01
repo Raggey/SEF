@@ -71,6 +71,10 @@ public class Product {
 		return productPrice - productDiscount;
 	}
 	
+	public void setDiscountPrice(double price) {
+		this.productDiscount = price;
+	}
+	
 	public double getProductPrice() {
 		return productPrice;
 		
