@@ -59,16 +59,21 @@ public class Product {
 		this.bulkDiscount = discount;
 	}
 	
-	public double getbulkAmount() {
+	public double getBulkAmount() {
 		return bulkAmount;
 	}
 	
-	public void setbulkAmount(int amount) {
+	public void setBulkAmount(int amount) {
 		this.bulkAmount = amount;
 	}
 
+	public double getDiscountPrice() {
+		return productPrice - productDiscount;
+	}
+	
 	public double getProductPrice() {
 		return productPrice;
+		
 	}
 
 	public void setProductPrice(double producPrice) {
