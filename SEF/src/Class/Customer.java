@@ -158,7 +158,7 @@ public class Customer {
 			creditCards.add(newCard);
 			return true;
 		}
-		// If there's no cards been saved, add card.
+		// If there's no cards been saved, add card. 
 		else
 		{
 			creditCards.add(newCard);
