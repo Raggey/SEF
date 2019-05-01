@@ -3,7 +3,7 @@ public class Sale {
 	private double profit = 0;
 	private Customer person;
 	private Product[] productID = new Product[50];
-	public Sale(Customer person) {
+	public Sale(Customer person){
 		this.person = person;
 		productID = person.getCart();
 	}

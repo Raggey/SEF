@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Class.Customer;
 import Class.Sale;
 
 public class SaleTest {
@@ -20,7 +21,8 @@ public class SaleTest {
 		int id2 = 20;
 		int id3 = 30;
 		int[] productIDs = {id1, id2, id3};
-		testSale = new Sale(discount, productIDs);
+		Customer person = new Customer("c002", "Saad", 3064);
+		testSale = new Sale(person);
 	}
 	
 
@@ -34,8 +36,13 @@ public class SaleTest {
 		//System.out.println(discountedPrice);
 		assertEquals(discountedPrice, 8.0,0.1);
 	}
+	
+	@Test
+	public void test
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	//check if it gets person object,if it gets cart correctly,checkif it records the 
 }
