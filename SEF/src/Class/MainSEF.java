@@ -302,7 +302,20 @@ public class MainSEF {
 
 	private void checkOut() {
 		Sale checkout = new Sale(currentCustomer);
-		checkout.PerformSale();
+		checkout.CheckPrice();
+		System.out.println("Do you want to proceed? (Y/N)");
+		
+		String input = scn.nextLine();
+		
+		if (input.equals("Y")) {
+		checkout.PerformSale();}
+		else if(input.equals("N")) {
+			backToMenu();
+		}
+		else {
+			System.out.println("Sorry invalid input");
+			checkOut();
+		}
 
 	}
 

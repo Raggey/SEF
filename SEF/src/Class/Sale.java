@@ -14,12 +14,12 @@ public class Sale {
 		double tempPrice = 0;
 		int i = 0;
 		while(productCart[i] != null){
-			tempPrice = tempPrice + (productCart[i].getDiscountedPrice()*productCart[i].getNumberInCart());
+			tempPrice = tempPrice + (productCart[i].getDiscountPrice()*productCart[i].getNumberInCart());
 			//check if there is a bulk discount
-			if(productCart[i].bulkDiscount() != null){
-				if(productCart[i].getNumberInCart() => productCart[i].bulkAmount()){
+			if(productCart[i].getbulkDiscount() != 0){
+				if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
 					//using interger division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
-					tempPrice = tempPrice - (productCart[i].bulkDiscount()*(productCart[i].getNumberInCart/productCart[i].bulkAmount()));
+					tempPrice = tempPrice - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
 				}
 			}
 			i++;
@@ -35,13 +35,13 @@ public class Sale {
 	public void PerformSale(){
 		int i = 0;
 		person.checkDiscount(totalPrice, true);
-		System.out.println("You have spent $%d" + totalPrice);
+		System.out.println("You have spent " + totalPrice);
 		
 		while(productCart[i] != null){
-			System.out.println("The Stock was %d" + productCart[i].getProductStock());  //comment out later
+			System.out.println("The Stock was" + productCart[i].getProductStock());  //comment out later
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
 			
-			System.out.println("The Stock is now %d" + productCart[i].getProductStock()); //comment out later
+			System.out.println("The Stock is now " + productCart[i].getProductStock()); //comment out later
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
