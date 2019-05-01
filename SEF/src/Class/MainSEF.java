@@ -316,6 +316,7 @@ public class MainSEF {
 			System.out.println("Sorry invalid input");
 			checkOut();
 		}
+		login(); //needs to change
 
 	}
 
