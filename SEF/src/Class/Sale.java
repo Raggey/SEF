@@ -35,6 +35,7 @@ public class Sale {
 	public void PerformSale(){
 		int i = 0;
 		person.checkDiscount(totalPrice, true);
+		person.calculatePoints(totalPrice);
 		System.out.println("You have spent " + totalPrice);
 		
 		while(productCart[i] != null){
