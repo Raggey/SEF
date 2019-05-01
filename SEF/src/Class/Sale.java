@@ -14,28 +14,33 @@ public class Sale {
 		double tempPrice = 0;
 		int i = 0;
 		while(productCart[i] != null){
-			tempPrice = tempPrice + (productCart[i].getDiscountPrice()*productCart[i].getNumberInCart());
+			tempPrice = tempPrice + (productCart[i].getDiscountedPrice()*productCart[i].getNumberInCart());
 			//check if there is a bulk discount
-			if(productCart[i] != null){
-				if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
+			if(productCart[i].bulkDiscount() != null){
+				if(productCart[i].getNumberInCart() => productCart[i].bulkAmount()){
 					//using interger division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
-					tempPrice = tempPrice - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
+					tempPrice = tempPrice - (productCart[i].bulkDiscount()*(productCart[i].getNumberInCart/productCart[i].bulkAmount()));
+				}
 			}
-			totalPrice = totalPrice + tempPrice;
-			tempPrice = 0;
 			i++;
 		}
+		//check the points discount. It is false because we are only checking the price rather than confirming the sale
+		totalPrice = tempPrice - person.checkDiscount(tempPrice, false);	
 		System.out.println("The total price is %d" + totalPrice);
+		
 	}
 	
 	
 	//reduces Stock
 	public void PerformSale(){
 		int i = 0;
+		person.checkDiscount(totalPrice, true);
 		System.out.println("You have spent $%d" + totalPrice);
+		
 		while(productCart[i] != null){
 			System.out.println("The Stock was %d" + productCart[i].getProductStock());  //comment out later
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
+			
 			System.out.println("The Stock is now %d" + productCart[i].getProductStock()); //comment out later
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
