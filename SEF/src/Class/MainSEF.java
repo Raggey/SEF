@@ -372,11 +372,68 @@ public class MainSEF {
 		Sale checkout = new Sale(currentCustomer);
 		checkout.PerformSale();
 
-
 	}
 
-	private void displayWarehouseMenu() {}
+	private void displayWarehouseMenu() {
+		System.out.println("***** WAREHOUSE MENU *****" );
+		System.out.println("1. View stock level");
+		System.out.println("2. Replenish the stock level" );
+		System.out.println();
+		System.out.println("3. Quit");
+		System.out.println();
+		
+		System.out.print("Select Option: " );
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+		int choice = Integer.parseInt(input);
+		System.out.println();
 
+
+		switch(choice) {
+
+		case 1: //1. View stock level
+			displayProductStock();
+			backToMenu();
+			break;
+		case 2: //2. Replenish stock level
+			replenishStock();
+			backToMenu();
+			break;
+		case 3: //3. Subscription
+			currentCustomer.subscribe();
+			backToMenu();
+			break;
+		case 4: //3. Subscription
+			checkOut();
+			break;
+		case 5: //4. Quit
+			System.out.println("~~~~~~~~~~~~~~~~~~~");
+			System.out.println("|See you soon! : D|");
+			System.out.println("~~~~~~~~~~~~~~~~~~~");
+			break;
+
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displayCustomerMenu();
+			break;
+
+		}
+		
+	}
+
+	private void displayProductStock()
+	{
+		
+	}
+	
+	private void replenishStock()
+	{
+		
+	}
+	
 	public void displaySalesMenu( ) {}
 	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );
