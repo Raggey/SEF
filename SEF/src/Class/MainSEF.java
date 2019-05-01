@@ -58,9 +58,6 @@ public class MainSEF {
 		customers[1] = two;
 		
 		one.calculatePoints(100);
-
-
-
 	}
 
 
@@ -344,36 +341,48 @@ public class MainSEF {
 
 		case 1: //1. View stock level
 			displayProductStock();
-			displayWarehouseMenu();
+			System.out.println();
+			backToWarehouse();
 			break;
 		case 2: //2. Replenish stock level
 			replenishStock();
-			displayWarehouseMenu();
+			System.out.println();
+			backToWarehouse();
 			break;
 		case 3: //4. Quit
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
+			System.exit(0);
 			break;
 
 		default:
 			System.out.println("Please select a valid choice!\n");
-			displayCustomerMenu();
+			System.out.println();
+			backToWarehouse();
 			break;
 
 		}
 
 	}
+	
+	private void backToWarehouse() {
+		
+		System.out.println("Press ENTER to return to the Warehouse Menu");
+		scn.nextLine();
+		displayWarehouseMenu();
+	}
 
 	private void displayProductStock()
 	{
-		System.out.printf("%-30s %s\n", "ITEM NAME" , "STOCK" );
+		System.out.printf("%-30s %s %30s\n", "ITEM NAME" , "ID" ,"CURRENT STOCK" );
 
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
 				String product = (i+1) + ". " + productList[i].getProductName();
 				int stock = productList[i].getProductStock();
-				String menu = String.format("%-30s %d", product, stock);
+				int id = productList[i].getProductId();
+				String menu = String.format("%-30s %s %d", product, id, stock);
 				System.out.println(menu);
 			}
 		}
@@ -447,9 +456,7 @@ public class MainSEF {
 			displayManagerMenu();
 			break;
 
-		}
-		//	        
-		//	         
+		}	         
 	}
 
 
