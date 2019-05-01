@@ -426,12 +426,30 @@ public class MainSEF {
 
 	private void displayProductStock()
 	{
-		
+		for(int i = 0; i < productList.length; i++) {
+			if (productList[i] != null) {
+				String product = (i+1) + ". " + productList[i].getProductName();
+				double price = productList[i].getProductPrice();
+				double stock = productList[i].getProductStock();
+				String menu = String.format("%-30s %.2f %.2f", product, price, stock);
+				System.out.println(menu);
+			}
+			}
 	}
 	
 	private void replenishStock()
 	{
-		
+		System.out.println("Input the ID of the item you'd like to replenish:");
+		int input = scn.nextInt();
+		scn.nextLine();
+		for(int i = 0; i < productList.length; i++) {
+			if (productList[i].getProductId() == input) {
+				System.out.println("Input the amount by which you want to increase stock of the item you'd like to replenish");
+				int input1 = scn.nextInt();
+				scn.nextLine();
+				productList[i].increaseStock(input1);
+			}
+		}
 	}
 	
 	public void displaySalesMenu( ) {}
