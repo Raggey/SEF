@@ -206,6 +206,7 @@ public class MainSEF {
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
+			System.exit(0);
 			break;
 
 		default:
