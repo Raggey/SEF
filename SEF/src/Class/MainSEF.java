@@ -13,7 +13,7 @@ public class MainSEF {
 	Employee currentEmployee = null;
 
 	public void run() {
-		
+
 		demoInitialise();
 		login();	
 	}
@@ -108,6 +108,8 @@ public class MainSEF {
 				System.out.println("Invalid login, please try again!");
 				System.out.println();
 				login();
+			}
+			else {
 
 				switch (currentEmployee.GetLevel()) {
 
@@ -147,13 +149,15 @@ public class MainSEF {
 
 	private void backToMenu()
 	{
-		try {
-			System.out.println("Taking you back to the main menu...");
-			System.out.println();
-			Thread.sleep(2200);
-		} catch (InterruptedException e) {
-			System.out.println("Fail to load waiting time.");
-		}
+//		try {
+//			System.out.println("Taking you back to the main menu...");
+//			System.out.println();
+//			Thread.sleep(2200);
+//		} catch (InterruptedException e) {
+//			System.out.println("Fail to load waiting time.");
+//		}
+		System.out.println("Press ENTER to return to the Main Menu");
+		scn.nextLine();
 		displayCustomerMenu();
 	}
 
@@ -267,75 +271,11 @@ public class MainSEF {
 				}
 			}
 		}
-
-		//		int prodN = -1; // WHY IS THIS NEGATIVE ONE?
-		//		boolean intN = false;
-		//		boolean quit = false;
-		//		boolean valid = false;
-		//		String answer = "";
-		//
-		//		while(!quit)
-		//		{
-		//			System.out.println("\nPlease select the product you want to buy(enter the number).");
-		//			while(!intN)
-		//			{
-		//				// Input control between 1 to 10 for now.
-		//				try {
-		//					prodN = scn.nextInt();
-		//					if(prodN < 1 || prodN > 10)
-		//					{
-		//						throw new InputMismatchException("Please enter a valid input for your select product.\n");
-		//					}
-		//					else
-		//					{
-		//						intN = true;
-		//					}
-		//				}
-		//				catch(InputMismatchException e)
-		//				{
-		//					System.out.println(e.getMessage());
-		//				}
-		//			}
-		//			currentCustomer.addProduct(productList[prodN - 1]);
-		//			System.out.println("Add item successfully! ");
-		//			
-		//			
-		//			
-		//			valid = false;
-		//			System.out.println("Is there anything else you want to add to you shopping cart?(Y/N)");
-		//			while(!valid)
-		//			{
-		//				try {
-		//					//NEED HELP HERE!!!! RUN THE PROGRAM, SELECT A PRODUCT AND YOU WILL KNOW WHERE I NEED HELP!!! 
-		//					answer = scn.nextLine();	
-		//				}
-		//				catch(InputMismatchException e){
-		//					System.out.println("Please enter a valid input(Y/N):");
-		//				}
-		//				if (answer.equals("Y") || answer.equals("y"))
-		//				{
-		//					valid = true;
-		//					intN = false;
-		//				}
-		//				else if(answer.equals("N") || answer.equals("n"))
-		//				{
-		//					quit = true;
-		//					valid = true;
-		//				}
-		//				else
-		//				{
-		//					System.out.println("Please enter a valid input(Y/N):");
-		//				}
-		//				
-		//			}
-		//		}
-		//		System.out.println("\nWhat's in your cart so far:");
-		//		displayCart();
 	}
 
 	private void displayCart() { 
 		//For this moment, the Cart just have 50 index
-		
+
 		String cart = "";
 		String left = "";
 		String right = "";
@@ -346,7 +286,7 @@ public class MainSEF {
 			{
 				left = (currentCustomer.getCart()[i].getProductName());
 				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart());
-				 cart += String.format("%-25s %s\n", left, right);
+				cart += String.format("%-25s %s\n", left, right);
 				//cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
 
 				count++;
@@ -358,14 +298,12 @@ public class MainSEF {
 		}
 		else
 		{
-						System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
-//						System.out.printf("%-25s %s", left, right);
+			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
+			//						System.out.printf("%-25s %s", left, right);
 
-//			System.out.println("Name\t\tNumber");
+			//			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
 		}
-		System.out.println("Press ENTER to continue..");
-		scn.nextLine();
 	}
 
 	private void checkOut() {
@@ -381,7 +319,7 @@ public class MainSEF {
 		System.out.println();
 		System.out.println("3. Quit");
 		System.out.println();
-		
+
 		System.out.print("Select Option: " );
 		String input = scn.nextLine();
 		while (input.equals("")) {
@@ -396,20 +334,13 @@ public class MainSEF {
 
 		case 1: //1. View stock level
 			displayProductStock();
-			backToMenu();
+			displayWarehouseMenu();
 			break;
 		case 2: //2. Replenish stock level
 			replenishStock();
-			backToMenu();
+			displayWarehouseMenu();
 			break;
-		case 3: //3. Subscription
-			currentCustomer.subscribe();
-			backToMenu();
-			break;
-		case 4: //3. Subscription
-			checkOut();
-			break;
-		case 5: //4. Quit
+		case 3: //4. Quit
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
@@ -421,37 +352,40 @@ public class MainSEF {
 			break;
 
 		}
-		
+
 	}
 
 	private void displayProductStock()
 	{
+		System.out.printf("%-30s %s\n", "ITEM NAME" , "STOCK" );
+
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
 				String product = (i+1) + ". " + productList[i].getProductName();
-				double price = productList[i].getProductPrice();
-				double stock = productList[i].getProductStock();
-				String menu = String.format("%-30s %.2f %.2f", product, price, stock);
+				int stock = productList[i].getProductStock();
+				String menu = String.format("%-30s %d", product, stock);
 				System.out.println(menu);
 			}
-			}
+		}
 	}
-	
+
 	private void replenishStock()
 	{
 		System.out.println("Input the ID of the item you'd like to replenish:");
 		int input = scn.nextInt();
 		scn.nextLine();
 		for(int i = 0; i < productList.length; i++) {
-			if (productList[i].getProductId() == input) {
-				System.out.println("Input the amount by which you want to increase stock of the item you'd like to replenish");
-				int input1 = scn.nextInt();
-				scn.nextLine();
-				productList[i].increaseStock(input1);
+			if (productList[i] != null) {
+				if (productList[i].getProductId() == input) {
+					System.out.println("Input the amount by which you want to increase stock of the item you'd like to replenish");
+					int input1 = scn.nextInt();
+					scn.nextLine();
+					productList[i].increaseStock(input1);
+				}
 			}
 		}
 	}
-	
+
 	public void displaySalesMenu( ) {}
 	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );

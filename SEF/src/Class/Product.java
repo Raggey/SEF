@@ -10,6 +10,8 @@ public class Product {
 	private double productPrice;
 	private int numberInCart;
 	private int consumption;
+	private double bulkDiscount;
+	private int bulkAmount;
 	
 	
 	public Product (int productId, String productName, double productPrice, int productStock) {
@@ -20,7 +22,8 @@ public class Product {
 		this.productPrice = productPrice;
 		this.numberInCart = 0;
 		this.consumption = 0;
-		//this.productDiscount = 0;			//No discount initially
+		this.bulkDiscount = 0;
+		this.bulkAmount = 0;
 	}
 
 	public int getProductId() {
@@ -48,13 +51,21 @@ public class Product {
 		this.productStock = productStock;
 	}
 
-//	public double getProductDiscount() {
-//		return productDiscount;
-//	}
-//
-//	public void setProductDiscount(double productDiscount) {
-//		this.productDiscount = productDiscount;
-//	}
+	public double getbulkDiscount() {
+		return bulkDiscount;
+	}
+
+	public void setbulkDiscount(double discount) {
+		this.bulkDiscount = discount;
+	}
+	
+	public double getbulkAmount() {
+		return bulkAmount;
+	}
+	
+	public void setbulkAmount(int amount) {
+		this.bulkAmount = amount;
+	}
 
 	public double getProductPrice() {
 		return productPrice;
