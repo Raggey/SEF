@@ -17,7 +17,7 @@ public class Customer {
 	private String id;
 	private String name;
 	// Record the money spent to add the points.
-	private int money_spent;
+	private double money_spent;
 	private int points;
 	private int postcode;
 	private int times_visited;
@@ -93,7 +93,7 @@ public class Customer {
 	}
 	
 	// Add points if the customer spent more than $10.
-	public void calculatePoints(int spent)
+	public void calculatePoints(double spent)
 	{
 		money_spent += spent;
 		if (money_spent >= 10)
