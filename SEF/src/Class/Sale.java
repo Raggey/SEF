@@ -2,24 +2,47 @@ package Class;
 public class Sale {
 	private double profit = 0;
 	private Customer person;
+	private double totalPrice = 0;
 	private Product[] productCart = new Product[50];
 	public Sale(Customer person) {
 		this.person = person;
 		productCart = person.getCart();
 	}
 	
-	//does the actual sale
-	public void PerformSale(){
+	//checks the price of the cart and calculates discounts
+	public void CheckPrice(){
+		double tempPrice = 0;
 		int i = 0;
 		while(productCart[i] != null){
-			System.out.println("stock was: " + productCart[i].getProductStock());
+			tempPrice = tempPrice + (productCart[i].getDiscountPrice()*productCart[i].getNumberInCart());
+			//check if there is a bulk discount
+			if(productCart[i] != null){
+				if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
+					//using interger division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
+					tempPrice = tempPrice - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
+			}
+			totalPrice = totalPrice + tempPrice;
+			tempPrice = 0;
+			i++;
+		}
+		System.out.println("The total price is %d" + totalPrice);
+	}
+	
+	
+	//reduces Stock
+	public void PerformSale(){
+		int i = 0;
+		System.out.println("You have spent $%d" + totalPrice);
+		while(productCart[i] != null){
+			System.out.println("The Stock was %d" + productCart[i].getProductStock());  //comment out later
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
-			System.out.printf("%d... stock is now: ", productCart[i].getProductStock());
-			profit = profit + (productCart[i].getProductPrice()*productCart[i].getNumberInCart());
+			System.out.println("The Stock is now %d" + productCart[i].getProductStock()); //comment out later
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
 	}
+	
+	//report does something with turning the totalPrice into a more concrete 'profit' variable
 	/*
 	public double ApplyDiscounts(double productPrice) {
 		double newPrice;
