@@ -1,19 +1,19 @@
 package Class;
 
 public class Product {
-	
+
 	private int productId;
 	private String productName;
 	private String productDetails;
 	private int productStock;
-	private double productDiscount;
-	private double productPrice;
+	private double productDiscount; // Flat Discount in %
+	private double productPrice; 	// Original Price
 	private int numberInCart;
 	private int consumption;
 	private double bulkDiscount;
 	private int bulkAmount;
-	
-	
+
+
 	public Product (int productId, String productName, double productPrice, int productStock) {
 		this.productId = productId;
 		this.productName = productName;
@@ -24,6 +24,7 @@ public class Product {
 		this.consumption = 0;
 		this.bulkDiscount = 0;
 		this.bulkAmount = 0;
+		this.productDiscount = 1;
 	}
 
 	public int getProductId() {
@@ -58,32 +59,36 @@ public class Product {
 	public void setbulkDiscount(double discount) {
 		this.bulkDiscount = discount;
 	}
-	
+
 	public double getBulkAmount() {
 		return bulkAmount;
 	}
-	
+
 	public void setBulkAmount(int amount) {
 		this.bulkAmount = amount;
 	}
 
 	public double getDiscountPrice() {
-		return productPrice - productDiscount;
+		return productPrice * productDiscount;
 	}
-	
+
 	public void setDiscountPrice(double price) {
-		this.productDiscount = price;
+		if (0 < price && price >= 1) {
+			this.productDiscount = price;
+		}
+		else {
+			System.out.println("Error: Input must be between 0 and 1");
+		}
 	}
-	
 	public double getProductPrice() {
 		return productPrice;
-		
+
 	}
 
 	public void setProductPrice(double producPrice) {
 		this.productPrice = producPrice;
 	}
-	
+
 	public void reduceStock(int i) {
 		this.productStock -= i;
 	}
@@ -91,12 +96,12 @@ public class Product {
 	public void increaseStock(int i) {
 		this.productStock += i;
 	}
-	
+
 	public int getNumberInCart()
 	{
 		return numberInCart;
 	}
-	
+
 	public void setNumberInCart(int numberInCart)
 	{
 		this.numberInCart = numberInCart;
@@ -106,7 +111,7 @@ public class Product {
 	{
 		this.consumption += consumption;
 	}
-	
+
 	public String detailDisplay()
 	{
 		return "ID: " + productId + "\nName: " + productName + "\nPrice: " + productPrice + "\n Stock: " + productStock + "\n" ;
