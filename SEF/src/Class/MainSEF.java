@@ -279,7 +279,6 @@ public class MainSEF {
 		String cart = "";
 		String left = "";
 		String right = "";
-		int count = 0;
 		for (int i = 0; i < 50; i++)
 		{
 			if (currentCustomer.getCart()[i] != null)
@@ -287,21 +286,15 @@ public class MainSEF {
 				left = (currentCustomer.getCart()[i].getProductName());
 				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart());
 				cart += String.format("%-25s %s\n", left, right);
-				//cart += (currentCustomer.getCart()[i].getProductName() + "\t\t" + currentCustomer.getCart()[i].getNumberInCart() + "\n");
-
-				count++;
 			}
 		}
-		if (count == 0)//cart.equals(""))
+		if (cart.equals(""))
 		{
 			System.out.println("Opps, it seems like you haven't add anything yet.");
 		}
 		else
 		{
 			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
-			//						System.out.printf("%-25s %s", left, right);
-
-			//			System.out.println("Name\t\tNumber");
 			System.out.println(cart + "\n");
 		}
 	}
