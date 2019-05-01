@@ -382,7 +382,7 @@ public class MainSEF {
 				String product = (i+1) + ". " + productList[i].getProductName();
 				int stock = productList[i].getProductStock();
 				int id = productList[i].getProductId();
-				String menu = String.format("%-30s %s %d", product, id, stock);
+				String menu = String.format("%-30s %s %25d", product, id, stock);
 				System.out.println(menu);
 			}
 		}
