@@ -87,7 +87,7 @@ public class Customer {
 	}
 	
 	// Be called to tell customer how much need to spent to get next point.
-	public int getMoneySpent()
+	public double getMoneySpent()
 	{
 		return money_spent;
 	}
