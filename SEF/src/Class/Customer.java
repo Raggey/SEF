@@ -39,25 +39,25 @@ public class Customer {
 		money_spent = 0;
 	}
 	
-	public String getID()
+	private String getID()
 	{
 		return id;
 		
 	}
 	
 	// Record visited time.
-	public void logIn()
+	private void logIn()
 	{
 		times_visited++;
 	}
 	
 	// For database to collect info about customer.
-	public int getTimeVisited()
+	private int getTimeVisited()
 	{
 		return times_visited;
 	}
 	
-	public void addProduct(Product product)
+	private void addProduct(Product product)
 	{
 		boolean exist = false;
 		for(int i = 0; i < 50; i++)
@@ -81,19 +81,19 @@ public class Customer {
 		product.setNumberInCart(product.getNumberInCart() + 1);
 	}
 	
-	public int getPoint()
+	private int getPoint()
 	{
 		return points;
 	}
 	
 	// Be called to tell customer how much need to spent to get next point.
-	public int getMoneySpent()
+	private int getMoneySpent()
 	{
 		return money_spent;
 	}
 	
 	// Add points if the customer spent more than $10.
-	public void calculatePoints(int spent)
+	private void calculatePoints(int spent)
 	{
 		money_spent += spent;
 		if (money_spent >= 10)
@@ -104,27 +104,29 @@ public class Customer {
 	}
 	
 	// Check if the point enough to get a discount, 
-	public int checkDiscount(int total)
+	private double checkDiscount(double total, boolean confirm)
 	{
+		int points = this.points;
+		double discount = 0;
 		if(points >= 20)
 		{
-			int discount = (int) (5*(Math.floor(points/20)));
+			discount = 5*(Math.floor(points/20));
 			points %= 20;
 			while (total < discount)
 			{
 				discount -= 5;
 				points += 20;
 			}
-			return discount;
 		}
-		else
+		if (confirm)
 		{
-			return (Integer) null;
+			this.points = points;
 		}
+		return discount;
 	}
 	
 	// Subscribe and unsubscribe.
-	public boolean subscribe()
+	private boolean subscribe()
 	{
 		if (subscribe)
 		{
@@ -140,7 +142,7 @@ public class Customer {
 	}
 	
 	// To record credit card info
-	public boolean addCard(CreditCard newCard)
+	private boolean addCard(CreditCard newCard)
 	{
 		// Check if the card already exist
 		if (creditCards != null)
@@ -164,7 +166,7 @@ public class Customer {
 		}
 	}
 	
-	public Product[] getCart()
+	private Product[] getCart()
 	{
 		return products;
 	}
