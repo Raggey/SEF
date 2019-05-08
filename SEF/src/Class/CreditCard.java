@@ -1,4 +1,7 @@
 package Class;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 	/**
 	 * Class for representing credit card.
 	 * 
@@ -19,14 +22,32 @@ package Class;
 
 public class CreditCard {
 	private int credit_card_num;
+	private Date expiredDate;
+	private String holderName;
 	
-	public CreditCard(int credit_card_num)
+	public CreditCard(int credit_card_num, String date, String holderName)
 	{
+		this.holderName = holderName;
 		this.credit_card_num = credit_card_num;
+	}
+	
+	public Date getDate()
+	{
+		return expiredDate;
 	}
 	
 	public int getNumber()
 	{
 		return credit_card_num;
+	}
+	
+	public String getHolderName()
+	{
+		return holderName;
+	}
+	
+	public boolean cardVali()
+	{
+		return true;
 	}
 }
