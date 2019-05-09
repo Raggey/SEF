@@ -174,7 +174,7 @@ public class MainSEF {
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
 		System.out.println("3. Toggle Subscription");
-		System.out.println("4. PROCEED TO CHECKOUT");
+		System.out.println("4. Check Out");
 		System.out.println();
 		System.out.println("5. Quit");
 		System.out.println();
@@ -245,7 +245,7 @@ public class MainSEF {
 		int prodN = 0; 
 		boolean quit = false;
 		String answer = "";
-		
+
 		System.out.println("Select product to add to cart(enter the number) or press ENTER to exit.");
 		while(!quit) {
 			answer = scn.nextLine();
@@ -253,12 +253,12 @@ public class MainSEF {
 				displayCart();
 				backToMenu();
 			}
-			
+
 			else {
 				try {
 					prodN = Integer.parseInt(answer); 
 					System.out.println();
-					
+
 					if(prodN < 1 || prodN > productList.length) {
 						throw new InputMismatchException("Please enter a valid input for your select product.");
 					}
@@ -272,8 +272,8 @@ public class MainSEF {
 						System.out.println();
 						System.out.println("Item added successfully!");
 						System.out.println("Total number of '" + productList[prodN - 1].getProductName() 
-											+ "' in cart: " 
-											+ productList[prodN - 1].getNumberInCart());
+								+ "' in cart: " 
+								+ productList[prodN - 1].getNumberInCart());
 						System.out.println("Select another product or press ENTER to exit");
 					}
 				}
@@ -284,11 +284,11 @@ public class MainSEF {
 		}
 	}
 
-	
-	
+
+	/* Displays Cart, no other function */
 	private void displayCart() { 
 		String left, right, cart  = "";
-		
+
 		System.out.println("What's in your cart: \n");
 		for (int i = 0; i < CART_MAX; i++)
 		{
@@ -310,17 +310,20 @@ public class MainSEF {
 		}
 	}
 
+	/* Finishes a Sale Process */
 	private void checkOut() {
 		Sale checkout = new Sale(currentCustomer);
+
 		checkout.CheckPrice();
 		System.out.println("Do you want to proceed? (Y/N)");
-
 		String input = scn.nextLine();
 
-		if (input.equals("Y")) {
-			checkout.PerformSale();}
-		else if(input.equals("N")) {
-			backToMenu();
+		if (input.equalsIgnoreCase("Y")) {
+			checkout.PerformSale();
+		}
+		else if(input.equalsIgnoreCase("N")) {
+			System.out.println("Have a Nice Day!");
+			
 		}
 		else {
 			System.out.println("Sorry invalid input");
