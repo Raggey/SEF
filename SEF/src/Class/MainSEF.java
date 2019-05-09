@@ -144,6 +144,8 @@ public class MainSEF {
 	}
 
 
+
+
 	private void backToMenu()
 	{
 		System.out.println("Press ENTER to return to the Main Menu");
@@ -166,6 +168,10 @@ public class MainSEF {
 			}
 		}
 	}
+
+
+
+
 
 	private void displayCustomerMenu() {
 
@@ -248,10 +254,17 @@ public class MainSEF {
 
 		System.out.println("Select product to add to cart(enter the number) or press ENTER to exit.");
 		while(!quit) {
+			//
 			answer = scn.nextLine();
 			if (answer.isEmpty()) {
 				displayCart();
+				quit = true;
 				backToMenu();
+			}
+
+			// Daniel working on 
+			else if (answer.equalsIgnoreCase("remove")) {
+				System.out.println("Staff Login: ");
 			}
 
 			else {
@@ -273,8 +286,9 @@ public class MainSEF {
 						System.out.println("Item added successfully!");
 						System.out.println("Total number of '" + productList[prodN - 1].getProductName() 
 								+ "' in cart: " 
-								+ productList[prodN - 1].getNumberInCart());
-						System.out.println("Select another product or press ENTER to exit");
+								+ productList[prodN - 1].getNumberInCart()
+								+ '\n');
+						System.out.println("Select another product or press ENTER to exit (call staff for removal of items)");
 					}
 				}
 				catch(InputMismatchException e) {
@@ -283,7 +297,6 @@ public class MainSEF {
 			}
 		}
 	}
-
 
 	/* Displays Cart, no other function */
 	private void displayCart() { 
@@ -320,18 +333,33 @@ public class MainSEF {
 
 		if (input.equalsIgnoreCase("Y")) {
 			checkout.PerformSale();
+			System.out.println("Thank you for shopping with us.");
+			System.out.println("Goodbye!");
 		}
 		else if(input.equalsIgnoreCase("N")) {
 			System.out.println("Have a Nice Day!");
-			
 		}
 		else {
-			System.out.println("Sorry invalid input");
+			System.out.println("Sorry invalid input" + '\n');
 			checkOut();
 		}
-		login(); //needs to change
 
+		//currentCustomer.clear to add in customer class
+		currentCustomer = null;
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(" " + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n');
+		login();
 	}
+
+
+
+
 
 	private void displayWarehouseMenu() {
 		System.out.println("***** WAREHOUSE MENU *****" );
@@ -395,16 +423,20 @@ public class MainSEF {
 
 	private void replenishStock()
 	{
-		System.out.println("Input the ID of the item you'd like to replenish:");
-		int input = scn.nextInt();
-		scn.nextLine();
+		System.out.print("Input the ID of the item you'd like to replenish: ");
+		int input = Integer.parseInt(scn.nextLine());
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
 				if (productList[i].getProductId() == input) {
-					System.out.println("Input the amount by which you want to increase stock of the item you'd like to replenish");
-					int input1 = scn.nextInt();
-					scn.nextLine();
-					productList[i].increaseStock(input1);
+					System.out.println('\n' + "ID: " + input + " = " + productList[i].getProductName());
+					System.out.print("Input amount of stock to replenish: ");
+					int input1 = Integer.parseInt(scn.nextLine());
+					productList[i].increaseStock((input1));
+					System.out.println(productList[i].getProductName() + "'s stock successfully increased by " + input1);
+				}
+				else {
+					System.out.println("Invald product ID, please try again.");
+					replenishStock();
 				}
 			}
 		}
@@ -484,5 +516,4 @@ public class MainSEF {
 		System.out.println("1. ...REPORT");
 
 	}
-
 }
