@@ -39,7 +39,10 @@ public class Product {
 	public String getProductDetails() {
 		return productDetails;
 	}
-
+	
+	public void setProductName(String newName){
+		productName = newName;
+	}
 	public void setProductDetails(String productDetails) {
 		this.productDetails = productDetails;
 	}

@@ -494,7 +494,7 @@ public class MainSEF {
 			backToMenu();
 			break;
 		case 3:
-			manageSale();
+			manageProducts();
 			backToMenu();
 			break;
 
@@ -507,8 +507,121 @@ public class MainSEF {
 	}
 
 
-	private void manageSale() {
-		// TODO Auto-generated method stub
+	private void manageProducts() {
+		System.out.println("1. Add Product");
+		System.out.println("2. Change Product Name");
+		System.out.println("3. Change Product Price");
+		System.out.println("4. Change Product Details");
+		System.out.println("5. Set a Discount");
+		System.out.println("6. Set a Bulk Discount");
+		System.out.print("Select Option: " );
+		int choice = Integer.parseInt(scn.nextLine());
+		System.out.println();
+		int i = 0;
+		int productID;
+		switch(choice) {
+
+		case 1: //Add Product
+			System.out.println("Enter Product ID");
+			productID = Integer.parseInt(scn.nextLine());
+			
+			System.out.println("Enter Product Name");
+			String productName = scn.nextLine();
+			
+			System.out.println("Enter Product Price");
+			double productPrice = Double.parseDouble(scn.nextLine());
+			
+			System.out.println("Enter Stock Level");
+			int productStock = Integer.parseInt(scn.nextLine());
+			
+			i = 0;
+			while(productList[i] != null){
+				i++;
+			}
+			productList[i] = new Product(productID, productName , productPrice, productStock);
+			System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
+			break;
+		case 2: //Change Product Name
+//needs error prevention
+			System.out.println("Enter the ID of the product you want to change the name of");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the new name");
+			String changeName = scn.nextLine();
+			i = 0;
+			while(i < productList.length){
+				if(productID == productList[i].getProductId()){
+					productList[i].setProductName(changeName);
+				}
+				i++;
+			}
+			break;
+		case 3: //Change Product Price
+//needs error prevention
+			System.out.println("Enter the ID of the product you want to change the price of");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the new price");
+			double changePrice = Double.parseDouble(scn.nextLine());
+			i = 0;
+			while(i < productList.length){
+				if(productID == productList[i].getProductId()){
+					productList[i].setProductPrice(changePrice);
+				}
+				i++;
+			}
+			break;
+		case 4: //Change Product Details
+//needs error prevention
+			System.out.println("Enter the ID of the product you want to change the details of");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the new details");
+			String changeDetails = scn.nextLine();
+			i = 0;
+			while(i < productList.length){
+				if(productID == productList[i].getProductId()){
+					productList[i].setProductDetails(changeDetails);
+				}
+				i++;
+			}
+			break;
+		case 5: //Set a discount
+//needs error prevention
+			System.out.println("Enter the ID of the product you want to set a discount for");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the new discount as a number between 0 and 1");
+			double changeDiscount = Double.parseDouble(scn.nextLine());
+			i = 0;
+			while(i < productList.length){
+				if(productID == productList[i].getProductId()){
+					productList[i].setDiscountPrice(changeDiscount);
+				}
+				i++;
+			}
+			break;			
+			
+		case 6: //Add a bulk discount
+//needs error prevention
+			System.out.println("Enter the ID of the product you want to set a bulk discount for");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the amount needed to trigger the bulk discount");
+			int changeAmount = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter the new discount (the products will be reduced by this flat number)");
+			double changeBulkDiscount = Double.parseDouble(scn.nextLine());
+			i = 0;
+			while(i < productList.length){
+				if(productID == productList[i].getProductId()){
+					productList[i].setBulkAmount(changeAmount);
+					productList[i].setbulkDiscount(changeBulkDiscount);
+				}
+				i++;
+			}
+			break;
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displayManagerMenu();
+			break;
+
+		}	
+		
 
 	}
 
