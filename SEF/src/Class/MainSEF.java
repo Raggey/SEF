@@ -2,7 +2,8 @@ package Class;
 import java.util.*;
 
 public class MainSEF {
-
+	
+	boolean newRun = true;
 	Scanner scn = new Scanner(System.in);
 	private static final int MANAGER = 3;
 	private static final int WAREHOUSE = 2;
@@ -70,7 +71,9 @@ public class MainSEF {
 
 
 	public void login() {
+		if (newRun) {
 		System.out.println("********** WELCOME **********");
+		}
 		System.out.print("Enter ID: ");
 
 		id = scn.nextLine();
@@ -78,8 +81,12 @@ public class MainSEF {
 			System.out.print("Enter ID: ");
 			id = scn.nextLine();
 		}
+		//EXTRA for testing
+		if (id.equalsIgnoreCase("quit")) {
+			System.exit(0);
+		}
+		/* Doesn't start with 'c' means its employee */
 		if (id.charAt(0) != 'c') {
-
 			if (employees[0] == null) {
 				System.out.println("Error: No Employees Registered");
 				System.out.println();
@@ -131,6 +138,7 @@ public class MainSEF {
 						currentCustomer = customers[i];
 						currentCustomer.logIn();					 //Customer visit count increased here
 						System.out.println();
+						newRun = false;
 						displayCustomerMenu();
 					}
 				}
@@ -219,7 +227,7 @@ public class MainSEF {
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.exit(0);
-			break;
+			
 
 		default:
 			System.out.println("Please select a valid choice!\n");
@@ -261,12 +269,9 @@ public class MainSEF {
 				quit = true;
 				backToMenu();
 			}
-
-			// Daniel working on 
 			else if (answer.equalsIgnoreCase("remove")) {
-				System.out.println("Staff Login: ");
+				login();
 			}
-
 			else {
 				try {
 					prodN = Integer.parseInt(answer); 
@@ -442,7 +447,9 @@ public class MainSEF {
 		}
 	}
 
-	public void displaySalesMenu( ) {}
+	public void displaySalesMenu( ) {
+		System.out.println("saleme u");
+	}
 	//	h    {
 	//	         System.out.println("Sales Assistant Main menu" );
 	//	         System.out.println( "1. Remove item from sale " );
