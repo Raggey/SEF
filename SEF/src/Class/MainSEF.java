@@ -487,12 +487,15 @@ public class MainSEF {
 
 		case 1:
 			displayReportMenu();
+			backToMenu();
 			break;
 		case 2:
 			manageStaff();
+			backToMenu();
 			break;
 		case 3:
 			manageSale();
+			backToMenu();
 			break;
 
 		default:
