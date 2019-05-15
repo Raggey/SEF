@@ -477,6 +477,7 @@ public class MainSEF {
 
 		System.out.println("***** MANAGER MENU *****");
 		System.out.println("1. Display Report Menu");
+		
 		System.out.println("2. Manage Staff");
 		System.out.println("3. Manage Sales");
 
@@ -548,7 +549,7 @@ public class MainSEF {
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
 			i = 0;
-			while(i < productList.length){
+			while(productList[i] != null){
 				if(productID == productList[i].getProductId()){
 					productList[i].setProductName(changeName);
 				}
@@ -562,7 +563,7 @@ public class MainSEF {
 			System.out.println("Enter the new price");
 			double changePrice = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(i < productList.length){
+			while(productList[i] != null){
 				if(productID == productList[i].getProductId()){
 					productList[i].setProductPrice(changePrice);
 				}
@@ -576,7 +577,7 @@ public class MainSEF {
 			System.out.println("Enter the new details");
 			String changeDetails = scn.nextLine();
 			i = 0;
-			while(i < productList.length){
+			while(productList[i] != null){
 				if(productID == productList[i].getProductId()){
 					productList[i].setProductDetails(changeDetails);
 				}
@@ -590,7 +591,7 @@ public class MainSEF {
 			System.out.println("Enter the new discount as a number between 0 and 1");
 			double changeDiscount = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(i < productList.length){
+			while(productList[i] != null){
 				if(productID == productList[i].getProductId()){
 					productList[i].setDiscountPrice(changeDiscount);
 				}
@@ -665,7 +666,7 @@ public class MainSEF {
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
 			i = 0;
-			while(i < employees.length){
+			while(employees[i] != null){
 				if(staffID == employees[i].GetID()){
 					employees[i].SetName(changeName);
 				}
@@ -676,10 +677,10 @@ public class MainSEF {
 //needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the password of");
 			staffID = scn.nextLine();
-			System.out.println("Enter the new name");
+			System.out.println("Enter the new password");
 			String changePassword = scn.nextLine();
 			i = 0;
-			while(i < employees.length){
+			while(employees[i] != null){
 				if(staffID == employees[i].GetID()){
 					employees[i].SetPassword(changePassword);
 				}
@@ -690,10 +691,10 @@ public class MainSEF {
 //needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the level of");
 			staffID = scn.nextLine();
-			System.out.println("Enter the new name");
+			System.out.println("Enter the new level");
 			int changeLevel = Integer.parseInt(scn.nextLine());
 			i = 0;
-			while(i < employees.length){
+			while(employees[i] != null){
 				if(staffID == employees[i].GetID()){
 					employees[i].SetLevel(changeLevel);
 				}
