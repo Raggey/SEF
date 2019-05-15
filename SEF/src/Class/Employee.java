@@ -36,6 +36,9 @@ public class Employee {
 
 	}// end SetPassword
 
+	public void SetLevel(int newLevel){
+		level = newLevel;
+	}
 	// this needs more work
 	public boolean Login(String CheckPass) {
 		if (CheckPass == password) {

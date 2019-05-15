@@ -18,7 +18,7 @@ public class Sale {
 			//check if there is a bulk discount
 			if(productCart[i].getbulkDiscount() != 0){
 				if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
-					//using interger division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
+					//using integer division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
 					tempPrice = tempPrice - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
 				}
 			}
