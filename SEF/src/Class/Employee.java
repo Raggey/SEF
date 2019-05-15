@@ -11,7 +11,7 @@ public class Employee {
 		number = staffID;
 		name = staffName;
 		password = staffPassword;
-		level = staffLevel; // this possiblyy doesn't need a setter
+		level = staffLevel; // this possibly doesn't need a setter
 	}
 	
 	// Level 1 = SalesStaff,
