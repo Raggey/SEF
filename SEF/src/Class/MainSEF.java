@@ -511,7 +511,48 @@ public class MainSEF {
 
 
 	private void manageStaff() {
-		// TODO Auto-generated method stub
+		System.out.println("1. Add Staff");
+		System.out.println("2. Change Staff Name");
+		System.out.println("3. Change Staff Password");
+
+		System.out.print("Select Option: " );
+		int choice = Integer.parseInt(scn.nextLine());
+		System.out.println();
+		switch(choice) {
+
+		case 1: //Add Staff
+			System.out.println("Enter StaffID");
+			String staffID = scn.nextLine();
+			
+			System.out.println("Enter Staff Name");
+			String staffName = scn.nextLine();
+			
+			System.out.println("Enter StaffPassword");
+			String staffPassword = scn.nextLine();
+			
+			System.out.println("Enter Level. Sale Staff = 1, Warehouse = 2, Manager = 3");
+			int staffLevel = Integer.parseInt(scn.nextLine());
+			
+			int i = 0;
+			while(employees[i] != null){
+				i++;
+			}
+			employees[i] = new Employee(staffID, staffName ,staffPassword, staffLevel);
+			System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
+			break;
+		case 2:
+			manageStaff();
+			break;
+		case 3:
+			manageSale();
+			break;
+
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displayManagerMenu();
+			break;
+
+		}	
 
 	}
 
