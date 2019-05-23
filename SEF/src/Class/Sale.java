@@ -47,6 +47,7 @@ public class Sale {
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
+		person.emptyCart();
 	}
 	
 	//report does something with turning the totalPrice into a more concrete 'profit' variable
