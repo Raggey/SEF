@@ -95,11 +95,16 @@ public class Customer {
 	// Add points if the customer spent more than $10.
 	public void calculatePoints(double spent)
 	{
+		if(subscribe == true) {
 		money_spent += spent;
 		if (money_spent >= 10)
 		{
 			points += (int)Math.floor(money_spent/10);
 			money_spent %= 10;
+		}
+		}
+		else {
+			money_spent += spent;
 		}
 	}
 	
@@ -169,6 +174,10 @@ public class Customer {
 	public Product[] getCart()
 	{
 		return products;
+	}
+	
+	public void emptyCart() {
+		this.products = new Product[50];
 	}
 }
 
