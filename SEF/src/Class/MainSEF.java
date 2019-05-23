@@ -514,7 +514,10 @@ public class MainSEF {
 		System.out.println("3. Change Product Price");
 		System.out.println("4. Change Product Details");
 		System.out.println("5. Set a Discount");
-		System.out.println("6. Set a Bulk Discount");
+		System.out.println("6. Remove a Sale");
+		System.out.println("7. Set a Bulk Discount");
+		System.out.println("8. Remove a Bulk Discount");
+		System.out.println("9. Auto Ordering");
 		System.out.print("Select Option: " );
 		int choice = Integer.parseInt(scn.nextLine());
 		System.out.println();
@@ -598,8 +601,18 @@ public class MainSEF {
 				i++;
 			}
 			break;			
-			
-		case 6: //Add a bulk discount
+		case 6: //Remove a Discount
+			System.out.println("Enter the ID of the product you want to remove the discount for");
+			productID = Integer.parseInt(scn.nextLine());
+			i=0;
+			while(productList[i] != null){
+				if(productID == productList[i].getProductId()){
+					productList[i].setDiscountPrice(1);
+				}
+				i++;
+			}
+			break;
+		case 7: //Add a bulk discount
 //needs error prevention
 			System.out.println("Enter the ID of the product you want to set a bulk discount for");
 			productID = Integer.parseInt(scn.nextLine());
@@ -615,6 +628,20 @@ public class MainSEF {
 				}
 				i++;
 			}
+			break;
+		case 8://remove a bulk discount
+			System.out.println("Enter the ID of the product you want to remove the bulk discount for");
+			productID = Integer.parseInt(scn.nextLine());
+			i=0;
+			while(productList[i] != null){
+				if(productID == productList[i].getProductId()){
+					productList[i].setBulkAmount(0);
+					productList[i].setbulkDiscount(0);
+				}
+				i++;
+			}
+			break;
+		case 9://auto ordering
 			break;
 		default:
 			System.out.println("Please select a valid choice!\n");
