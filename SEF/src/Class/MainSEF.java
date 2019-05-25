@@ -2,13 +2,13 @@ package Class;
 import java.util.*;
 
 public class MainSEF {
-	
+
 	boolean newRun = true;
 	Scanner scn = new Scanner(System.in);
 	private static final int MANAGER = 3;
 	private static final int WAREHOUSE = 2;
 	private static final int SALESTAFF = 1;
-	private static final int CART_MAX = 50;
+
 	private String id;
 	private String password;
 	Product[] productList = new Product[20];
@@ -72,7 +72,7 @@ public class MainSEF {
 
 	public void login() {
 		if (newRun) {
-		System.out.println("********** WELCOME **********");
+			System.out.println("********** WELCOME **********");
 		}
 		System.out.print("Enter ID: ");
 
@@ -104,7 +104,7 @@ public class MainSEF {
 			for (int i = 0; i < employees.length; i++) {
 				if (employees[i] != null) {
 					if (employees[i].GetID().equals(id) && employees[i].GetPassword().equals(password)) {
-						System.out.println("*Log in Succuessful*" + "\n");
+						System.out.println("\n*** Log in Succuessful ***" + "\n");
 						currentEmployee = employees[i];
 					}
 				}
@@ -159,6 +159,7 @@ public class MainSEF {
 		System.out.println("Press ENTER to return to the Main Menu");
 		scn.nextLine();
 
+		// Customer Priority 
 		if (currentCustomer != null) {
 			displayCustomerMenu();
 		}
@@ -227,7 +228,7 @@ public class MainSEF {
 			System.out.println("|See you soon! : D|");
 			System.out.println("~~~~~~~~~~~~~~~~~~~");
 			System.exit(0);
-			
+
 
 		default:
 			System.out.println("Please select a valid choice!\n");
@@ -305,25 +306,28 @@ public class MainSEF {
 
 	/* Displays Cart, no other function */
 	private void displayCart() { 
+		Product[] customerCart = currentCustomer.getCart();
 		String left, right, cart  = "";
+		int id = 0;
 
-		System.out.println("What's in your cart: \n");
-		for (int i = 0; i < CART_MAX; i++)
+		System.out.println("What's in your cart: ");
+		for (int i = 0; i < customerCart.length; i++)
 		{
-			if (currentCustomer.getCart()[i] != null)
+			if (customerCart[i] != null)
 			{
-				left = (currentCustomer.getCart()[i].getProductName());
-				right = Integer.toString(currentCustomer.getCart()[i].getNumberInCart());
-				cart += String.format("%-25s %s\n", left, right);
+				left = (customerCart[i].getProductName());
+				right = Integer.toString(customerCart[i].getNumberInCart());
+				id = customerCart[i].getProductId();
+				cart += String.format("%-30s %d %25s\n", left, id, right);
 			}
 		}
 		if (cart.equals(""))
 		{
-			System.out.println("Opps, it seems like you haven't add anything yet.");
+			System.out.println("Your cart is empty!");
 		}
 		else
 		{
-			System.out.printf("%-25s %s", "NAME", "NUMBER OF ITEMS" + "\n");
+			System.out.printf("%-30s %s %32s", "NAME", "ID", "NUMBER OF ITEMS\n");
 			System.out.println(cart + "\n");
 		}
 	}
@@ -362,122 +366,224 @@ public class MainSEF {
 		login();
 	}
 
-
-
-
-
+	// ***** WAREHOUSE STAFF METHOD *****
 	private void displayWarehouseMenu() {
 		System.out.println("***** WAREHOUSE MENU *****" );
-		System.out.println("1. View stock level");
-		System.out.println("2. Replenish the stock level" );
-		System.out.println();
-		System.out.println("3. Quit");
-		System.out.println();
+		System.out.println("1. View Stock Level");
+		System.out.println("2. Replenish Stock Level" );
+		System.out.println("3. Logout (Re-Login)\n");
+		System.out.println("4. Quit\n");
 
-		System.out.print("Select Option: " );
+		System.out.print("Select Option: ");
+
 		String input = scn.nextLine();
 		while (input.equals("")) {
 			System.out.print("Select Option: " );
 			input = scn.nextLine();
 		}
+
 		int choice = Integer.parseInt(input);
 		System.out.println();
-
-
 		switch(choice) {
 
-		case 1: //1. View stock level
-			displayProductStock();
-			System.out.println();
-			backToMenu();
-			break;
-		case 2: //2. Replenish stock level
-			replenishStock();
-			System.out.println();
-			backToMenu();
-			break;
-		case 3: //4. Quit
-			System.out.println("~~~~~~~~~~~~~~~~~~~");
-			System.out.println("|See you soon! : D|");
-			System.out.println("~~~~~~~~~~~~~~~~~~~");
-			System.exit(0);
-			break;
+		// 1. View Stock Level
+		// 2. Replenish Stock Level
+		// 3. Logout (Re-Login)
+		// 4. Quit 
 
+		case 1:
+			displayProductStock();
+			break;
+		case 2: 
+			replenishStock();
+			break;
+		case 3: 
+			reLogin();
+			break;
+		case 4: 
+			quit();
+			break;
 		default:
 			System.out.println("Please select a valid choice!\n");
-			System.out.println();
-			backToMenu();
+			displayWarehouseMenu();
 			break;
 		}
 	}
 
-	private void displayProductStock()
-	{
+	// ***** WAREHOUSE STAFF METHOD *****
+	private void displayProductStock() {
+		String productName, menu = "";
+		int productStock, productId = 0;
+
 		System.out.printf("%-30s %s %30s\n", "ITEM NAME" , "ID" ,"CURRENT STOCK" );
 
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
-				String product = (i+1) + ". " + productList[i].getProductName();
-				int stock = productList[i].getProductStock();
-				int id = productList[i].getProductId();
-				String menu = String.format("%-30s %s %25d", product, id, stock);
+				productName = (i+1) + ". " + productList[i].getProductName();
+				productStock = productList[i].getProductStock();
+				productId = productList[i].getProductId();			
+				menu = String.format("%-30s %s %25d", productName, productId, productStock);
 				System.out.println(menu);
 			}
 		}
+		backToMenu();
 	}
 
-	private void replenishStock()
-	{
-		System.out.print("Input the ID of the item you'd like to replenish: ");
-		int input = Integer.parseInt(scn.nextLine());
+	// ***** WAREHOUSE STAFF METHOD *****
+	private void replenishStock() {
+		String productName, input = "";
+		int productId, replenishAmount = 0;
+
+		System.out.print("Input the ID of the item you'd like to replenish or enter 'q' to cancel: ");
+		
+		input = scn.nextLine();
+		if (input.equals("q")) {
+			displayWarehouseMenu();
+			System.out.println("");
+		}
+		
+		productId = Integer.parseInt(input);
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
-				if (productList[i].getProductId() == input) {
-					System.out.println('\n' + "ID: " + input + " = " + productList[i].getProductName());
+				productName = productList[i].getProductName();
+
+				if (productId == productList[i].getProductId()) {
+					System.out.println("\nProduct selected: " + productName);
 					System.out.print("Input amount of stock to replenish: ");
-					int input1 = Integer.parseInt(scn.nextLine());
-					productList[i].increaseStock((input1));
-					System.out.println(productList[i].getProductName() + "'s stock successfully increased by " + input1);
+					replenishAmount = Integer.parseInt(scn.nextLine());
+					productList[i].increaseStock((replenishAmount));
+					System.out.println(productName + "'s stock successfully increased by " + replenishAmount + ".");
+					backToMenu();
 				}
-				else {
-					System.out.println("Invald product ID, please try again.");
-					replenishStock();
-				}
+			}
+			else {
+				System.out.println("Invalid product ID, please try again.");
+				replenishStock();
+
 			}
 		}
 	}
 
+
+	// ***** SALES STAFF METHOD *****
 	public void displaySalesMenu( ) {
-		System.out.println("saleme u");
+		System.out.println("*** Welcome " + currentEmployee.GetName() + " ***");
+		System.out.println("1. Remove Item");
+		System.out.println("2. Stop Removing Items\n");
+		System.out.println("3. Quit\n");
+
+		System.out.print("Select Option: ");
+
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+
+		int choice = Integer.parseInt(input);
+		System.out.println();
+		switch(choice) {
+
+		// 1. Remove Item
+		// 2. Stop Removing Items
+		// 3. Quit 
+
+		case 1:
+			removeItem();
+			break;
+		case 2:
+			backToMenu();
+			break;
+		case 3:
+			quit();
+			break;
+
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displaySalesMenu();
+			break;
+
+		}
 	}
-	//	h    {
-	//	         System.out.println("Sales Assistant Main menu" );
-	//	         System.out.println( "1. Remove item from sale " );
-	//	         System.out.print("Enter Choice : " );
-	//             choice = kb.nextInt( );
-	//             kb.nextLine( );
-	//             switch(choice) {
-	//             
-	//             	case 1:
-	//             		
-	//            	 break;
-	//             	default:
-	//             		System.out.println("Choice : "+choice+" Is an invalid choice");
-	//             		
-	//             		displaySalesMenu();
-	//            	 break;
-	//            	 
-	//             }
-	//	        
-	//	         
-	//	    }
-	//	 
+
+	// ***** SALES STAFF METHOD *****
+	public void removeItem() {
+
+		boolean removed = false;
+		String input = "";
+		int inputId, removeAmount = 0;
+		Product[] customerCart = currentCustomer.getCart();
+
+		displayCart();
+
+		System.out.println("Enter ID of item to remove or enter 'q' to cancel: ");
+		input = scn.nextLine();
+		// null check
+		while (input.equals("")) { 
+			input = scn.nextLine();
+		}
+		// to quit removing items
+		if (input.equals("q")) {
+			backToMenu();
+		}
+
+		inputId = Integer.parseInt(input) - 1;
+		if (customerCart[inputId] != null ) {
+			// Removal of item starts here
+			System.out.println("Amount to remove: ");
+			input = scn.nextLine();
+			removeAmount = Integer.parseInt(input);
+
+			while (removeAmount < 0 || removeAmount > customerCart[inputId].getNumberInCart()) {
+				System.out.println("Invalid amount, try again");
+				input = scn.nextLine();
+				removeAmount = Integer.parseInt(input);
+			}
+
+			// Removal of Item
+			currentCustomer.removeProduct(customerCart[inputId] , removeAmount);
+			System.out.println("Item succesfully removed.");
+			removed = true;
+		}
+
+		if (!removed) {
+			System.out.println("Item selected is not in cart\n");
+			removeItem();
+		}
+		else {
+			System.out.println("Would you like to remove another item? Y/N");
+			input = scn.nextLine();
+
+			if (input.equalsIgnoreCase("y")) {
+				removeItem();
+			}
+			else {
+				backToMenu();
+			}
+		}
+	}
+
+	// ***** GENERAL METHOD *****
+	public void quit() {
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+				+ "Thank you for shopping with us..\n"
+				+ "See you soon! :D\n"
+				+ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.exit(0);
+	}
+
+	// ***** GENERAL METHOD *****
+	public void reLogin() {
+		// set everything to null 
+		// start a new 
+		System.out.println("TODO");
+	}
 	public void displayManagerMenu()
 	{
 
 		System.out.println("***** MANAGER MENU *****");
 		System.out.println("1. Display Report Menu");
-		
+
 		System.out.println("2. Manage Staff");
 		System.out.println("3. Manage Sales");
 
@@ -528,16 +634,16 @@ public class MainSEF {
 		case 1: //Add Product
 			System.out.println("Enter Product ID");
 			productID = Integer.parseInt(scn.nextLine());
-			
+
 			System.out.println("Enter Product Name");
 			String productName = scn.nextLine();
-			
+
 			System.out.println("Enter Product Price");
 			double productPrice = Double.parseDouble(scn.nextLine());
-			
+
 			System.out.println("Enter Stock Level");
 			int productStock = Integer.parseInt(scn.nextLine());
-			
+
 			i = 0;
 			while(productList[i] != null){
 				i++;
@@ -546,7 +652,7 @@ public class MainSEF {
 			System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
 			break;
 		case 2: //Change Product Name
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the product you want to change the name of");
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new name");
@@ -560,7 +666,7 @@ public class MainSEF {
 			}
 			break;
 		case 3: //Change Product Price
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the product you want to change the price of");
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new price");
@@ -574,7 +680,7 @@ public class MainSEF {
 			}
 			break;
 		case 4: //Change Product Details
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the product you want to change the details of");
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new details");
@@ -588,7 +694,7 @@ public class MainSEF {
 			}
 			break;
 		case 5: //Set a discount
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the product you want to set a discount for");
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new discount as a number between 0 and 1");
@@ -613,7 +719,7 @@ public class MainSEF {
 			}
 			break;
 		case 7: //Add a bulk discount
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the product you want to set a bulk discount for");
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the amount needed to trigger the bulk discount");
@@ -649,7 +755,7 @@ public class MainSEF {
 			break;
 
 		}	
-		
+
 
 	}
 
@@ -669,16 +775,16 @@ public class MainSEF {
 		case 1: //Add Staff
 			System.out.println("Enter StaffID");
 			staffID = scn.nextLine();
-			
+
 			System.out.println("Enter Staff Name");
 			String staffName = scn.nextLine();
-			
+
 			System.out.println("Enter StaffPassword");
 			String staffPassword = scn.nextLine();
-			
+
 			System.out.println("Enter Level. Sale Staff = 1, Warehouse = 2, Manager = 3");
 			int staffLevel = Integer.parseInt(scn.nextLine());
-			
+
 			i = 0;
 			while(employees[i] != null){
 				i++;
@@ -687,7 +793,7 @@ public class MainSEF {
 			System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
 			break;
 		case 2: //Change Staff Name
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the name of");
 			staffID = scn.nextLine();
 			System.out.println("Enter the new name");
@@ -701,7 +807,7 @@ public class MainSEF {
 			}
 			break;
 		case 3: //Change Staff Password
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the password of");
 			staffID = scn.nextLine();
 			System.out.println("Enter the new password");
@@ -715,7 +821,7 @@ public class MainSEF {
 			}
 			break;
 		case 4:
-//needs error prevention
+			//needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the level of");
 			staffID = scn.nextLine();
 			System.out.println("Enter the new level");
