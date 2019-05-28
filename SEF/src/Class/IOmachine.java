@@ -24,9 +24,10 @@ import java.util.Set;
 public class IOmachine {
 	
 	private FileWriter writer = null;
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
 	private Scanner sc;
+	private int recordCounter = 0;
 	private int dateNumber;
 	
 	/* According to the user story, only Manager have authority
@@ -39,7 +40,36 @@ public class IOmachine {
 	}
 	
 	public void recordSale(Customer customer, LinkedList<Double> report)	{
-		
+		//need to be test
+		String filePath = "../../file/Sale_Record.txt";
+		String record = recordCounter + ",";
+		for(int i = 0; customer.getCart()[i] != null || i != 50; i++)	{
+			record += customer.getCart()[i].getProductName() + "," 
+					+ customer.getCart()[i].getNumberInCart() + ","
+					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ","
+					+ customer.getID() + ",";
+		}
+		record += dateFormat.format(date);
+		File temp = new File(filePath);
+		if(temp.createNewFile()){
+			try {
+				writer = new FileWriter(temp);
+	            writer.write(record);
+	            writer.close();
+			} catch (IOException e) {
+				System.out.println("Fail to create the file!");
+			}
+        }
+		else	{
+			try {
+				writer = new FileWriter(temp, true);
+				writer.write("\n");
+				writer.write(record);
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Fail to write file!");
+			}
+		}
 	}
 	
 	
