@@ -36,7 +36,11 @@ public class IOmachine {
 	 * */
 	
 	public LinkedList<Product> readInProducts()	{
-		
+		sc = new Scanner("../../file/Product.txt");
+		while (sc.hasNextLine())	{
+			String productIfo[] = sc.nextLine().split(",");
+			
+		}
 	}
 	
 	public void recordSale(Customer customer, LinkedList<Double> report)	{
@@ -44,11 +48,11 @@ public class IOmachine {
 		String filePath = "../../file/Sale_Record.txt";
 		String record = recordCounter + ",";
 		for(int i = 0; customer.getCart()[i] != null || i != 50; i++)	{
-			record += customer.getCart()[i].getProductName() + "," 
+			record += "["+ customer.getCart()[i].getProductName() + "," 
 					+ customer.getCart()[i].getNumberInCart() + ","
 					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ",";
 		}
-		record += customer.getID() + "," + dateFormat.format(date);
+		record += "]" + customer.getID() + "," + dateFormat.format(date);
 		File temp = new File(filePath);
 		if(temp.createNewFile()){
 			try {
