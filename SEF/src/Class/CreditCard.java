@@ -46,8 +46,12 @@ public class CreditCard {
 		return holderName;
 	}
 	
-	public boolean cardVali()
-	{
+	// Need to consider 
+	public boolean checkCardVali(Date expiredDay)	{
+		if(!expiredDay.after(new Date()))
+		{
+			return false;
+		}
 		return true;
 	}
 }

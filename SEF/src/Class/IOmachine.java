@@ -46,10 +46,9 @@ public class IOmachine {
 		for(int i = 0; customer.getCart()[i] != null || i != 50; i++)	{
 			record += customer.getCart()[i].getProductName() + "," 
 					+ customer.getCart()[i].getNumberInCart() + ","
-					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ","
-					+ customer.getID() + ",";
+					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ",";
 		}
-		record += dateFormat.format(date);
+		record += customer.getID() + "," + dateFormat.format(date);
 		File temp = new File(filePath);
 		if(temp.createNewFile()){
 			try {
