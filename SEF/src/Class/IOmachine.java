@@ -38,6 +38,8 @@ public class IOmachine {
 		
 	}
 	
+	public void recordSale(Customer customer, LinkedList<Double> report)
+	
 	public void getRevenuePRReport(Employee manager, LinkedList<Product> products) {
 		// Go through products and calculate their profits by using consumption x price
 		// List from top to bottom
