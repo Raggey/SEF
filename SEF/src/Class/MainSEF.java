@@ -74,6 +74,7 @@ public class MainSEF {
 		if (newRun) {
 			System.out.println("********** WELCOME **********");
 		}
+		newRun = false;
 		System.out.print("Enter ID: ");
 
 		id = scn.nextLine();
@@ -81,41 +82,29 @@ public class MainSEF {
 			System.out.print("Enter ID: ");
 			id = scn.nextLine();
 		}
-		//EXTRA for testing
+
+		// USED IN TESTING, MIGHT IMPLEMENT
 		if (id.equalsIgnoreCase("quit")) {
 			System.exit(0);
 		}
-		/* Doesn't start with 'c' means its employee */
-		if (id.charAt(0) != 'c') {
+
+		/* All EMPLOYEE ID start with 'e' */
+		if (id.charAt(0) == 'e') {
 			if (employees[0] == null) {
-				System.out.println("Error: No Employees Registered");
-				System.out.println();
-				login();
+				System.out.println("ERROR: No Employees Registered!\nGOODBYE!!"  );
+				System.exit(0);
 			}
 			else {
 				System.out.print("Enter Password: ");
 				password = scn.nextLine();
-				while (id.equals("")) {
+				while (password.equals("")) {
 					System.out.print("Enter Password: ");
-					id = scn.nextLine();
+					password = scn.nextLine();
 				}
 			}
-			//Account Validation
-			for (int i = 0; i < employees.length; i++) {
-				if (employees[i] != null) {
-					if (employees[i].GetID().equals(id) && employees[i].GetPassword().equals(password)) {
-						System.out.println("\n*** Log in Succuessful ***" + "\n");
-						currentEmployee = employees[i];
-					}
-				}
-			}
-			if (currentEmployee == null) {
 
-				System.out.println("Invalid login, please try again!");
-				System.out.println();
-				login();
-			}
-			else {
+
+			if (validateEmployee()) {
 
 				switch (currentEmployee.GetLevel()) {
 
@@ -127,31 +116,60 @@ public class MainSEF {
 
 				case MANAGER: displayManagerMenu();
 				break;
-
 				}
 			}
-		}
-		else { 
-			for (int i = 0; i < customers.length; i++) {
-				if (customers[i] != null) {
-					if (customers[i].getID().equals(id)) {
-						currentCustomer = customers[i];
-						currentCustomer.logIn();					 //Customer visit count increased here
-						System.out.println();
-						newRun = false;
-						displayCustomerMenu();
-					}
-				}
-			}
-			if (currentCustomer == null) {
-				System.out.println("Customer ID doesn't exist..");
-				System.out.println();
+			else {
+				System.out.println("Invalid Employee ID or Password, please try again!\n");
 				login();
 			}
 		}
+		/* All CUSTOMER ID start with 'c' */
+		else if (id.charAt(0) == 'c') { 
+			if (validateCustomer()) {
+				// Customer visit counter is increased here.
+				currentCustomer.logIn();
+				displayCustomerMenu();
+			}
+			else {
+				System.out.println("Customer ID doesn't exist..\n");
+				login();
+			}
+
+		}
+		// if LOGIN failed
+		else if (currentEmployee == null && currentCustomer == null) {
+			System.out.println("Invalid login, please try again!\n");
+			login();
+		}
 	}
 
+	// Method to check who signed in. (currentEmployee)
+	private boolean validateEmployee() {
+		for (int i = 0; i < employees.length; i++) {
+			if (employees[i] != null) {
+				if (employees[i].GetID().equals(id) && employees[i].GetPassword().equals(password)) {
+					System.out.println("\n*** Log in Succuessful ***" + "\n");
+					currentEmployee = employees[i];
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
+	// Method to check which customer. (currentCustomer)
+	private boolean validateCustomer() {
+		for (int i = 0; i < customers.length; i++) {
+			if (customers[i] != null) {
+				if (customers[i].getID().equals(id)) {
+					currentCustomer = customers[i];
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
 
 
 	private void backToMenu()
@@ -181,11 +199,11 @@ public class MainSEF {
 
 
 
-
+	// ***** CUSTOMER METHOD *****
 	private void displayCustomerMenu() {
 
 		System.out.println("***** MAIN MENU *****" );
-		System.out.println("Current Loyalty Points: " + currentCustomer.getPoint() + "\n");
+		System.out.printf("%s's Loyalty Points: %d\n", currentCustomer.getID(), currentCustomer.getPoint());
 		System.out.println("1. View Product List");
 		System.out.println("2. View Cart" );
 		System.out.println("3. Toggle Subscription");
@@ -207,27 +225,28 @@ public class MainSEF {
 
 		switch(choice) {
 
-		case 1: //1. View Product List
+		case 1: 
+			//1. View Product List
 			displayProductListMenu();
 			System.out.println();
 			addProductInCart();
 			break;
-		case 2: //2. View Cart
+		case 2: 
+			//2. View Cart
 			displayCart();
 			backToMenu();
 			break;
-		case 3: //3. Subscription
+		case 3: 
+			//3. Subscription
 			currentCustomer.subscribe();
 			backToMenu();
 			break;
-		case 4: //3. Subscription
+		case 4: 
+			//3. Subscription
 			checkOut();
 			break;
 		case 5: //4. Quit
-			System.out.println("~~~~~~~~~~~~~~~~~~~");
-			System.out.println("|See you soon! : D|");
-			System.out.println("~~~~~~~~~~~~~~~~~~~");
-			System.exit(0);
+			quit();
 
 
 		default:
@@ -307,7 +326,7 @@ public class MainSEF {
 	/* Displays Cart, no other function */
 	private void displayCart() { 
 		Product[] customerCart = currentCustomer.getCart();
-		String left, right, cart  = "";
+		String name, amount, cart  = "";
 		int id = 0;
 
 		System.out.println("What's in your cart: ");
@@ -315,10 +334,10 @@ public class MainSEF {
 		{
 			if (customerCart[i] != null)
 			{
-				left = (customerCart[i].getProductName());
-				right = Integer.toString(customerCart[i].getNumberInCart());
+				name = (customerCart[i].getProductName());
+				amount = Integer.toString(customerCart[i].getNumberInCart());
 				id = customerCart[i].getProductId();
-				cart += String.format("%-30s %d %25s\n", left, id, right);
+				cart += String.format("%-30s %d %25s\n", name, id, amount);
 			}
 		}
 		if (cart.equals(""))
@@ -436,13 +455,13 @@ public class MainSEF {
 		int productId, replenishAmount = 0;
 
 		System.out.print("Input the ID of the item you'd like to replenish or enter 'q' to cancel: ");
-		
+
 		input = scn.nextLine();
 		if (input.equals("q")) {
 			displayWarehouseMenu();
 			System.out.println("");
 		}
-		
+
 		productId = Integer.parseInt(input);
 		for(int i = 0; i < productList.length; i++) {
 			if (productList[i] != null) {
@@ -575,6 +594,12 @@ public class MainSEF {
 
 	// ***** GENERAL METHOD *****
 	public void reLogin() {
+		currentCustomer = null;
+		currentEmployee = null;
+		newRun = true;
+		login();
+		id = "";
+		password = "";
 		// set everything to null 
 		// start a new 
 		System.out.println("TODO");
