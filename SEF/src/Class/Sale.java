@@ -14,14 +14,7 @@ public class Sale {
 		double tempPrice = 0;
 		int i = 0;
 		while(productCart[i] != null){
-			tempPrice = tempPrice + (productCart[i].getDiscountPrice()*productCart[i].getNumberInCart());
-			//check if there is a bulk discount
-			if(productCart[i].getbulkDiscount() != 0){
-				if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
-					//using integer division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
-					tempPrice = tempPrice - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
-				}
-			}
+			tempPrice = tempPrice + CalculateItemPrice(i);
 			i++;
 		}
 		//check the points discount. It is false because we are only checking the price rather than confirming the sale
@@ -32,7 +25,7 @@ public class Sale {
 	
 	
 	//reduces Stock
-	public void PerformSale(){
+	public Customer PerformSale(){
 		int i = 0;
 		person.checkDiscount(totalPrice, true);
 		person.calculatePoints(totalPrice);
@@ -47,20 +40,20 @@ public class Sale {
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
-		person.emptyCart();
+		return person;
 	}
-	
-	//report does something with turning the totalPrice into a more concrete 'profit' variable
-	/*
-	public double ApplyDiscounts(double productPrice) {
-		double newPrice;
-		newPrice = productPrice*discount;
-		return newPrice;
+
+	public double CalculateItemPrice(int i) {
+		double price = 0;
+		productCart = person.getCart();
+		price = productCart[i].getDiscountPrice()*productCart[i].getNumberInCart();
+		//check if there is a bulk discount
+		if(productCart[i].getbulkDiscount() != 0){
+			if(productCart[i].getNumberInCart() >= productCart[i].getBulkAmount()){
+				//using integer division, divide the number in the cart by the bulkAmount to see how many times the bulk discount should be applied
+				price = price - (productCart[i].getbulkDiscount()*(productCart[i].getNumberInCart()/productCart[i].getBulkAmount()));
+			}
+		}
+		return price;
 	}
-	
-	public void SetSaleAmount(double newAmount) {
-		discount = newAmount;
-		return;
-	}
-	*/
 }

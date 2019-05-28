@@ -342,6 +342,7 @@ public class MainSEF {
 
 		if (input.equalsIgnoreCase("Y")) {
 			checkout.PerformSale();
+			currentCustomer.emptyCart();
 			System.out.println("Thank you for shopping with us.");
 			System.out.println("Goodbye!");
 		}
