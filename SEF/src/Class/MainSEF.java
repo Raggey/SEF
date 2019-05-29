@@ -11,16 +11,25 @@ public class MainSEF {
 
 	private String id;
 	private String password;
-	Product[] productList = new Product[20];
-	Customer[] customers = new Customer[50];
-	Employee[] employees = new Employee[20];
+
+	LinkedList<Employee> employees = new LinkedList<Employee>();
+	LinkedList<Product> productList = new LinkedList<Product>();
+	LinkedList<Customer> customers = new LinkedList<Customer>();
+	IOmachine iom = new IOmachine();
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
 
 	public void run() {
-
+		
+		//loadSystemData();
 		demoInitialise();
 		login();	
+	}
+
+	private void loadSystemData() {
+//		employees = iom.readIn ;
+//		productList = iom ;
+//		customers = iom ;
 	}
 
 
@@ -36,31 +45,33 @@ public class MainSEF {
 		Product chicken = new Product(8, "Drumstick", 9, 100);
 		Product broccoli = new Product(9, "Broccoli", 0.69, 100);
 		Product pasta = new Product(10, "Delicious pasta", 0.89, 100);
-		productList[0] = apple;
-		productList[1] = biscuits;
-		productList[2] = mints;
-		productList[3] = pen;
-		productList[4] = notebook;
-		productList[5] = milk;
-		productList[6] = bread;
-		productList[7] = chicken;
-		productList[8] = broccoli;
-		productList[9] = pasta;
 
+
+		productList.add(apple);
+		productList.add(biscuits);
+		productList.add(mints);
+		productList.add(pen);
+		productList.add(notebook);
+		productList.add(milk);
+		productList.add(bread);
+		productList.add(chicken);
+		productList.add(broccoli);
+		productList.add(pasta);
 
 		Employee manager = new Employee("e1", "Tom", "password1", MANAGER);
 		Employee warehouse = new Employee("e2", "Dick", "password2", WAREHOUSE);
 		Employee salestaff = new Employee("e3", "Harry", "password3", SALESTAFF);
 
-		employees[0] = manager;
-		employees[1] = warehouse;
-		employees[2] = salestaff;
+		employees.add(manager);
+		employees.add(warehouse);
+		employees.add(salestaff);
+
 
 		Customer one = new Customer("c001", "Will", 3050);
 		Customer two = new Customer("c002", "Jack", 3450);
 
-		customers[0] = one;
-		customers[1] = two;
+		customers.add(one);
+		customers.add(two);
 
 		one.calculatePoints(150); //spent 150 dollars get 15 points
 
@@ -90,7 +101,7 @@ public class MainSEF {
 
 		/* All EMPLOYEE ID start with 'e' */
 		if (id.charAt(0) == 'e') {
-			if (employees[0] == null) {
+			if (employees.isEmpty()) {
 				System.out.println("ERROR: No Employees Registered!\nGOODBYE!!"  );
 				System.exit(0);
 			}
@@ -145,11 +156,11 @@ public class MainSEF {
 
 	// Method to check who signed in. (currentEmployee)
 	private boolean validateEmployee() {
-		for (int i = 0; i < employees.length; i++) {
-			if (employees[i] != null) {
-				if (employees[i].GetID().equals(id) && employees[i].GetPassword().equals(password)) {
+		for (int i = 0; i < employees.size(); i++) {
+			if (employees.get(i) != null) {
+				if (employees.get(i).GetID().equals(id) && employees.get(i).GetPassword().equals(password)) {
 					System.out.println("\n*** Log in Succuessful ***" + "\n");
-					currentEmployee = employees[i];
+					currentEmployee = employees.get(i);
 					return true;
 				}
 			}
@@ -159,10 +170,10 @@ public class MainSEF {
 
 	// Method to check which customer. (currentCustomer)
 	private boolean validateCustomer() {
-		for (int i = 0; i < customers.length; i++) {
-			if (customers[i] != null) {
-				if (customers[i].getID().equals(id)) {
-					currentCustomer = customers[i];
+		for (int i = 0; i < customers.size(); i++) {
+			if (customers.get(i) != null) {
+				if (customers.get(i).getID().equals(id)) {
+					currentCustomer = customers.get(i);
 					return true;
 				}
 			}
@@ -262,10 +273,10 @@ public class MainSEF {
 	private void displayProductListMenu() {
 
 		System.out.println("***** PRODUCTS *****");
-		for(int i = 0; i < productList.length; i++) {
-			if (productList[i] != null) {
-				String product = (i+1) + ". " + productList[i].getProductName();
-				double price = productList[i].getProductPrice();
+		for(int i = 0; i < productList.size(); i++) {
+			if (productList.get(i) != null) {
+				String product = (i+1) + ". " + productList.get(i).getProductName();
+				double price = productList.get(i).getProductPrice();
 				String menu = String.format("%-30s %.2f", product, price);
 				System.out.println(menu);
 			}
@@ -297,21 +308,21 @@ public class MainSEF {
 					prodN = Integer.parseInt(answer); 
 					System.out.println();
 
-					if(prodN < 1 || prodN > productList.length) {
+					if(prodN < 1 || prodN > productList.size()) {
 						throw new InputMismatchException("Please enter a valid input for your select product.");
 					}
-					if (productList[prodN - 1] == null) {
+					if (productList.get(prodN - 1) == null) {
 						throw new InputMismatchException("Please enter a valid input for your select product.");
 					}
 					//Need to insert out of stock 
 					else {
-						currentCustomer.addProduct(productList[prodN - 1]);
+						currentCustomer.addProduct(productList.get(prodN - 1));
 						displayProductListMenu();
 						System.out.println();
 						System.out.println("Item added successfully!");
-						System.out.println("Total number of '" + productList[prodN - 1].getProductName() 
+						System.out.println("Total number of '" + productList.get(prodN - 1).getProductName() 
 								+ "' in cart: " 
-								+ productList[prodN - 1].getNumberInCart()
+								+ productList.get(prodN - 1).getNumberInCart()
 								+ '\n');
 						System.out.println("Select another product or press ENTER to exit (call staff for removal of items)");
 					}
@@ -373,7 +384,7 @@ public class MainSEF {
 			checkOut();
 		}
 
-		//currentCustomer.clear to add in customer class
+		currentCustomer.emptyCart();
 		currentCustomer = null;
 
 		try {
@@ -437,11 +448,11 @@ public class MainSEF {
 
 		System.out.printf("%-30s %s %30s\n", "ITEM NAME" , "ID" ,"CURRENT STOCK" );
 
-		for(int i = 0; i < productList.length; i++) {
-			if (productList[i] != null) {
-				productName = (i+1) + ". " + productList[i].getProductName();
-				productStock = productList[i].getProductStock();
-				productId = productList[i].getProductId();			
+		for(int i = 0; i < productList.size(); i++) {
+			if (productList.get(i) != null) {
+				productName = (i+1) + ". " + productList.get(i).getProductName();
+				productStock = productList.get(i).getProductStock();
+				productId = productList.get(i).getProductId();			
 				menu = String.format("%-30s %s %25d", productName, productId, productStock);
 				System.out.println(menu);
 			}
@@ -463,15 +474,15 @@ public class MainSEF {
 		}
 
 		productId = Integer.parseInt(input);
-		for(int i = 0; i < productList.length; i++) {
-			if (productList[i] != null) {
-				productName = productList[i].getProductName();
+		for(int i = 0; i < productList.size(); i++) {
+			if (productList.get(i) != null) {
+				productName = productList.get(i).getProductName();
 
-				if (productId == productList[i].getProductId()) {
+				if (productId == productList.get(i).getProductId()) {
 					System.out.println("\nProduct selected: " + productName);
 					System.out.print("Input amount of stock to replenish: ");
 					replenishAmount = Integer.parseInt(scn.nextLine());
-					productList[i].increaseStock((replenishAmount));
+					productList.get(i).increaseStock((replenishAmount));
 					System.out.println(productName + "'s stock successfully increased by " + replenishAmount + ".");
 					backToMenu();
 				}
@@ -692,10 +703,10 @@ public class MainSEF {
 			int productStock = Integer.parseInt(scn.nextLine());
 
 			i = 0;
-			while(productList[i] != null){
+			while(productList.get(i) != null){
 				i++;
 			}
-			productList[i] = new Product(productID, productName , productPrice, productStock);
+			productList.add(new Product(productID, productName , productPrice, productStock));
 			System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
 			break;
 		case 2: //Change Product Name
@@ -705,9 +716,9 @@ public class MainSEF {
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
 			i = 0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setProductName(changeName);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setProductName(changeName);
 				}
 				i++;
 			}
@@ -719,9 +730,9 @@ public class MainSEF {
 			System.out.println("Enter the new price");
 			double changePrice = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setProductPrice(changePrice);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setProductPrice(changePrice);
 				}
 				i++;
 			}
@@ -733,9 +744,9 @@ public class MainSEF {
 			System.out.println("Enter the new details");
 			String changeDetails = scn.nextLine();
 			i = 0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setProductDetails(changeDetails);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setProductDetails(changeDetails);
 				}
 				i++;
 			}
@@ -747,9 +758,9 @@ public class MainSEF {
 			System.out.println("Enter the new discount as a number between 0 and 1");
 			double changeDiscount = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setDiscountPrice(changeDiscount);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setDiscountPrice(changeDiscount);
 				}
 				i++;
 			}
@@ -758,9 +769,9 @@ public class MainSEF {
 			System.out.println("Enter the ID of the product you want to remove the discount for");
 			productID = Integer.parseInt(scn.nextLine());
 			i=0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setDiscountPrice(1);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setDiscountPrice(1);
 				}
 				i++;
 			}
@@ -774,10 +785,10 @@ public class MainSEF {
 			System.out.println("Enter the new discount (the products will be reduced by this flat number)");
 			double changeBulkDiscount = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(i < productList.length){
-				if(productID == productList[i].getProductId()){
-					productList[i].setBulkAmount(changeAmount);
-					productList[i].setbulkDiscount(changeBulkDiscount);
+			while(i < productList.size()){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setBulkAmount(changeAmount);
+					productList.get(i).setbulkDiscount(changeBulkDiscount);
 				}
 				i++;
 			}
@@ -786,10 +797,10 @@ public class MainSEF {
 			System.out.println("Enter the ID of the product you want to remove the bulk discount for");
 			productID = Integer.parseInt(scn.nextLine());
 			i=0;
-			while(productList[i] != null){
-				if(productID == productList[i].getProductId()){
-					productList[i].setBulkAmount(0);
-					productList[i].setbulkDiscount(0);
+			while(productList.get(i) != null){
+				if(productID == productList.get(i).getProductId()){
+					productList.get(i).setBulkAmount(0);
+					productList.get(i).setbulkDiscount(0);
 				}
 				i++;
 			}
@@ -846,10 +857,10 @@ public class MainSEF {
 			int staffLevel = Integer.parseInt(scn.nextLine());
 
 			i = 0;
-			while(employees[i] != null){
+			while(employees.get(i) != null){
 				i++;
 			}
-			employees[i] = new Employee(staffID, staffName ,staffPassword, staffLevel);
+			employees.add(new Employee(staffID, staffName ,staffPassword, staffLevel));
 			System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
 			break;
 		case 2: //Change Staff Name
@@ -859,9 +870,9 @@ public class MainSEF {
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
 			i = 0;
-			while(employees[i] != null){
-				if(staffID == employees[i].GetID()){
-					employees[i].SetName(changeName);
+			while(employees.get(i) != null){
+				if(staffID == employees.get(i).GetID()){
+					employees.get(i).SetName(changeName);
 				}
 				i++;
 			}
@@ -873,9 +884,9 @@ public class MainSEF {
 			System.out.println("Enter the new password");
 			String changePassword = scn.nextLine();
 			i = 0;
-			while(employees[i] != null){
-				if(staffID == employees[i].GetID()){
-					employees[i].SetPassword(changePassword);
+			while(employees.get(i) != null){
+				if(staffID == employees.get(i).GetID()){
+					employees.get(i).SetPassword(changePassword);
 				}
 				i++;
 			}
@@ -887,9 +898,9 @@ public class MainSEF {
 			System.out.println("Enter the new level");
 			int changeLevel = Integer.parseInt(scn.nextLine());
 			i = 0;
-			while(employees[i] != null){
-				if(staffID == employees[i].GetID()){
-					employees[i].SetLevel(changeLevel);
+			while(employees.get(i) != null){
+				if(staffID == employees.get(i).GetID()){
+					employees.get(i).SetLevel(changeLevel);
 				}
 				i++;
 			}
