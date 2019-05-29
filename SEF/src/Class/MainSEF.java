@@ -27,7 +27,7 @@ public class MainSEF {
 	}
 
 	private void loadSystemData() {
-//		employees = iom.readIn ;
+		employees = iom.readInEmployee() ;
 //		productList = iom ;
 		customers = iom.readInCustomer() ;
 	}
@@ -58,13 +58,13 @@ public class MainSEF {
 		productList.add(broccoli);
 		productList.add(pasta);
 
-		Employee manager = new Employee("e1", "Tom", "password1", MANAGER);
-		Employee warehouse = new Employee("e2", "Dick", "password2", WAREHOUSE);
-		Employee salestaff = new Employee("e3", "Harry", "password3", SALESTAFF);
-
-		employees.add(manager);
-		employees.add(warehouse);
-		employees.add(salestaff);
+//		Employee manager = new Employee("e1", "Tom", "password1", MANAGER);
+//		Employee warehouse = new Employee("e2", "Dick", "password2", WAREHOUSE);
+//		Employee salestaff = new Employee("e3", "Harry", "password3", SALESTAFF);
+//
+//		employees.add(manager);
+//		employees.add(warehouse);
+//		employees.add(salestaff);
 		
 		orders[0][0] = 1;
 		orders [0][1] = 100;
