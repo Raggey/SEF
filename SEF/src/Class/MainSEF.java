@@ -15,7 +15,7 @@ public class MainSEF {
 	LinkedList<Employee> employees = new LinkedList<Employee>();
 	LinkedList<Product> productList = new LinkedList<Product>();
 	LinkedList<Customer> customers = new LinkedList<Customer>();
-//	IOmachine iom = new IOmachine();
+	//	IOmachine iom = new IOmachine();
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
 
@@ -35,16 +35,16 @@ public class MainSEF {
 
 	private void demoInitialise() //Used for DEMO
 	{
-		Product apple = new Product(1, "Apple", 0.89, 100,"sup1");
-		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100,"sup2");
-		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100,"sup2");
-		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100,"sup3");
-		Product notebook = new Product(5, "A5 Notebook", 0.79, 100,"sup3");
-		Product milk = new Product(6, "Pure milk", 2, 100,"sup2");
-		Product bread = new Product(7, "Sandwich bread", 0.99, 100,"sup2");
-		Product chicken = new Product(8, "Drumstick", 9, 100,"sup1");
-		Product broccoli = new Product(9, "Broccoli", 0.69, 100,"sup2");
-		Product pasta = new Product(10, "Delicious pasta", 0.89, 100,"sup2");
+		Product apple = new Product(1, "Apple", 0.89, 100,"Friendly Farms");
+		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100,"ANZAC Biscuits R US");
+		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100,"Bulk Goods co.");
+		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100,"Stationary Suppliers");
+		Product notebook = new Product(5, "A5 Notebook", 0.79, 100,"Stationary Suppliers");
+		Product milk = new Product(6, "Pure milk", 2, 100,"Friendly Farms");
+		Product bread = new Product(7, "Sandwich bread", 0.99, 100,"Bulk Goods co.");
+		Product chicken = new Product(8, "Drumstick", 9, 100,"Friendly Farms");
+		Product broccoli = new Product(9, "Broccoli", 0.69, 100,"Friendly Farms");
+		Product pasta = new Product(10, "Delicious pasta", 0.89, 100,"Bulk Goods co.");
 
 
 		productList.add(apple);
@@ -72,7 +72,9 @@ public class MainSEF {
 
 		customers.add(one);
 		customers.add(two);
-
+		
+		
+		
 		one.calculatePoints(150); //spent 150 dollars get 15 points
 
 
@@ -738,13 +740,13 @@ public class MainSEF {
 			System.out.println("Enter Stock Level");
 			int productStock = Integer.parseInt(scn.nextLine());
 			
-			System.out.println("Enter Supplier ID");
-			String supplierID = scn.nextLine();
+			System.out.println("Enter Supplier Name");
+			String supplierName = scn.nextLine();
 			i = 0;
 			while(productList.get(i) != null){
 				i++;
 			}
-			productList.add(new Product(productID, productName , productPrice, productStock, supplierID));
+			productList.add(new Product(productID, productName , productPrice, productStock, supplierName));
 			System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
 			break;
 		case 2: //Change Product Name

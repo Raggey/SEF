@@ -12,10 +12,10 @@ public class Product {
 	private int consumption;
 	private double bulkDiscount;
 	private int bulkAmount;
-	private String supplierID;
+	private String supplierName;
 
 
-	public Product (int productId, String productName, double productPrice, int productStock, String supplierID) {
+	public Product (int productId, String productName, double productPrice, int productStock, String supplierName) {
 		this.productId = productId;
 		this.productName = productName;
 		this.productDetails = "";			//Set as when needed
@@ -26,15 +26,15 @@ public class Product {
 		this.bulkDiscount = 0;
 		this.bulkAmount = 0;
 		this.productDiscount = 1;
-		this.supplierID = supplierID;
+		this.supplierName = supplierName;
 	}
 
 	public int getProductId() {
 		return productId;
 	}
 	
-	public String getSupplierId(){
-		return supplierID;
+	public String getSupplierName(){
+		return supplierName;
 	}
 	
 	/*If required to get productName based on given ID */
