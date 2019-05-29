@@ -82,7 +82,7 @@ public class IOmachine {
 	//	
 	public LinkedList<Employee> readInEmployee()	{
 		try {
-			File fileName = new File("/Users/DANIEL/Downloads/Employees.txt");
+			File fileName = new File("Employees.txt");
 			LinkedList<Employee> employees = new LinkedList<Employee>();
 			String employeeInfo[];
 			Employee employee = null;
@@ -100,19 +100,9 @@ public class IOmachine {
 			return null;
 		}
 	}
-	//		LinkedList<Employee> employees;
-	//		String employeeInfo[];
-	//		sc = new Scanner("Employees.txt");
-	//		while (sc.hasNextLine())	{
-	//			employeeInfo = sc.nextLine().split(",");
-	//			employees.add(new Employee(employeeInfo[0],employeeInfo[1],employeeInfo[2],Integer.parseInt(employeeInfo[3])));
-	//		}
-	//		return employees;
-	//		}
-	//	
 	public LinkedList<Customer> readInCustomer()	{
 		try {
-			File fileName = new File("/Users/DANIEL/Downloads/Customers.txt");
+			File fileName = new File("Customers.txt");
 			LinkedList<Customer> customers = new LinkedList<Customer>();
 			String customerInfo[];
 			Customer customer = null;
