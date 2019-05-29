@@ -903,8 +903,7 @@ public class MainSEF {
 			break;
 
 		}	
-
-	''
+	}
 
 	// ***** MANAGER METHOD *****
 	private void displayReportMenu() {
