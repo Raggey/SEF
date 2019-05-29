@@ -7,7 +7,7 @@ public class Sale {
 	private Customer person;
 	private double totalPrice = 0;
 	private Product[] productCart = new Product[50];
-	private LinkedList<Double> individualPrice;
+	private double individualPrice;
 	private IOmachine report;
 	
 	public Sale(Customer person) {
@@ -21,7 +21,7 @@ public class Sale {
 		int i = 0;
 		while(productCart[i] != null){
 			tempPrice = tempPrice + CalculateItemPrice(i);
-			individualPrice.add(CalculateItemPrice(i));
+			//individualPrice.add(CalculateItemPrice(i));
 			i++;
 		}
 		//check the points discount. It is false because we are only checking the price rather than confirming the sale
@@ -47,7 +47,7 @@ public class Sale {
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
-		//report.recordSale(person, individualPrice);
+//		report.recordSale(person, individualPrice);
 		return person;
 	}
 
