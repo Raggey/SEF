@@ -22,18 +22,12 @@ import java.util.Date;
 
 public class CreditCard {
 	private int credit_card_num;
-	private Date expiredDate;
 	private String holderName;
 	
-	public CreditCard(int credit_card_num, String date, String holderName)
+	public CreditCard(int credit_card_num, String holderName)
 	{
 		this.holderName = holderName;
 		this.credit_card_num = credit_card_num;
-	}
-	
-	public Date getDate()
-	{
-		return expiredDate;
 	}
 	
 	public int getNumber()
@@ -44,14 +38,5 @@ public class CreditCard {
 	public String getHolderName()
 	{
 		return holderName;
-	}
-	
-	// Need to consider 
-	public boolean checkCardVali(Date expiredDay)	{
-		if(!expiredDay.after(new Date()))
-		{
-			return false;
-		}
-		return true;
 	}
 }

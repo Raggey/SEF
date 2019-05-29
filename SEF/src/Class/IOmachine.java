@@ -80,8 +80,38 @@ public class IOmachine {
 	    }
 	}
 	
+	public LinkedList<Employee> readInEmployee()	{
+		LinkedList<Employee> employees;
+		String employeeInfo[];
+		sc = new Scanner("Employees.txt");
+		while (sc.hasNextLine())	{
+			employeeInfo = sc.nextLine().split(",");
+			employees.add(new Employee(employeeInfo[0],employeeInfo[1],employeeInfo[2],Integer.parseInt(employeeInfo[3])));
+		}
+		return employees;
+	}
+	
+	public LinkedList<Customer> readInCustomer()	{
+		LinkedList<Customer> customers;
+		String customerInfo[];
+		Customer customer;
+		sc = new Scanner("Customers.txt");
+		while (sc.hasNextLine())	{
+			customerInfo = sc.nextLine().split(",");
+			customer = new Customer(customerInfo[0],customerInfo[1],Integer.parseInt(customerInfo[4]));
+			customer.setMoneySpent(Integer.parseInt(customerInfo[2]));
+			customer.setPoints(Integer.parseInt(customerInfo[3]));
+			customer.setTimevisited(Integer.parseInt(customerInfo[5]));
+			if(customerInfo[6] == "0")	{
+				customer.subscribe();
+			}
+			customers.add(customer);
+		}
+		return customers;
+	}
+	
 	public LinkedList<Product> readInProducts()	{
-		sc = new Scanner("Product.txt");
+		sc = new Scanner("Products.txt");
 		while (sc.hasNextLine())	{
 			String productIfo[] = sc.nextLine().split(",");
 			// Incomplete

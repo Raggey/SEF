@@ -44,7 +44,10 @@ public class Customer {
 	public String getID()
 	{
 		return id;
-
+	}
+	
+	public String getName()	{
+		return name;
 	}
 
 	// Record visited time.
@@ -195,6 +198,22 @@ public class Customer {
 
 	public void emptyCart() {
 		this.products = new Product[CART_MAX];
+	}
+	
+	public void setPoints(int points)	{
+		this.points = points;
+	}
+	
+	public void setMoneySpent(double money)	{
+		this.money_spent = money;
+	}
+	
+	public void setTimevisited(int times)	{
+		this.times_visited = times;
+	}
+	
+	public void setCreditCard(int cardNumber)	{
+		
 	}
 }
 
