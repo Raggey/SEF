@@ -93,9 +93,7 @@ public class IOmachine {
 	//	
 	public LinkedList<Customer> readInCustomer()	{
 		try {
-			File file = new File("/SEF/src/Class/Customers.txt");
-//			sc = new Scanner(file);
-//			BufferedReader br = new BufferedReader(new FileReader(file));
+			File file = new File("/Users/DANIEL/Downloads/Customers.txt");
 			LinkedList<Customer> customers = new LinkedList<Customer>();
 			String customerInfo[];
 			Customer customer = null;

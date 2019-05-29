@@ -15,13 +15,13 @@ public class MainSEF {
 	LinkedList<Employee> employees = new LinkedList<Employee>();
 	LinkedList<Product> productList = new LinkedList<Product>();
 	LinkedList<Customer> customers = new LinkedList<Customer>();
-	//	IOmachine iom = new IOmachine();
+		IOmachine iom = new IOmachine();
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
 
 	public void run() {
 		
-		//loadSystemData();
+		loadSystemData();
 		demoInitialise();
 		login();	
 	}
@@ -29,7 +29,7 @@ public class MainSEF {
 	private void loadSystemData() {
 //		employees = iom.readIn ;
 //		productList = iom ;
-//		customers = iom ;
+		customers = iom.readInCustomer() ;
 	}
 
 
@@ -67,15 +67,15 @@ public class MainSEF {
 		employees.add(salestaff);
 
 
-		Customer one = new Customer("c001", "Will", 3050);
-		Customer two = new Customer("c002", "Jack", 3450);
-
-		customers.add(one);
-		customers.add(two);
-		
-		
-		
-		one.calculatePoints(150); //spent 150 dollars get 15 points
+//		Customer one = new Customer("c001", "Will", 3050);
+//		Customer two = new Customer("c002", "Jack", 3450);
+//
+//		customers.add(one);
+//		customers.add(two);
+//		
+//		
+//		
+//		one.calculatePoints(150); //spent 150 dollars get 15 points
 
 
 	}
