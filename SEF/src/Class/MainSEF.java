@@ -18,7 +18,7 @@ public class MainSEF {
 		IOmachine iom = new IOmachine();
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
-
+	int [][] orders = new int[10][2];
 	public void run() {
 		
 		loadSystemData();
@@ -65,7 +65,15 @@ public class MainSEF {
 		employees.add(manager);
 		employees.add(warehouse);
 		employees.add(salestaff);
-
+		
+		orders[0][0] = 1;
+		orders [0][1] = 100;
+		
+		orders[1][0] = 2;
+		orders[1][1] = 80;
+		
+		orders[2][0] = 4;
+		orders[2][1] = 100;
 
 //		Customer one = new Customer("c001", "Will", 3050);
 //		Customer two = new Customer("c002", "Jack", 3450);
@@ -671,37 +679,47 @@ public class MainSEF {
 	}
 
 	private void autoOrdering(){
-			System.out.println("1. View current Auto Ordering");
-			System.out.println("2. Set up new Auto Order");
-			System.out.println("3. Remove an Auto Order");
-			String input = scn.nextLine();
-			while (input.equals("")) {
-				System.out.print("Select Option: " );
-				input = scn.nextLine();		
-			}
-			int choice = Integer.parseInt(input);
-			System.out.println();
-			int i = 0;
-			int productID;
-			switch(choice) {
-			case 1: //view current auto order
-				break;
-			case 2: //set up new auto order
-				System.out.println("Enter Product ID");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter amount it should top up to");
-				
-				break;
-			case 3: //remove auto order
-				System.out.println("Enter Product ID");
-				productID = Integer.parseInt(scn.nextLine());
-				break;
-			default:
-				System.out.println("Please select a valid choice!\n");
-				displayManagerMenu();
-				break;
-			}
+		System.out.println("1. View current Auto Ordering");
+		System.out.println("2. Set up new Auto Order");
+		System.out.println("3. Change an Auto Order");
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();		
 		}
+		int choice = Integer.parseInt(input);
+		System.out.println();
+		int i = 0;
+		int productID;
+		switch(choice) {
+		case 1: //view current auto order
+			while(orders[i] != null){
+				String name = productList.get(i).getProductName();
+				String supplier = productList.get(i).getSupplierName();		
+				System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
+			}
+			break;
+		case 2: //set up new auto order
+			System.out.println("Enter Product ID");
+			productID = Integer.parseInt(scn.nextLine());
+			System.out.println("Enter amount it should top up to");
+			int newAmount = Integer.parseInt(scn.nextLine());
+			while(orders[i] != null ){
+				i++;
+			}
+			orders[i][0] = productID;
+			orders[i][1] = newAmount;
+			break;
+		case 3: //change auto order
+			System.out.println("Enter Product ID");
+			productID = Integer.parseInt(scn.nextLine());
+			break;
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displayManagerMenu();
+			break;
+		}
+	}
 	
 	// ***** MANAGER METHOD *****
 	private void manageProducts() {
