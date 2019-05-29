@@ -623,8 +623,9 @@ public class MainSEF {
 		System.out.println("1. Display Report Menu");
 		System.out.println("2. Manage Staff");
 		System.out.println("3. Manage Sales");
-		System.out.println("4. Logout (Re-Login)\n");
-		System.out.println("5. Quit\n");
+		System.out.println("4. Auto Ordering");
+		System.out.println("5. Logout (Re-Login)\n");
+		System.out.println("6. Quit\n");
 
 		System.out.print("Select Option: " );
 		String input = scn.nextLine();
@@ -650,9 +651,12 @@ public class MainSEF {
 			backToMenu();
 			break;
 		case 4:
-			reLogin();
+			autoOrdering();
 			break;
 		case 5:
+			reLogin();
+			break;
+		case 6:
 			quit();
 			break;
 
@@ -664,6 +668,38 @@ public class MainSEF {
 		}	         
 	}
 
+	private void autoOrdering(){
+			System.out.println("1. View current Auto Ordering");
+			System.out.println("2. Set up new Auto Order");
+			System.out.println("3. Remove an Auto Order");
+			String input = scn.nextLine();
+			while (input.equals("")) {
+				System.out.print("Select Option: " );
+				input = scn.nextLine();		
+			}
+			int choice = Integer.parseInt(input);
+			System.out.println();
+			int i = 0;
+			int productID;
+			switch(choice) {
+			case 1: //view current auto order
+				break;
+			case 2: //set up new auto order
+				System.out.println("Enter Product ID");
+				productID = Integer.parseInt(scn.nextLine());
+				System.out.println("Enter amount it should top up to");
+				break;
+			case 3: //remove auto order
+				System.out.println("Enter Product ID");
+				productID = Integer.parseInt(scn.nextLine());
+				break;
+			default:
+				System.out.println("Please select a valid choice!\n");
+				displayManagerMenu();
+				break;
+			}
+		}
+	
 	// ***** MANAGER METHOD *****
 	private void manageProducts() {
 		System.out.println("1. Add Product");
@@ -674,8 +710,7 @@ public class MainSEF {
 		System.out.println("6. Remove a Sale");
 		System.out.println("7. Set a Bulk Discount");
 		System.out.println("8. Remove a Bulk Discount");
-		System.out.println("9. Auto Ordering");
-		System.out.println("10. Return to menu..");
+		System.out.println("9. Return to menu..");
 		System.out.print("Select Option: " );
 		String input = scn.nextLine();
 		while (input.equals("")) {
@@ -805,11 +840,7 @@ public class MainSEF {
 				i++;
 			}
 			break;
-		case 9://auto ordering
-			System.out.println("Auto Ordering TODO");
-			break;
-
-		case 10:
+		case 9:
 			backToMenu();
 			break;
 		default:
