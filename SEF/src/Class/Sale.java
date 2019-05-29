@@ -47,7 +47,7 @@ public class Sale {
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
-		report.recordSale(person, individualPrice);
+		//report.recordSale(person, individualPrice);
 		return person;
 	}
 
