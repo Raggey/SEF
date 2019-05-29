@@ -604,17 +604,25 @@ public class MainSEF {
 		// start a new 
 		System.out.println("TODO");
 	}
+	// ***** MANAGER METHOD *****
 	public void displayManagerMenu()
 	{
 
 		System.out.println("***** MANAGER MENU *****");
 		System.out.println("1. Display Report Menu");
-
 		System.out.println("2. Manage Staff");
 		System.out.println("3. Manage Sales");
+		System.out.println("4. Logout (Re-Login)\n");
+		System.out.println("5. Quit\n");
 
 		System.out.print("Select Option: " );
-		int choice = Integer.parseInt(scn.nextLine());
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+
+		int choice = Integer.parseInt(input);
 		System.out.println();
 		switch(choice) {
 
@@ -630,6 +638,12 @@ public class MainSEF {
 			manageProducts();
 			backToMenu();
 			break;
+		case 4:
+			reLogin();
+			break;
+		case 5:
+			quit();
+			break;
 
 		default:
 			System.out.println("Please select a valid choice!\n");
@@ -639,7 +653,7 @@ public class MainSEF {
 		}	         
 	}
 
-
+	// ***** MANAGER METHOD *****
 	private void manageProducts() {
 		System.out.println("1. Add Product");
 		System.out.println("2. Change Product Name");
@@ -650,8 +664,15 @@ public class MainSEF {
 		System.out.println("7. Set a Bulk Discount");
 		System.out.println("8. Remove a Bulk Discount");
 		System.out.println("9. Auto Ordering");
+		System.out.println("10. Return to menu..");
 		System.out.print("Select Option: " );
-		int choice = Integer.parseInt(scn.nextLine());
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+
+		int choice = Integer.parseInt(input);
 		System.out.println();
 		int i = 0;
 		int productID;
@@ -774,6 +795,11 @@ public class MainSEF {
 			}
 			break;
 		case 9://auto ordering
+			System.out.println("Auto Ordering TODO");
+			break;
+
+		case 10:
+			backToMenu();
 			break;
 		default:
 			System.out.println("Please select a valid choice!\n");
@@ -785,14 +811,22 @@ public class MainSEF {
 
 	}
 
-
+	// ***** MANAGER METHOD *****
 	private void manageStaff() {
 		System.out.println("1. Add Staff");
 		System.out.println("2. Change Staff Name");
 		System.out.println("3. Change Staff Password");
 		System.out.println("4. Change Staff Level");
+		System.out.println("5. Return to menu..");
+
 		System.out.print("Select Option: " );
-		int choice = Integer.parseInt(scn.nextLine());
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+
+		int choice = Integer.parseInt(input);
 		System.out.println();
 		int i = 0;
 		String staffID;
@@ -860,6 +894,9 @@ public class MainSEF {
 				i++;
 			}
 			break;
+		case 5: 
+			backToMenu();
+			break;
 		default:
 			System.out.println("Please select a valid choice!\n");
 			displayManagerMenu();
@@ -867,14 +904,52 @@ public class MainSEF {
 
 		}	
 
-	}
+	''
 
-
+	// ***** MANAGER METHOD *****
 	private void displayReportMenu() {
-		System.out.println("*** REPORT MENU ***");
-		System.out.println("1. ...REPORT");
-		System.out.println("1. ...REPORT");
-		System.out.println("1. ...REPORT");
+		System.out.println("***** REPORT MENU *****" );
+		System.out.println("1. View |Fastest Moving Item (base on value)| Report");
+		System.out.println("2. View |Time Specific| Report");
+		System.out.println("3. View |Location| Report");
+		System.out.println("4. View |Most Popular Items| Report");
+		System.out.println("5. View |Supply| Report");
+		System.out.println("6. Return to menu..");
 
+		System.out.print("Select Option: ");
+
+		String input = scn.nextLine();
+		while (input.equals("")) {
+			System.out.print("Select Option: " );
+			input = scn.nextLine();
+		}
+
+		int choice = Integer.parseInt(input);
+		System.out.println();
+		switch(choice) {
+
+		case 1:
+			System.out.println("TODO");
+			break;
+		case 2: 
+			System.out.println("TODO");
+			break;
+		case 3: 
+			System.out.println("TODO");
+			break;
+		case 4: 
+			System.out.println("TODO");
+			break;
+		case 5: 
+			System.out.println("TODO");
+			break;
+		case 6: 
+			backToMenu();
+			break;
+		default:
+			System.out.println("Please select a valid choice!\n");
+			displayReportMenu();
+			break;
+		}
 	}
 }
