@@ -110,6 +110,10 @@ public class Product {
 		this.numberInCart = numberInCart;
 	}
 
+	public int getConsumption()	{
+		return consumption;
+	}
+	
 	public void addConsumption(int consumption)
 	{
 		this.consumption += consumption;
