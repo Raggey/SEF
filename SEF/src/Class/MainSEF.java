@@ -15,7 +15,7 @@ public class MainSEF {
 	LinkedList<Employee> employees = new LinkedList<Employee>();
 	LinkedList<Product> productList = new LinkedList<Product>();
 	LinkedList<Customer> customers = new LinkedList<Customer>();
-	IOmachine iom = new IOmachine();
+//	IOmachine iom = new IOmachine();
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
 
