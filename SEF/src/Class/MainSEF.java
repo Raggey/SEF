@@ -35,16 +35,16 @@ public class MainSEF {
 
 	private void demoInitialise() //Used for DEMO
 	{
-		Product apple = new Product(1, "Apple", 0.89, 100);
-		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100);
-		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100);
-		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100);
-		Product notebook = new Product(5, "A5 Notebook", 0.79, 100);
-		Product milk = new Product(6, "Pure milk", 2, 100);
-		Product bread = new Product(7, "Sandwich bread", 0.99, 100);
-		Product chicken = new Product(8, "Drumstick", 9, 100);
-		Product broccoli = new Product(9, "Broccoli", 0.69, 100);
-		Product pasta = new Product(10, "Delicious pasta", 0.89, 100);
+		Product apple = new Product(1, "Apple", 0.89, 100,"sup1");
+		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100,"sup2");
+		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100,"sup2");
+		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100,"sup3");
+		Product notebook = new Product(5, "A5 Notebook", 0.79, 100,"sup3");
+		Product milk = new Product(6, "Pure milk", 2, 100,"sup2");
+		Product bread = new Product(7, "Sandwich bread", 0.99, 100,"sup2");
+		Product chicken = new Product(8, "Drumstick", 9, 100,"sup1");
+		Product broccoli = new Product(9, "Broccoli", 0.69, 100,"sup2");
+		Product pasta = new Product(10, "Delicious pasta", 0.89, 100,"sup2");
 
 
 		productList.add(apple);
@@ -688,6 +688,7 @@ public class MainSEF {
 				System.out.println("Enter Product ID");
 				productID = Integer.parseInt(scn.nextLine());
 				System.out.println("Enter amount it should top up to");
+				
 				break;
 			case 3: //remove auto order
 				System.out.println("Enter Product ID");
@@ -736,12 +737,14 @@ public class MainSEF {
 
 			System.out.println("Enter Stock Level");
 			int productStock = Integer.parseInt(scn.nextLine());
-
+			
+			System.out.println("Enter Supplier ID");
+			String supplierID = scn.nextLine();
 			i = 0;
 			while(productList.get(i) != null){
 				i++;
 			}
-			productList.add(new Product(productID, productName , productPrice, productStock));
+			productList.add(new Product(productID, productName , productPrice, productStock, supplierID));
 			System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
 			break;
 		case 2: //Change Product Name
