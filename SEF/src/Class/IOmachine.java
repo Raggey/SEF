@@ -2,6 +2,7 @@ package Class;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.Set;
 
 public class IOmachine {
 	
+	private File file;
 	private FileWriter writer = null;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
@@ -35,17 +37,85 @@ public class IOmachine {
 	 * a Manager object or Manager id.
 	 * */
 	
+	private void replaceSelected(String replaceWith, int number) {
+	    try {
+	        // input the file content to the StringBuffer "input"
+	        BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+	        StringBuffer inputBuffer = new StringBuffer();
+	        String line;
+
+	        while ((line = file.readLine()) != null) {
+	            inputBuffer.append(line);
+	            inputBuffer.append('\n');
+	        }
+	        file.close();
+	        String inputStr = inputBuffer.toString();
+	        String productConList[] = inputStr.split("\n");
+	        String singleLine[];
+	        inputStr = "";
+	        for (int i = 0; i != productConList.length; i++)
+	        {
+	        	if (productConList[i].contains(replaceWith))	{
+	        		singleLine = productConList[i].split(",");
+	        		productConList[i] = productConList[i].replace(singleLine[3], 
+	        				String.valueOf(Integer.parseInt(singleLine[3]) + number));
+	        	}
+	        	inputStr += productConList[i] + "\n";
+	        }
+	        System.out.println(inputStr); // display the original file for debugging
+
+	        // logic to replace lines in the string (could use regex here to be generic)
+	        inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
+
+	        // display the new file for debugging
+	        System.out.println("----------------------------------\n" + inputStr);
+
+	        // write the new string with the replaced line OVER the same file
+	        FileOutputStream fileOut = new FileOutputStream("Product_Consumption.txt");
+	        fileOut.write(inputStr.getBytes());
+	        fileOut.close();
+
+	    } catch (Exception e) {
+	        System.out.println("Problem reading file.");
+	    }
+	}
+	
 	public LinkedList<Product> readInProducts()	{
-		sc = new Scanner("../../file/Product.txt");
+		sc = new Scanner("Product.txt");
 		while (sc.hasNextLine())	{
 			String productIfo[] = sc.nextLine().split(",");
-			
+			// Incomplete
+			// Still need deeper understand about the values
+		}
+	}
+	
+	public void recordConsumption(LinkedList<Product> allProducts)	{
+		String replaceWith = "";
+		File temp = new File("Product_Consumption.txt");
+		if(temp.createNewFile()){
+			for (Product element : allProducts)	{
+				replaceWith += element.getProductId() + "," + element.getProductName() + ","
+						+ String.valueOf(element.getConsumption() + "\n");
+			}
+			try {
+				writer = new FileWriter(temp);
+	            writer.write(replaceWith);
+	            writer.close();
+			} catch (IOException e) {
+				System.out.println("Fail to create the file!");
+			}
+        }
+		else	{
+			for (Product element : allProducts)	{
+				replaceWith += element.getProductId() + "," + element.getProductName() + ",";
+				replaceSelected(replaceWith, element.getConsumption());
+			}
 		}
 	}
 	
 	public void recordSale(Customer customer, LinkedList<Double> report)	{
 		//need to be test
-		String filePath = "../../file/Sale_Record.txt";
+		String filePath = "Sale_Record.txt";
 		String record = recordCounter + ",";
 		for(int i = 0; customer.getCart()[i] != null || i != 50; i++)	{
 			record += "["+ customer.getCart()[i].getProductName() + "," 
@@ -80,8 +150,10 @@ public class IOmachine {
 		// Go through products and calculate their profits by using consumption x price
 		// List from top to bottom
 		// require: productArray
+		String fileName = "Most_Revenue_Product_Report_" + date.getDay() + date.getMonth() + date.getYear() +".txt";
 		try {
-			writer = new FileWriter("file/Most_Revenue_Product_Report.txt");
+			file = new File(fileName);
+			writer = new FileWriter(file);
 		} catch (IOException e) {
 			System.out.println("Fail to create the Report!");
 		}
@@ -179,18 +251,46 @@ public class IOmachine {
 		
 	}
 	
-	public void getItemOPReport(Employee manager, SystemImpl system) {
+	public void getItemOPReport(Employee manager) {
 		// Sort by stock
 		try {
-			report = new File("Item_Order_Priority_Report.txt");
-			writer = new FileWriter(report);
+			String fileName = "Item_Order_Priority_Report_" + date.getDay() + date.getMonth() + date.getYear() +".txt";
+			file = new File(fileName);
+			writer = new FileWriter(file);
 		} catch (IOException e) {
 			System.out.println("Fail to create the Report!");
 		}
 		
 		try {
+			BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+	        StringBuffer inputBuffer = new StringBuffer();
+	        String line;
+
+	        while ((line = file.readLine()) != null) {
+	            inputBuffer.append(line);
+	            inputBuffer.append('\n');
+	        }
+	        file.close();
+	        HashMap<Integer, String> sortProduct;
+	        String inputStr = inputBuffer.toString();
+	        String[] productConList = inputStr.split("\n");
+	        String singleLine[];
+	        inputStr = "";
+	        for (int i = 0; i != productConList.length; i++)
+	        {
+	        	singleLine = productConList[i].split(",");
+	        	sortProduct.put(Integer.parseInt(singleLine[3]), productConList[i]);
+//	        	if (productConList[i].contains(replaceWith))	{
+//	        		productConList[i] = productConList[i].replace(singleLine[3], 
+//	        				String.valueOf(Integer.parseInt(singleLine[3]) + number));
+//
+//	        	inputStr += productConList[i] + "\n";
+	        }
+	        //sortProduct.keySet().toArray();
+	        
 			writer.write("Item Order Priority Report\n");
 			writer.write("Name\tID\tConsumption");
+			
 			for (Product element : system.mostPopularItem())
 			{
 				writer.write(element.getName() + "\t" + 
