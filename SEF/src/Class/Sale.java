@@ -39,11 +39,7 @@ public class Sale {
 		System.out.println("You have spent " + totalPrice + "\n");
 		
 		while(productCart[i] != null){
-			System.out.println("Printing Stock for Demo");
-			System.out.println("The Stock was " + productCart[i].getProductStock());  //comment out later
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
-			
-			System.out.println("The Stock is now " + productCart[i].getProductStock() + "\n"); //comment out later
 			productCart[i].addConsumption(productCart[i].getNumberInCart());
 			i++;
 		}
