@@ -723,6 +723,9 @@ public class MainSEF {
 			}
 			orders[i][0] = productID;
 			orders[i][1] = newAmount;
+			String name = productList.get(i).getProductName();
+			String supplier = productList.get(i).getSupplierName();		
+			System.out.println("Product " + name + " will top up to " + orders[i][1] +  " from " + supplier);
 			break;
 		case 3: //change auto order
 			System.out.println("Enter Product ID");
