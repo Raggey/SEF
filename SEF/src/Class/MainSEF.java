@@ -696,6 +696,7 @@ public class MainSEF {
 		System.out.println("1. View current Auto Ordering");
 		System.out.println("2. Set up new Auto Order");
 		System.out.println("3. Change an Auto Order");
+		System.out.println("4. Return to menu..");
 		String input = scn.nextLine();
 		while (input.equals("")) {
 			System.out.print("Select Option: " );
@@ -707,11 +708,13 @@ public class MainSEF {
 		int productID;
 		switch(choice) {
 		case 1: //view current auto order
-			while(orders[i] != null){
-				String name = productList.get(i).getProductName();
-				String supplier = productList.get(i).getSupplierName();		
-				System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
-				i++;
+			while(orders[i][0] != 0){
+				if(orders[i][1] != 0){
+					String name = productList.get(i).getProductName();
+					String supplier = productList.get(i).getSupplierName();		
+					System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
+				}
+			i++;
 			}
 			break;
 		case 2: //set up new auto order
@@ -732,11 +735,15 @@ public class MainSEF {
 			System.out.println("Enter Product ID");
 			productID = Integer.parseInt(scn.nextLine());
 			break;
+		case 4:
+			backToMenu();
+			break;
 		default:
 			System.out.println("Please select a valid choice!\n");
 			displayManagerMenu();
 			break;
 		}
+		backToMenu();
 	}
 	
 	// ***** MANAGER METHOD *****
