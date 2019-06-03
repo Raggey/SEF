@@ -1,4 +1,5 @@
 package Class;
+import java.io.IOException;
 import java.util.*;
 
 public class MainSEF {
@@ -965,6 +966,11 @@ public class MainSEF {
 			int staffLevel = Integer.parseInt(scn.nextLine());
 
 			employees.add(new Employee(staffID, staffName ,staffPassword, staffLevel));
+			try {
+				iom.saveEmployees(employees);
+			} catch (IOException e) {
+				System.out.println("Failed to load from menu.");
+			}
 			System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
 			break;
 		case 2: //Change Staff Name
@@ -978,6 +984,11 @@ public class MainSEF {
 					eaEmployee.SetName(changeName);					
 				}
 			}
+			try {
+				iom.saveEmployees(employees);
+			} catch (IOException e) {
+				System.out.println("Failed to load from menu.");
+			}
 			break;
 		case 3: //Change Staff Password
 			//needs error prevention
@@ -990,6 +1001,11 @@ public class MainSEF {
 					eaEmployee.SetPassword(changePassword);					
 				}
 			}
+			try {
+				iom.saveEmployees(employees);
+			} catch (IOException e) {
+				System.out.println("Failed to load from menu.");
+			}
 			break;
 		case 4: //Change Staff Level
 			//needs error prevention
@@ -1001,6 +1017,11 @@ public class MainSEF {
 				if (eaEmployee.GetID().equals(staffID)) {
 					eaEmployee.SetLevel(changeLevel);					
 				}
+			}
+			try {
+				iom.saveEmployees(employees);
+			} catch (IOException e) {
+				System.out.println("Failed to load from menu.");
 			}
 			break;
 		case 5: 

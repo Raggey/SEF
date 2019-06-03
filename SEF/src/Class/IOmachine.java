@@ -42,7 +42,13 @@ public class IOmachine {
 		// kind 3 is sth...??
 		try {
 			// input the file content to the StringBuffer "input"
-			BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+			BufferedReader file = null;
+			if (kind == 1)	{
+				file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+			}
+			else if (kind == 2)	{
+				file = new BufferedReader(new FileReader("Employees.txt"));
+			}
 			StringBuffer inputBuffer = new StringBuffer();
 			String line;
 
@@ -65,6 +71,7 @@ public class IOmachine {
 					}
 					else if (kind == 2)	{
 						list[i] = list[i].replace(replaceWith, stuff);
+						System.out.println(list[i]);
 					}
 					else if (kind == 3)	{
 						//
@@ -74,8 +81,8 @@ public class IOmachine {
 			}
 			System.out.println(inputStr); // display the original file for debugging
 
-			// logic to replace lines in the string (could use regex here to be generic)
-			inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
+//			// logic to replace lines in the string (could use regex here to be generic)
+//			inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
 
 			// display the new file for debugging
 			System.out.println("----------------------------------\n" + inputStr);
@@ -156,7 +163,7 @@ public class IOmachine {
 	// - - - - - - - - - - LOADING IN PRODUCTS - - - - - - - - - -
 	public LinkedList<Product> readInProducts()	{
 		try {
-			File fileName = new File("Products.txt");
+			File fileName = new File(productFile);
 			LinkedList<Product> products = new LinkedList<Product>();
 			String productInfo[];
 			Product product = null;
@@ -181,24 +188,28 @@ public class IOmachine {
 
 	// - - - - - - - - - - SAVE EMPLOYEE - - - - - - - - - -
 	public void saveEmployees(LinkedList<Employee> employees) throws IOException {
-		sc = new Scanner(employeeFile);
-		String current = "";
-		while(sc.hasNextLine())	{
-			current = sc.nextLine();
-			for(Employee element : employees)	{
-				if (element.GetID() == current.split(",")[0])	{
-					replaceSelected(current, element.GetID() + "," + element.GetName() + ","
-							+ element.GetPassword() + "," + element.GetLevel(), 2);
-				}
-				else {
-					writer = new FileWriter(employeeFile, true);
-					writer.write(element.GetID() + "," + element.GetName() + ","
-								+ element.GetPassword() + "," + element.GetLevel());
-					writer.close();
+		try {
+			sc = new Scanner(employeeFile);
+			String current = "";
+			while(sc.hasNextLine())	{
+				current = sc.nextLine();
+				for(Employee element : employees)	{
+					if (element.GetID() == current.split(",")[0])	{
+						replaceSelected(current, element.GetID() + "," + element.GetName() + ","
+								+ element.GetPassword() + "," + element.GetLevel(), 2);
+					}
+					else {
+						writer = new FileWriter(employeeFile, true);
+						writer.write(element.GetID() + "," + element.GetName() + ","
+									+ element.GetPassword() + "," + element.GetLevel());
+						writer.close();
+					}
 				}
 			}
 		}
-		
+		catch(IOException e)	{
+			System.out.println("Problem reading file.");
+		}
 	}
 	// - - - - - - - - - - SAVE PRODUCTS - - - - - - - - - -
 	public void saveProducts() {
