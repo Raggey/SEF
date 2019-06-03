@@ -23,7 +23,10 @@ import java.util.*;
 
 
 public class IOmachine {
-
+	
+	private String customerFile = "Customer.txt";
+	private String employeeFile = "Employees.txt";
+	private String productFile = "ProductList.txt";
 	private File file;
 	private FileWriter writer = null;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -37,49 +40,50 @@ public class IOmachine {
 	 * a Manager object or Manager id.
 	 * */
 
-		private void replaceSelected(String replaceWith, int number) {
-		    try {
-		        // input the file content to the StringBuffer "input"
-		        BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
-		        StringBuffer inputBuffer = new StringBuffer();
-		        String line;
-	
-		        while ((line = file.readLine()) != null) {
-		            inputBuffer.append(line);
-		            inputBuffer.append('\n');
-		        }
-		        file.close();
-		        String inputStr = inputBuffer.toString();
-		        String productConList[] = inputStr.split("\n");
-		        String singleLine[];
-		        inputStr = "";
-		        for (int i = 0; i != productConList.length; i++)
-		        {
-		        	if (productConList[i].contains(replaceWith))	{
-		        		singleLine = productConList[i].split(",");
-		        		productConList[i] = productConList[i].replace(singleLine[3], 
-		        				String.valueOf(Integer.parseInt(singleLine[3]) + number));
-		        	}
-		        	inputStr += productConList[i] + "\n";
-		        }
-		        System.out.println(inputStr); // display the original file for debugging
-	
-		        // logic to replace lines in the string (could use regex here to be generic)
-		        inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
-	
-		        // display the new file for debugging
-		        System.out.println("----------------------------------\n" + inputStr);
-	
-		        // write the new string with the replaced line OVER the same file
-		        FileOutputStream fileOut = new FileOutputStream("Product_Consumption.txt");
-		        fileOut.write(inputStr.getBytes());
-		        fileOut.close();
-	
-		    } catch (Exception e) {
-		        System.out.println("Problem reading file.");
-		    }
+	private void replaceSelected(String replaceWith, int number) {
+		try {
+			// input the file content to the StringBuffer "input"
+			BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+			StringBuffer inputBuffer = new StringBuffer();
+			String line;
+
+			while ((line = file.readLine()) != null) {
+				inputBuffer.append(line);
+				inputBuffer.append('\n');
+			}
+			file.close();
+			String inputStr = inputBuffer.toString();
+			String productConList[] = inputStr.split("\n");
+			String singleLine[];
+			inputStr = "";
+			for (int i = 0; i != productConList.length; i++)
+			{
+				if (productConList[i].contains(replaceWith))	{
+					singleLine = productConList[i].split(",");
+					productConList[i] = productConList[i].replace(singleLine[3], 
+							String.valueOf(Integer.parseInt(singleLine[3]) + number));
+				}
+				inputStr += productConList[i] + "\n";
+			}
+			System.out.println(inputStr); // display the original file for debugging
+
+			// logic to replace lines in the string (could use regex here to be generic)
+			inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
+
+			// display the new file for debugging
+			System.out.println("----------------------------------\n" + inputStr);
+
+			// write the new string with the replaced line OVER the same file
+			FileOutputStream fileOut = new FileOutputStream("Product_Consumption.txt");
+			fileOut.write(inputStr.getBytes());
+			fileOut.close();
+
+		} catch (Exception e) {
+			System.out.println("Problem reading file.");
 		}
-		
+	}
+
+	// - - - - - - - - - - LOADING IN EMPLOYEE - - - - - - - - - -
 	public LinkedList<Employee> readInEmployee()	{
 		try {
 			File fileName = new File("Employees.txt");
@@ -96,18 +100,20 @@ public class IOmachine {
 			return employees;
 		}
 		catch (Exception e) {
-			System.out.println("Problem reading file.");
+			System.out.println("Error in reading file..");
 			return null;
 		}
 	}
 	
+	
+	// - - - - - - - - - - LOADING IN CUSTOMER - - - - - - - - - -
 	public LinkedList<Customer> readInCustomer()	{
 		try {
-			File fileName = new File("Customers.txt");
+			file = new File(customerFile);
 			LinkedList<Customer> customers = new LinkedList<Customer>();
 			String customerInfo[];
 			Customer customer = null;
-			sc = new Scanner(fileName);
+			sc = new Scanner(file);
 			while (sc.hasNextLine())	{
 				customerInfo = sc.nextLine().split(",");
 				customer = new Customer(customerInfo[0],customerInfo[1],Integer.parseInt(customerInfo[4]));
@@ -124,96 +130,115 @@ public class IOmachine {
 			return customers;
 		}
 		catch (Exception e) {
+			System.out.println("Error in reading file..");
+			return null;
+		}
+	}
+	// - - - - - - - - - - SAVE CUSTOMERS - - - - - - - - - -
+//	public void saveCustomer() {
+//		/* C0001,Craig,36,5,3171,5,1234,1 */
+//		/* ID| NAME| TOTALMONEYSPENT | POINTS| POSTCODE | TIMESVISITED | CREDITCARD NO. | SUBSCRIPTION */
+//		MainSEF main = new MainSEF();
+//		LinkedList<Customer> customers = new LinkedList<Customer>();
+//		customers = main.getCustomers();
+//	}
+
+	
+	// - - - - - - - - - - LOADING IN PRODUCTS - - - - - - - - - -
+	public LinkedList<Product> readInProducts()	{
+		try {
+			File fileName = new File("Products.txt");
+			LinkedList<Product> products = new LinkedList<Product>();
+			String productInfo[];
+			Product product = null;
+			sc = new Scanner(fileName);
+			while (sc.hasNextLine())	{
+				productInfo = sc.nextLine().split(",");
+				product = new Product(Integer.parseInt(productInfo[0]),productInfo[1],Double.parseDouble(productInfo[5]),
+										Integer.parseInt(productInfo[3]), productInfo[8]);
+				product.setBulkAmount(Integer.parseInt(productInfo[6]));
+				product.setbulkDiscount(Double.parseDouble(productInfo[7]));
+				product.setDiscountPrice(Double.parseDouble(productInfo[4]));
+				product.setProductDetails(productInfo[2]);
+				products.add(product);
+			}
+			return products;
+		}
+		catch (Exception e) {
 			System.out.println("Problem reading file.");
 			return null;
 		}
 	}
-		
-		public LinkedList<Product> readInProducts()	{
-			try {
-				File fileName = new File("Products.txt");
-				LinkedList<Product> products = new LinkedList<Product>();
-				String productInfo[];
-				Product product = null;
-				sc = new Scanner(fileName);
-				while (sc.hasNextLine())	{
-					productInfo = sc.nextLine().split(",");
-					product = new Product(Integer.parseInt(productInfo[0]),productInfo[1],Double.parseDouble(productInfo[5]),
-											Integer.parseInt(productInfo[3]), productInfo[8]);
-					product.setBulkAmount(Integer.parseInt(productInfo[6]));
-					product.setbulkDiscount(Double.parseDouble(productInfo[7]));
-					product.setDiscountPrice(Double.parseDouble(productInfo[4]));
-					product.setProductDetails(productInfo[2]);
-					products.add(product);
-				}
-				return products;
+
+	// - - - - - - - - - - SAVE EMPLOYEE - - - - - - - - - -
+	public void saveEmployees() {
+
+	}
+	// - - - - - - - - - - SAVE PRODUCTS - - - - - - - - - -
+	public void saveProducts() {
+
+	}
+
+	public void recordConsumption(LinkedList<Product> allProducts) throws IOException	{
+		String replaceWith = "";
+		File temp = new File("Product_Consumption.txt");
+		if(temp.createNewFile()){
+			for (Product element : allProducts)	{
+				replaceWith += element.getProductId() + "," + element.getProductName() + ","
+						+ String.valueOf(element.getConsumption() + "\n");
 			}
-			catch (Exception e) {
-				System.out.println("Problem reading file.");
-				return null;
+			try {
+				writer = new FileWriter(temp);
+				writer.write(replaceWith);
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Fail to create the file!");
 			}
 		}
-		
-		public void recordConsumption(LinkedList<Product> allProducts) throws IOException	{
-			String replaceWith = "";
-			File temp = new File("Product_Consumption.txt");
+		else	{
+			for (Product element : allProducts)	{
+				replaceWith += element.getProductId() + "," + element.getProductName() + ",";
+				replaceSelected(replaceWith, element.getConsumption());
+			}
+		}
+	}
+
+	public void recordSale(Customer customer, LinkedList<Double> report)	{
+		//need to be test
+		String filePath = "Sale_Record.txt";
+		String record = recordCounter + "," + "[";
+		for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
+			System.out.println(i);
+			record += customer.getCart()[i].getProductName() + "," 
+					+ customer.getCart()[i].getNumberInCart() + ","
+					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ",";
+		}
+		record += "]" + customer.getID() + "," + dateFormat.format(date);
+		File temp = new File(filePath);
+		try {
 			if(temp.createNewFile()){
-				for (Product element : allProducts)	{
-					replaceWith += element.getProductId() + "," + element.getProductName() + ","
-							+ String.valueOf(element.getConsumption() + "\n");
-				}
 				try {
 					writer = new FileWriter(temp);
-		            writer.write(replaceWith);
-		            writer.close();
+					writer.write(record);
+					writer.close();
 				} catch (IOException e) {
 					System.out.println("Fail to create the file!");
 				}
-	        }
+			}
 			else	{
-				for (Product element : allProducts)	{
-					replaceWith += element.getProductId() + "," + element.getProductName() + ",";
-					replaceSelected(replaceWith, element.getConsumption());
+				try {
+					writer = new FileWriter(temp, true);
+					writer.write("\n");
+					writer.write(record);
+					writer.close();
+				} catch (IOException e) {
+					System.out.println("Fail to write file!");
 				}
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-		public void recordSale(Customer customer, LinkedList<Double> report)	{
-			//need to be test
-			String filePath = "Sale_Record.txt";
-			String record = recordCounter + "," + "[";
-			for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
-				System.out.println(i);
-				record += customer.getCart()[i].getProductName() + "," 
-						+ customer.getCart()[i].getNumberInCart() + ","
-						+ report.get(i)/customer.getCart()[i].getNumberInCart() + ",";
-			}
-			record += "]" + customer.getID() + "," + dateFormat.format(date);
-			File temp = new File(filePath);
-			try {
-				if(temp.createNewFile()){
-					try {
-						writer = new FileWriter(temp);
-				        writer.write(record);
-				        writer.close();
-					} catch (IOException e) {
-						System.out.println("Fail to create the file!");
-					}
-				}
-				else	{
-					try {
-						writer = new FileWriter(temp, true);
-						writer.write("\n");
-						writer.write(record);
-						writer.close();
-					} catch (IOException e) {
-						System.out.println("Fail to write file!");
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	}
 	//	
 	//	
 	//	public void getRevenuePRReport(Employee manager, LinkedList<Product> products) {
