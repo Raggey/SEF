@@ -24,9 +24,9 @@ import java.util.*;
 
 public class IOmachine {
 	
-	private String customerFile = "Customer.txt";
+	private String customerFile = "Customers.txt";
 	private String employeeFile = "Employees.txt";
-	private String productFile = "ProductList.txt";
+	private String productFile = "Products.txt";
 	private File file;
 	private FileWriter writer = null;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -206,18 +206,21 @@ public class IOmachine {
 	public void recordSale(Customer customer, LinkedList<Double> report)	{
 		//need to be test
 		String filePath = "Sale_Record.txt";
-		String record = recordCounter + "," + "[";
-		for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
-			System.out.println(i);
-			record += customer.getCart()[i].getProductName() + "," 
-					+ customer.getCart()[i].getNumberInCart() + ","
-					+ report.get(i)/customer.getCart()[i].getNumberInCart() + ",";
-		}
-		record += "]" + customer.getID() + "," + dateFormat.format(date);
 		File temp = new File(filePath);
 		try {
 			if(temp.createNewFile()){
 				try {
+					String record = "";
+					for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
+						System.out.println(i);
+						record += "0," + customer.getCart()[i].getProductName() + "," 
+								+ customer.getCart()[i].getNumberInCart() + ","
+								+ report.get(i)/customer.getCart()[i].getNumberInCart() + "," 
+								+ customer.getID() + "," + dateFormat.format(date);
+						if(i + 1 != 50 && customer.getCart()[i + 1] != null)	{
+							record += "\n";
+						}
+					}
 					writer = new FileWriter(temp);
 					writer.write(record);
 					writer.close();
@@ -227,6 +230,23 @@ public class IOmachine {
 			}
 			else	{
 				try {
+					String record = "";
+					sc = new Scanner(temp);
+					while(sc.hasNextLine())	{
+						System.out.println();
+						 recordCounter = Integer.parseInt(sc.nextLine().split(",")[0]) + 1;
+					}
+					for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
+						System.out.println(i);
+						
+						record += recordCounter+ "," + customer.getCart()[i].getProductName() + "," 
+								+ customer.getCart()[i].getNumberInCart() + ","
+								+ report.get(i)/customer.getCart()[i].getNumberInCart() + "," 
+								+ customer.getID() + "," + dateFormat.format(date);
+						if(i + 1 != 50 && customer.getCart()[i + 1] != null)	{
+							record += "\n";
+						}
+					}
 					writer = new FileWriter(temp, true);
 					writer.write("\n");
 					writer.write(record);
@@ -235,6 +255,7 @@ public class IOmachine {
 					System.out.println("Fail to write file!");
 				}
 			}
+			recordCounter++;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
