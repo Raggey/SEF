@@ -1,0 +1,15 @@
+0,Apple,2,0.89,C0001,03/06/2019
+0,ANZAC biscuits,2,3.99,C0001,03/06/2019
+0,Eclipse Spearmint Suger,1,1.99,C0001,03/06/2019
+0,Apple,1,0.89,C0002,03/06/2019
+0,ANZAC biscuits,1,3.99,C0002,03/06/2019
+0,Eclipse Spearmint Suger,1,1.99,C0002,03/06/2019
+0,Four colours Ball pen,1,1.5,C0002,03/06/2019
+1,Apple,1,0.89,C0003,03/06/2019
+1,ANZAC biscuits,1,3.99,C0003,03/06/2019
+1,Eclipse Spearmint Suger,1,1.99,C0003,03/06/2019
+2,Apple,1,0.89,C0001,03/06/2019
+2,ANZAC biscuits,1,3.99,C0001,03/06/2019
+2,Eclipse Spearmint Suger,1,1.99,C0001,03/06/2019
+2,Four colours Ball pen,1,1.5,C0001,03/06/2019
+2,A5 Notebook,1,0.79,C0001,03/06/2019
