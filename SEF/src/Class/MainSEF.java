@@ -243,8 +243,9 @@ public class MainSEF {
 		System.out.println("2. View Cart" );
 		System.out.println("3. Toggle Subscription");
 		System.out.println("4. Check Out");
+		System.out.println("5. Search product by product Id");
 		System.out.println();
-		System.out.println("5. Quit");
+		System.out.println("6. Quit");
 		System.out.println();
 
 
@@ -280,7 +281,39 @@ public class MainSEF {
 			//3. checkOut
 			checkOut();
 			break;
-		case 5: //4. Quit
+		case 5: //5. Search product by Id
+			System.out.println("\nPlease enter the product Id:");
+			System.out.println("\n");
+			boolean correct = false;
+			while(!correct)		{
+				try {
+					Product resultProduct = searchProductById(scn.nextInt());
+					if (resultProduct != null)	{
+						System.out.println("Here's the product you are looking for:\n");
+						System.out.println(resultProduct.getProductName() + "\t"
+											+ resultProduct.getProductPrice() + "\t");
+						System.out.println("\nDo you want to add this product into your cart?(Y to add to your cart)");
+						scn = new Scanner(System.in);
+						String text = scn.nextLine();
+						if (text.toUpperCase().equals("Y"))	{
+							currentCustomer.addProduct(resultProduct);
+							System.out.println("Add successfully.");
+						}
+						correct = true;
+					}
+					else	{
+						System.out.println("Sorry, this item doesn't exist.");
+						correct = true;
+					}
+				}
+				catch(NumberFormatException e) {
+					System.out.println("This is not a product id, the product id should be a series of number.");
+				}
+			}
+			backToMenu();
+			break;
+		
+		case 6:
 			quit();
 
 
@@ -419,6 +452,17 @@ public class MainSEF {
 		}
 		System.out.println(" " + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n');
 		login();
+	}
+	
+	private Product searchProductById(int productId)	{
+		Product product = null;
+		for (Product element : productList)	{
+			if (productId == element.getProductId())	{
+				product = element;
+				return product;
+			}
+		}
+		return null;
 	}
 
 	// ***** WAREHOUSE STAFF METHOD *****
