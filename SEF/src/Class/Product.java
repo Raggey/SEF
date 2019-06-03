@@ -32,11 +32,11 @@ public class Product {
 	public int getProductId() {
 		return productId;
 	}
-	
+
 	public String getSupplierName(){
 		return supplierName;
 	}
-	
+
 	/*If required to get productName based on given ID */
 	public String getProductName() {
 		return productName;
@@ -45,7 +45,7 @@ public class Product {
 	public String getProductDetails() {
 		return productDetails;
 	}
-	
+
 	public void setProductName(String newName){
 		productName = newName;
 	}
@@ -69,7 +69,7 @@ public class Product {
 		this.bulkDiscount = discount;
 	}
 
-	public double getBulkAmount() {
+	public int getBulkAmount() {
 		return bulkAmount;
 	}
 
@@ -89,10 +89,11 @@ public class Product {
 			System.out.println("Error: Input must be between 0 and 1");
 		}
 	}
-	
-	public double getDiscountAmount() {
-		return this.productDiscount;
-	}
+	// Daniel Made. not needed for now
+	//	public double getDiscountAmount() {
+	//		return this.productDiscount;
+	//	}
+
 	public double getProductPrice() {
 		return productPrice;
 
@@ -123,7 +124,7 @@ public class Product {
 	public int getConsumption()	{
 		return consumption;
 	}
-	
+
 	public void addConsumption(int consumption)
 	{
 		this.consumption += consumption;

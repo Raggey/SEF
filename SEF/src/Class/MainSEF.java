@@ -248,7 +248,7 @@ public class MainSEF {
 		System.out.println("6. Toggle Subscription");
 		System.out.println("7. Check Out");
 		System.out.println();
-		System.out.println("6. Quit");
+		System.out.println("8. Quit");
 		System.out.println();
 
 
@@ -306,31 +306,40 @@ public class MainSEF {
 
 		case 3: //View All Discounts
 			boolean haveDiscount = false;
-			System.out.printf("%60s","-- - -- - -- - -- - -- - -- - Current Discounts - -- - -- - -- - -- - -- - --\n");
+			
+			System.out.printf("%80s\n", "-- - -- - -- - -- - -- - -- - Current Discounts - -- - -- - -- - -- - -- - --");
 			for (Product eaProduct : productList) {
 				if (eaProduct.getDiscountPrice() != eaProduct.getProductPrice()) {
 					System.out.printf("%-35s     Original Price: $%.2f | Discounted Price: $%.2f \n", eaProduct.getProductName(), eaProduct.getProductPrice(), eaProduct.getDiscountPrice());
 					haveDiscount = true;
 				}
+				if (eaProduct.getBulkAmount() != 0) {
+					System.out.printf("%-35s     (Buy %d and get $%.2f OFF!)\n", eaProduct.getProductName(), eaProduct.getBulkAmount(), eaProduct.getbulkDiscount());
+					haveDiscount = true;
+				}
 			}
 			if (!haveDiscount) {
-				System.out.println("Sorry! No discounts currently avaliable...");
+				System.out.println("Sorry! No discounts currently available..");
 			}
 			break;
 
 		case 4: //Search for Discounts (Using ID)
-			haveDiscount = false;
 			boolean searchMatch = false;
+			haveDiscount = false;
 			System.out.print("Input ID of item: ");
 			int searchId = Integer.parseInt(scn.nextLine());
-
 			for (Product eaProduct : productList) {
 				if(searchId == eaProduct.getProductId()) {
 					searchMatch = true;
+					System.out.printf("%80s\n", "-- - -- - -- - -- - -- - -- - Current Discounts - -- - -- - -- - -- - -- - --");
 					if (eaProduct.getDiscountPrice() != eaProduct.getProductPrice()) {
 						System.out.printf("%-35s     Original Price: $%.2f | Discounted Price: $%.2f \n", eaProduct.getProductName(), eaProduct.getProductPrice(), eaProduct.getDiscountPrice());
 						haveDiscount = true;
 
+					}
+					if (eaProduct.getBulkAmount() != 0) {
+						System.out.printf("%-35s     (Buy %d and get $%.2f OFF!)\n", eaProduct.getProductName(), eaProduct.getBulkAmount(), eaProduct.getbulkDiscount());
+						haveDiscount = true;
 					}
 				}
 			}
@@ -339,7 +348,7 @@ public class MainSEF {
 				System.out.println("Invalid ID, please try again..");
 			}
 			else if (!haveDiscount) {
-				System.out.println("Sorry! No discount on this item!");
+				System.out.printf("%68s\n", "*Sorry! No discount on this item currently available!*");
 			}
 
 			break;
