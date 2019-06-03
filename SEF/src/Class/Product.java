@@ -89,6 +89,10 @@ public class Product {
 			System.out.println("Error: Input must be between 0 and 1");
 		}
 	}
+	
+	public double getDiscountAmount() {
+		return this.productDiscount;
+	}
 	public double getProductPrice() {
 		return productPrice;
 

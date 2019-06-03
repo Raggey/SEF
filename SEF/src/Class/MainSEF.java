@@ -18,17 +18,17 @@ public class MainSEF {
 	LinkedList<Product> productList = new LinkedList<Product>();
 	LinkedList<Customer> customers = new LinkedList<Customer>();
 	IOmachine iom = new IOmachine();
-	
-//	Employee[] employees = new Employee[100];
-//	Customer[] customers = new Customer[100];
-//	Product[] productList = new Product[100];
-	
+
+	//	Employee[] employees = new Employee[100];
+	//	Customer[] customers = new Customer[100];
+	//	Product[] productList = new Product[100];
+
 	Customer currentCustomer = null;
 	Employee currentEmployee = null;
 	int [][] orders = new int[10][2];
-	
+
 	public void run() {
-		
+
 		loadSystemData();
 		demoInitialise();
 		login();	
@@ -36,70 +36,70 @@ public class MainSEF {
 
 	private void loadSystemData() {
 		employees = iom.readInEmployee() ;
-		//productList = iom ;
+		productList = iom.readInProducts() ;
 		customers = iom.readInCustomer() ;
 	}
 
 
 	private void demoInitialise() //Used for DEMO
 	{
-		Product apple = new Product(1, "Apple", 0.89, 100,"Friendly Farms");
-		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100,"ANZAC Biscuits R US");
-		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100,"Bulk Goods co.");
-		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100,"Stationary Suppliers");
-		Product notebook = new Product(5, "A5 Notebook", 0.79, 100,"Stationary Suppliers");
-		Product milk = new Product(6, "Pure milk", 2, 100,"Friendly Farms");
-		Product bread = new Product(7, "Sandwich bread", 0.99, 100,"Bulk Goods co.");
-		Product chicken = new Product(8, "Drumstick", 9, 100,"Friendly Farms");
-		Product broccoli = new Product(9, "Broccoli", 0.69, 100,"Friendly Farms");
-		Product pasta = new Product(10, "Delicious pasta", 0.89, 100,"Bulk Goods co.");
+		//		Product apple = new Product(1, "Apple", 0.89, 100,"Friendly Farms");
+		//		Product biscuits = new Product(2, "ANZAC biscuits", 3.99, 100,"ANZAC Biscuits R US");
+		//		Product mints = new Product(3, "Eclipse Spearmint Suger", 1.99, 100,"Bulk Goods co.");
+		//		Product pen = new Product(4, "Four colours Ball pen", 1.5, 100,"Stationary Suppliers");
+		//		Product notebook = new Product(5, "A5 Notebook", 0.79, 100,"Stationary Suppliers");
+		//		Product milk = new Product(6, "Pure milk", 2, 100,"Friendly Farms");
+		//		Product bread = new Product(7, "Sandwich bread", 0.99, 100,"Bulk Goods co.");
+		//		Product chicken = new Product(8, "Drumstick", 9, 100,"Friendly Farms");
+		//		Product broccoli = new Product(9, "Broccoli", 0.69, 100,"Friendly Farms");
+		//		Product pasta = new Product(10, "Delicious pasta", 0.89, 100,"Bulk Goods co.");
 
-//		productList [0] = apple;
-//		productList [1] = biscuits;
-//		productList [2] = mints;
-//		productList [3] = pen;
-//		productList [4] = notebook;
-//		productList [5] = milk;
-//		productList [6] = bread;
-//		productList [7] = chicken;
-//		productList [8] = broccoli;
-//		productList [9] = pasta;
-		
-		productList.add(apple);
-		productList.add(biscuits);
-		productList.add(mints);
-		productList.add(pen);
-		productList.add(notebook);
-		productList.add(milk);
-		productList.add(bread);
-		productList.add(chicken);
-		productList.add(broccoli);
-		productList.add(pasta);
+		//		productList [0] = apple;
+		//		productList [1] = biscuits;
+		//		productList [2] = mints;
+		//		productList [3] = pen;
+		//		productList [4] = notebook;
+		//		productList [5] = milk;
+		//		productList [6] = bread;
+		//		productList [7] = chicken;
+		//		productList [8] = broccoli;
+		//		productList [9] = pasta;
+		//
+		//		productList.add(apple);
+		//		productList.add(biscuits);
+		//		productList.add(mints);
+		//		productList.add(pen);
+		//		productList.add(notebook);
+		//		productList.add(milk);
+		//		productList.add(bread);
+		//		productList.add(chicken);
+		//		productList.add(broccoli);
+		//		productList.add(pasta);
 
-//		Employee manager = new Employee("E1", "Tom", "password1", MANAGER);
-//		Employee warehouse = new Employee("E2", "Dick", "password2", WAREHOUSE);
-//		Employee salestaff = new Employee("E3", "Harry", "password3", SALESTAFF);
-//
-//		employees[0]= manager;
-//		employees[1]= warehouse;
-//		employees[2]= salestaff;
-		
+		//		Employee manager = new Employee("E1", "Tom", "password1", MANAGER);
+		//		Employee warehouse = new Employee("E2", "Dick", "password2", WAREHOUSE);
+		//		Employee salestaff = new Employee("E3", "Harry", "password3", SALESTAFF);
+		//
+		//		employees[0]= manager;
+		//		employees[1]= warehouse;
+		//		employees[2]= salestaff;
+
 		orders[0][0] = 1;
 		orders [0][1] = 100;
-		
+
 		orders[1][0] = 2;
 		orders[1][1] = 80;
-		
+
 		orders[2][0] = 4;
 		orders[2][1] = 100;
 
-		Customer one = new Customer("C0001", "Will", 3050);
-		Customer two = new Customer("C0002", "Jack", 3450);
+		//		Customer one = new Customer("C0001", "Will", 3050);
+		//		Customer two = new Customer("C0002", "Jack", 3450);
 
-//		customers[0] = one;
-//		customers[1] = two;
-	
-		one.calculatePoints(150); //spent 150 dollars get 15 points
+		//		customers[0] = one;
+		//		customers[1] = two;
+
+		//		one.ca/lculatePoints(150); //spent 150 dollars get 15 points
 
 
 	}
@@ -109,7 +109,7 @@ public class MainSEF {
 
 	public void login() {
 		if (newRun) {
-			System.out.println("********** WELCOME **********");
+			System.out.println("*- - - - - WELCOME - - - - -*");
 		}
 		newRun = false;
 		System.out.print("Enter ID: ");
@@ -236,16 +236,17 @@ public class MainSEF {
 
 
 
-	// ***** CUSTOMER METHOD *****
+	// - - - - - - - - - - CUSTOMER METHOD - - - - - - - - - -
 	private void displayCustomerMenu() {
-
-		System.out.println("***** MAIN MENU *****" );
-		System.out.printf("%s's Loyalty Points: %d\n", currentCustomer.getID(), currentCustomer.getPoint());
-		System.out.println("1. View Product List");
-		System.out.println("2. View Cart" );
-		System.out.println("3. Toggle Subscription");
-		System.out.println("4. Check Out");
-		System.out.println("5. Search product by product Id");
+		System.out.println("-- - -- - -- - -- MAIN MENU -- - -- - -- - --" );
+		System.out.printf("%15s's Loyalty Points: %d\n", currentCustomer.getID(), currentCustomer.getPoint());
+		System.out.println("1. View Full Product List");
+		System.out.println("2. Search for Product (Using ID)");
+		System.out.println("3. View All Discounts");
+		System.out.println("4. Search for Discounts (Using ID)");
+		System.out.println("5. View Cart" );
+		System.out.println("6. Toggle Subscription");
+		System.out.println("7. Check Out");
 		System.out.println();
 		System.out.println("6. Quit");
 		System.out.println();
@@ -263,29 +264,15 @@ public class MainSEF {
 
 		switch(choice) {
 
-		case 1: 
-			//1. View Product List
+
+		case 1: //View Product List
 			displayProductListMenu();
 			System.out.println();
 			addProductInCart();
 			break;
-		case 2: 
-			//2. View Cart
-			displayCart();
-			backToMenu();
-			break;
-		case 3: 
-			//3. Subscription
-			currentCustomer.subscribe();
-			backToMenu();
-			break;
-		case 4: 
-			//3. checkOut
-			checkOut();
-			break;
-		case 5: //5. Search product by Id
-			System.out.println("\nPlease enter the product Id:");
-			System.out.println("\n");
+
+		case 2: //Search for Product (Using ID)
+			System.out.println("Please enter Product ID: ");
 			boolean correct = false;
 			while(!correct)		{
 				try {
@@ -293,7 +280,7 @@ public class MainSEF {
 					if (resultProduct != null)	{
 						System.out.println("Here's the product you are looking for:\n");
 						System.out.println(resultProduct.getProductName() + "\t"
-											+ resultProduct.getProductPrice() + "\t");
+								+ resultProduct.getProductPrice() + "\t");
 						System.out.println("\nDo you want to add this product into your cart?(Y to add to your cart)");
 						scn = new Scanner(System.in);
 						String text = scn.nextLine();
@@ -311,12 +298,69 @@ public class MainSEF {
 				catch(NumberFormatException e) {
 					System.out.println("This is not a product id, the product id should be a series of number.");
 				}
+				catch(InputMismatchException e) {
+					System.out.println("Invalid input");
+				}
 			}
+			break;
+
+		case 3: //View All Discounts
+			boolean haveDiscount = false;
+			System.out.printf("%60s","-- - -- - -- - -- - -- - -- - Current Discounts - -- - -- - -- - -- - -- - --\n");
+			for (Product eaProduct : productList) {
+				if (eaProduct.getDiscountPrice() != eaProduct.getProductPrice()) {
+					System.out.printf("%-35s     Original Price: $%.2f | Discounted Price: $%.2f \n", eaProduct.getProductName(), eaProduct.getProductPrice(), eaProduct.getDiscountPrice());
+					haveDiscount = true;
+				}
+			}
+			if (!haveDiscount) {
+				System.out.println("Sorry! No discounts currently avaliable...");
+			}
+			break;
+
+		case 4: //Search for Discounts (Using ID)
+			haveDiscount = false;
+			boolean searchMatch = false;
+			System.out.print("Input ID of item: ");
+			int searchId = Integer.parseInt(scn.nextLine());
+
+			for (Product eaProduct : productList) {
+				if(searchId == eaProduct.getProductId()) {
+					searchMatch = true;
+					if (eaProduct.getDiscountPrice() != eaProduct.getProductPrice()) {
+						System.out.printf("%-35s     Original Price: $%.2f | Discounted Price: $%.2f \n", eaProduct.getProductName(), eaProduct.getProductPrice(), eaProduct.getDiscountPrice());
+						haveDiscount = true;
+
+					}
+				}
+			}
+
+			if (!searchMatch) {
+				System.out.println("Invalid ID, please try again..");
+			}
+			else if (!haveDiscount) {
+				System.out.println("Sorry! No discount on this item!");
+			}
+
+			break;
+
+		case 5: //View Cart
+			displayCart();
 			backToMenu();
 			break;
-		
-		case 6:
+
+		case 6: //Toggle Subscription
+			currentCustomer.subscribe();
+			backToMenu();
+			break;
+
+		case 7: // CheckOut
+			checkOut();
+			break;
+
+		case 8:
 			quit();
+			break;
 
 
 		default:
@@ -325,6 +369,7 @@ public class MainSEF {
 			break;
 
 		}
+		backToMenu();
 
 	}
 
@@ -443,7 +488,7 @@ public class MainSEF {
 			checkOut();
 		}
 
-//		currentCustomer.emptyCart();
+		//		currentCustomer.emptyCart();
 		currentCustomer = null;
 
 		try {
@@ -455,7 +500,7 @@ public class MainSEF {
 		System.out.println(" " + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n');
 		login();
 	}
-	
+
 	private Product searchProductById(int productId)	{
 		Product product = null;
 		for (Product element : productList)	{
@@ -542,7 +587,7 @@ public class MainSEF {
 			displayWarehouseMenu();
 			System.out.println("");
 		}
-		
+
 		productId = Integer.parseInt(input);
 		for(int i = 0; i < productList.size(); i++) {
 			if (productList.get(i) != null) {
@@ -780,7 +825,7 @@ public class MainSEF {
 			break;
 		}
 	}
-	
+
 	// ***** MANAGER METHOD *****
 	private void manageProducts() {
 		System.out.println("1. Add Product");
@@ -819,7 +864,7 @@ public class MainSEF {
 
 			System.out.println("Enter Stock Level");
 			int productStock = Integer.parseInt(scn.nextLine());
-			
+
 			System.out.println("Enter Supplier Name");
 			String supplierName = scn.nextLine();
 			i = 0;
@@ -883,7 +928,7 @@ public class MainSEF {
 		case 6: //Remove a Discount
 			System.out.println("Enter the ID of the product you want to remove the discount for");
 			productID = Integer.parseInt(scn.nextLine());
-			
+
 			productList.get(productID).setDiscountPrice(1);
 			break;
 		case 7: //Add a bulk discount
@@ -1061,7 +1106,7 @@ public class MainSEF {
 
 		case 1:
 			report.getRevenuePRReport();
-			
+
 			break;
 		case 2: 
 			try {
