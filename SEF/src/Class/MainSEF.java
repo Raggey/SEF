@@ -711,6 +711,7 @@ public class MainSEF {
 				String name = productList.get(i).getProductName();
 				String supplier = productList.get(i).getSupplierName();		
 				System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
+				i++;
 			}
 			break;
 		case 2: //set up new auto order
