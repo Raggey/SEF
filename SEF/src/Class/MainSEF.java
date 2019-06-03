@@ -1,5 +1,6 @@
 package Class;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 public class MainSEF {
@@ -1053,24 +1054,31 @@ public class MainSEF {
 			input = scn.nextLine();
 		}
 
+		Report report = new Report(productList, customers);
 		int choice = Integer.parseInt(input);
 		System.out.println();
 		switch(choice) {
 
 		case 1:
-			System.out.println("TODO");
+			report.getRevenuePRReport();
+			
 			break;
 		case 2: 
-			System.out.println("TODO");
+			try {
+				report.getPeriodReport();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 3: 
-			System.out.println("TODO");
+			report.getPostcodeReport();
 			break;
 		case 4: 
-			System.out.println("TODO");
+			report.getItemOPReport();
 			break;
 		case 5: 
-			System.out.println("TODO");
+			report.getSupplyReport();
 			break;
 		case 6: 
 			backToMenu();

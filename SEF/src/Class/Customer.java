@@ -215,5 +215,9 @@ public class Customer {
 	public void setCreditCard(int cardNumber)	{
 		
 	}
+	
+	public int getPostCode() {
+		return this.postcode;
+	}
 }
 
