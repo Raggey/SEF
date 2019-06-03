@@ -745,7 +745,9 @@ public class MainSEF {
 		System.out.println("6. Remove a Sale");
 		System.out.println("7. Set a Bulk Discount");
 		System.out.println("8. Remove a Bulk Discount");
-		System.out.println("9. Return to menu..");
+		System.out.println("9. View Stock");
+		System.out.println("10. View Supplier Details");
+		System.out.println("11. Return to menu..");
 		System.out.print("Select Option: " );
 		String input = scn.nextLine();
 		while (input.equals("")) {
@@ -866,6 +868,14 @@ public class MainSEF {
 			}
 			break;
 		case 9:
+			displayProductStock();
+			break;
+		case 10:
+			for (Product eaProduct: productList){
+				System.out.println(eaProduct.getSupplierName());
+			}
+			break;
+		case 11:
 			backToMenu();
 			break;
 		default:
