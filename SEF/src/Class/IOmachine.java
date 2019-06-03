@@ -36,7 +36,10 @@ public class IOmachine {
 	 * a Manager object or Manager id.
 	 * */
 
-	private void replaceSelected(String replaceWith, int number) {
+	private void replaceSelected(String replaceWith, String stuff, int kind) {
+		// kind 1 is record consumption
+		// kind 2 is update staff 
+		// kind 3 is sth...??
 		try {
 			// input the file content to the StringBuffer "input"
 			BufferedReader file = new BufferedReader(new FileReader("Product_Consumption.txt"));
@@ -49,17 +52,25 @@ public class IOmachine {
 			}
 			file.close();
 			String inputStr = inputBuffer.toString();
-			String productConList[] = inputStr.split("\n");
+			String list[] = inputStr.split("\n");
 			String singleLine[];
 			inputStr = "";
-			for (int i = 0; i != productConList.length; i++)
+			for (int i = 0; i != list.length; i++)
 			{
-				if (productConList[i].contains(replaceWith))	{
-					singleLine = productConList[i].split(",");
-					productConList[i] = productConList[i].replace(singleLine[3], 
-							String.valueOf(Integer.parseInt(singleLine[3]) + number));
+				if (list[i].contains(replaceWith))	{
+					singleLine = list[i].split(",");
+					if (kind == 1)	{
+						list[i] = list[i].replace(singleLine[3], 
+						String.valueOf(Integer.parseInt(singleLine[3]) + Integer.parseInt(stuff)));
+					}
+					else if (kind == 2)	{
+						list[i] = list[i].replace(replaceWith, stuff);
+					}
+					else if (kind == 3)	{
+						//
+					}
 				}
-				inputStr += productConList[i] + "\n";
+				inputStr += list[i] + "\n";
 			}
 			System.out.println(inputStr); // display the original file for debugging
 
@@ -136,7 +147,8 @@ public class IOmachine {
 //		/* C0001,Craig,36,5,3171,5,1234,1 */
 //		/* ID| NAME| TOTALMONEYSPENT | POINTS| POSTCODE | TIMESVISITED | CREDITCARD NO. | SUBSCRIPTION */
 //		MainSEF main = new MainSEF();
-//		LinkedList<Customer> customers = new LinkedList<Customer>();
+//		LinkedList<Customer> cus
+//	tomers = new LinkedList<Customer>();
 //		customers = main.getCustomers();
 //	}
 
@@ -168,8 +180,25 @@ public class IOmachine {
 	}
 
 	// - - - - - - - - - - SAVE EMPLOYEE - - - - - - - - - -
-	public void saveEmployees() {
-
+	public void saveEmployees(LinkedList<Employee> employees) throws IOException {
+		sc = new Scanner(employeeFile);
+		String current = "";
+		while(sc.hasNextLine())	{
+			current = sc.nextLine();
+			for(Employee element : employees)	{
+				if (element.GetID() == current.split(",")[0])	{
+					replaceSelected(current, element.GetID() + "," + element.GetName() + ","
+							+ element.GetPassword() + "," + element.GetLevel(), 2);
+				}
+				else {
+					writer = new FileWriter(employeeFile, true);
+					writer.write(element.GetID() + "," + element.GetName() + ","
+								+ element.GetPassword() + "," + element.GetLevel());
+					writer.close();
+				}
+			}
+		}
+		
 	}
 	// - - - - - - - - - - SAVE PRODUCTS - - - - - - - - - -
 	public void saveProducts() {
@@ -195,7 +224,7 @@ public class IOmachine {
 		else	{
 			for (Product element : allProducts)	{
 				replaceWith += element.getProductId() + "," + element.getProductName() + ",";
-				replaceSelected(replaceWith, element.getConsumption());
+				replaceSelected(replaceWith, String.valueOf(element.getConsumption()), 1);
 			}
 		}
 	}
