@@ -1,5 +1,7 @@
 package Class;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -35,66 +37,94 @@ public class IOmachine {
 	 * to generate the report, so all of the methods should take 
 	 * a Manager object or Manager id.
 	 * */
-
 	private void replaceSelected(String replaceWith, String stuff, int kind) {
 		// kind 1 is record consumption
 		// kind 2 is update staff 
 		// kind 3 is sth...??
-		try {
-			// input the file content to the StringBuffer "input"
-			BufferedReader file = null;
-			if (kind == 1)	{
-				file = new BufferedReader(new FileReader("Product_Consumption.txt"));
-			}
-			else if (kind == 2)	{
-				file = new BufferedReader(new FileReader("Employees.txt"));
-			}
-			StringBuffer inputBuffer = new StringBuffer();
-			String line;
-
-			while ((line = file.readLine()) != null) {
-				inputBuffer.append(line);
-				inputBuffer.append('\n');
-			}
-			file.close();
-			String inputStr = inputBuffer.toString();
-			String list[] = inputStr.split("\n");
-			String singleLine[];
-			inputStr = "";
-			for (int i = 0; i != list.length; i++)
-			{
-				if (list[i].contains(replaceWith))	{
-					singleLine = list[i].split(",");
-					if (kind == 1)	{
-						list[i] = list[i].replace(singleLine[3], 
-						String.valueOf(Integer.parseInt(singleLine[3]) + Integer.parseInt(stuff)));
-					}
-					else if (kind == 2)	{
-						list[i] = list[i].replace(replaceWith, stuff);
-						System.out.println(list[i]);
-					}
-					else if (kind == 3)	{
-						//
-					}
-				}
-				inputStr += list[i] + "\n";
-			}
-			System.out.println(inputStr); // display the original file for debugging
-
-//			// logic to replace lines in the string (could use regex here to be generic)
-//			inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
-
-			// display the new file for debugging
-			System.out.println("----------------------------------\n" + inputStr);
-
-			// write the new string with the replaced line OVER the same file
-			FileOutputStream fileOut = new FileOutputStream("Product_Consumption.txt");
-			fileOut.write(inputStr.getBytes());
-			fileOut.close();
-
-		} catch (Exception e) {
-			System.out.println("Problem reading file.");
+		File change = null;
+		String oldContent = "";
+		BufferedReader reader;
+		if (kind == 1)	{
+			change = new File("Product_Consumption.txt");
 		}
+		else if(kind == 2)	{
+			change = new File("Employees.txt");
+		}
+		try {
+			reader = new BufferedReader(new FileReader(change));
+			String line = reader.readLine();
+			while(line != null)	{
+				oldContent = oldContent + line + System.lineSeparator();
+				line = reader.readLine();
+			}
+			String newContent = oldContent.replaceAll(replaceWith, stuff);
+			writer = new FileWriter(change);
+			writer.write(newContent);
+			reader.close();
+			writer.close();
+		}
+		catch(IOException e)	{
+			System.out.println("Fail to replace the file.");
+		}
+		
+//		try {
+//			// input the file content to the StringBuffer "input"
+//			BufferedReader file = null;
+//			String fileNAME = null;
+//			if (kind == 1)	{
+//				fileNAME = "Product_Consumption.txt";
+//				file = new BufferedReader(new FileReader("Product_Consumption.txt"));
+//			}
+//			else if (kind == 2)	{
+//				fileNAME = "Employees.txt";
+//				file = new BufferedReader(new FileReader("Employees.txt"));
+//			}
+//			StringBuffer inputBuffer = new StringBuffer();
+//			String line;
+//
+//			while ((line = file.readLine()) != null) {
+//				inputBuffer.append(line);
+//				inputBuffer.append(System.lineSeparator());
+//			}
+//			file.close();
+//			String inputStr = inputBuffer.toString();
+//			String list[] = inputStr.split(System.lineSeparator());
+//			String singleLine[];
+//			inputStr = "";
+//			for (int i = 0; i != list.length; i++)
+//			{
+//				if (list[i].contains(replaceWith))	{
+//					singleLine = list[i].split(",");
+//					if (kind == 1)	{
+//						list[i] = list[i].replace(singleLine[3], 
+//						String.valueOf(Integer.parseInt(singleLine[3]) + Integer.parseInt(stuff)));
+//					}
+//					else if (kind == 2)	{
+//						list[i] = list[i].replace(replaceWith, stuff);
+//						System.out.println(list[i]);
+//					}
+//					else if (kind == 3)	{
+//						//
+//					}
+//				}
+//				inputStr += list[i] + System.lineSeparator();
+//			}
+//			System.out.println(inputStr); // display the original file for debugging
+//
+////			// logic to replace lines in the string (could use regex here to be generic)
+////			inputStr = inputStr.replace(replaceWith, replaceWith + "0"); 
+//
+//			// display the new file for debugging
+//			System.out.println("----------------------------------\n" + inputStr);
+//
+//			// write the new string with the replaced line OVER the same file
+//			FileOutputStream fileOut = new FileOutputStream(fileNAME);
+//			fileOut.write(inputStr.getBytes());
+//			fileOut.close();
+//
+//		} catch (Exception e) {
+//			System.out.println("Problem reading file.");
+//		}
 	}
 
 	// - - - - - - - - - - LOADING IN EMPLOYEE - - - - - - - - - -
@@ -188,24 +218,32 @@ public class IOmachine {
 
 	// - - - - - - - - - - SAVE EMPLOYEE - - - - - - - - - -
 	public void saveEmployees(LinkedList<Employee> employees) throws IOException {
-		try {
-			sc = new Scanner(employeeFile);
-			String current = "";
-			while(sc.hasNextLine())	{
-				current = sc.nextLine();
-				for(Employee element : employees)	{
-					if (element.GetID() == current.split(",")[0])	{
-						replaceSelected(current, element.GetID() + "," + element.GetName() + ","
-								+ element.GetPassword() + "," + element.GetLevel(), 2);
-					}
-					else {
-						writer = new FileWriter(employeeFile, true);
-						writer.write(element.GetID() + "," + element.GetName() + ","
-									+ element.GetPassword() + "," + element.GetLevel());
-						writer.close();
-					}
-				}
+//		try {
+//			file = new File(employeeFile);
+//			Path path = file.toPath();
+//			if(file.exists()){
+//				Files.deleteIfExists(path);
+////				file = new File(employeeFile);
+////				System.out.println(file.createNewFile());
+////			
+//			}
+//		}
+//		catch(IOException e)	{
+//			System.out.println("Problem with first part.");
+//		}
+		try	{
+			for(Employee element : employees)	{
+					writer = new FileWriter(employeeFile);
+					writer.write(element.GetID() + "," + element.GetName() + ","
+								+ element.GetPassword() + "," + element.GetLevel() + "\n");
+					writer.close();
 			}
+//			sc = new Scanner(employeeFile);
+//			String current = "";
+//			while(sc.hasNextLine())	{
+//				current = sc.nextLine();
+//				
+//			}
 		}
 		catch(IOException e)	{
 			System.out.println("Problem reading file.");
