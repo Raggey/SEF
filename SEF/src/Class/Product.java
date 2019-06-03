@@ -82,7 +82,7 @@ public class Product {
 	}
 
 	public void setDiscountPrice(double price) {
-		if (0 < price && price >= 1) {
+		if (price > 0 && price <= 1) {
 			this.productDiscount = price;
 		}
 		else {
