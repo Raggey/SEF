@@ -86,7 +86,7 @@ public class IOmachine {
 			LinkedList<Employee> employees = new LinkedList<Employee>();
 			String employeeInfo[];
 			Employee employee = null;
-			Scanner sc = new Scanner(fileName);
+			sc = new Scanner(fileName);
 			while (sc.hasNextLine())	{
 				employeeInfo = sc.nextLine().split(",");
 				employee = new Employee(employeeInfo[0],employeeInfo[1],employeeInfo[2],Integer.parseInt(employeeInfo[3]));
@@ -107,7 +107,7 @@ public class IOmachine {
 			LinkedList<Customer> customers = new LinkedList<Customer>();
 			String customerInfo[];
 			Customer customer = null;
-			Scanner sc = new Scanner(fileName);
+			sc = new Scanner(fileName);
 			while (sc.hasNextLine())	{
 				customerInfo = sc.nextLine().split(",");
 				customer = new Customer(customerInfo[0],customerInfo[1],Integer.parseInt(customerInfo[4]));
@@ -115,6 +115,7 @@ public class IOmachine {
 				customer.setMoneySpent(Integer.parseInt(customerInfo[2]));
 				customer.setPoints(Integer.parseInt(customerInfo[3]));
 				customer.setTimevisited(Integer.parseInt(customerInfo[5]));
+				// Add card
 				if(customerInfo[6] == "0")	{
 					customer.subscribe();
 				}
@@ -129,11 +130,27 @@ public class IOmachine {
 	}
 		
 		public LinkedList<Product> readInProducts()	{
-			sc = new Scanner("Products.txt");
-			while (sc.hasNextLine())	{
-				String productIfo[] = sc.nextLine().split(",");
-				// Incomplete
-				// Still need deeper understand about the values
+			try {
+				File fileName = new File("Products.txt");
+				LinkedList<Product> products = new LinkedList<Product>();
+				String productInfo[];
+				Product product = null;
+				sc = new Scanner(fileName);
+				while (sc.hasNextLine())	{
+					productInfo = sc.nextLine().split(",");
+					product = new Product(Integer.parseInt(productInfo[0]),productInfo[1],Double.parseDouble(productInfo[5]),
+											Integer.parseInt(productInfo[3]), productInfo[8]);
+					product.setBulkAmount(Integer.parseInt(productInfo[6]));
+					product.setbulkDiscount(Double.parseDouble(productInfo[7]));
+					product.setDiscountPrice(Double.parseDouble(productInfo[4]));
+					product.setProductDetails(productInfo[2]);
+					products.add(product);
+				}
+				return products;
+			}
+			catch (Exception e) {
+				System.out.println("Problem reading file.");
+				return null;
 			}
 		}
 		
