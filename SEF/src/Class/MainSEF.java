@@ -787,12 +787,10 @@ public class MainSEF {
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
-			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductName(changeName);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setProductName(changeName);					
 				}
-				i++;
 			}
 			break;
 		case 3: //Change Product Price
@@ -802,11 +800,10 @@ public class MainSEF {
 			System.out.println("Enter the new price");
 			double changePrice = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductPrice(changePrice);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setProductPrice(changePrice);					
 				}
-				i++;
 			}
 			break;
 		case 4: //Change Product Details
@@ -816,11 +813,10 @@ public class MainSEF {
 			System.out.println("Enter the new details");
 			String changeDetails = scn.nextLine();
 			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductDetails(changeDetails);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setProductDetails(changeDetails);					
 				}
-				i++;
 			}
 			break;
 		case 5: //Set a discount
@@ -830,23 +826,17 @@ public class MainSEF {
 			System.out.println("Enter the new discount as a number between 0 and 1");
 			double changeDiscount = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setDiscountPrice(changeDiscount);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setDiscountPrice(changeDiscount);					
 				}
-				i++;
 			}
 			break;			
 		case 6: //Remove a Discount
 			System.out.println("Enter the ID of the product you want to remove the discount for");
 			productID = Integer.parseInt(scn.nextLine());
-			i=0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setDiscountPrice(1);
-				}
-				i++;
-			}
+			
+			productList.get(productID).setDiscountPrice(1);
 			break;
 		case 7: //Add a bulk discount
 			//needs error prevention
@@ -857,24 +847,22 @@ public class MainSEF {
 			System.out.println("Enter the new discount (the products will be reduced by this flat number)");
 			double changeBulkDiscount = Double.parseDouble(scn.nextLine());
 			i = 0;
-			while(i < productList.size()){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setBulkAmount(changeAmount);
-					productList.get(i).setbulkDiscount(changeBulkDiscount);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setBulkAmount(changeAmount);
+					eaProduct.setbulkDiscount(changeBulkDiscount);
 				}
-				i++;
 			}
 			break;
 		case 8://remove a bulk discount
 			System.out.println("Enter the ID of the product you want to remove the bulk discount for");
 			productID = Integer.parseInt(scn.nextLine());
 			i=0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setBulkAmount(0);
-					productList.get(i).setbulkDiscount(0);
+			for (Product eaProduct : productList) {
+				if (eaProduct.getProductId() == productID) {
+					eaProduct.setBulkAmount(0);
+					eaProduct.setbulkDiscount(0);
 				}
-				i++;
 			}
 			break;
 		case 9:
@@ -904,10 +892,8 @@ public class MainSEF {
 			System.out.print("Select Option: " );
 			input = scn.nextLine();
 		}
-
 		int choice = Integer.parseInt(input);
 		System.out.println();
-		int i = 0;
 		String staffID;
 		switch(choice) {
 
@@ -924,10 +910,6 @@ public class MainSEF {
 			System.out.println("Enter Level. Sale Staff = 1, Warehouse = 2, Manager = 3");
 			int staffLevel = Integer.parseInt(scn.nextLine());
 
-			i = 0;
-			while(employees.get(i) != null){
-				i++;
-			}
 			employees.add(new Employee(staffID, staffName ,staffPassword, staffLevel));
 			System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
 			break;
@@ -937,12 +919,10 @@ public class MainSEF {
 			staffID = scn.nextLine();
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
-			i = 0;
-			while(employees.get(i) != null){
-				if(staffID == employees.get(i).GetID()){
-					employees.get(i).SetName(changeName);
+			for (Employee eaEmployee : employees) {
+				if (eaEmployee.GetID().equals(staffID)) {
+					eaEmployee.SetName(changeName);					
 				}
-				i++;
 			}
 			break;
 		case 3: //Change Staff Password
@@ -951,26 +931,22 @@ public class MainSEF {
 			staffID = scn.nextLine();
 			System.out.println("Enter the new password");
 			String changePassword = scn.nextLine();
-			i = 0;
-			while(employees.get(i) != null){
-				if(staffID == employees.get(i).GetID()){
-					employees.get(i).SetPassword(changePassword);
+			for (Employee eaEmployee : employees) {
+				if (eaEmployee.GetID().equals(staffID)) {
+					eaEmployee.SetPassword(changePassword);					
 				}
-				i++;
 			}
 			break;
-		case 4:
+		case 4: //Change Staff Level
 			//needs error prevention
 			System.out.println("Enter the ID of the staff you want to change the level of");
 			staffID = scn.nextLine();
 			System.out.println("Enter the new level");
 			int changeLevel = Integer.parseInt(scn.nextLine());
-			i = 0;
-			while(employees.get(i) != null){
-				if(staffID == employees.get(i).GetID()){
-					employees.get(i).SetLevel(changeLevel);
+			for (Employee eaEmployee : employees) {
+				if (eaEmployee.GetID().equals(staffID)) {
+					eaEmployee.SetLevel(changeLevel);					
 				}
-				i++;
 			}
 			break;
 		case 5: 
