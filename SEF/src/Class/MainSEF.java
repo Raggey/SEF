@@ -798,13 +798,8 @@ public class MainSEF {
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new name");
 			String changeName = scn.nextLine();
-			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductName(changeName);
-				}
-				i++;
-			}
+			
+			productList.get(i).setProductName(changeName);
 			break;
 		case 3: //Change Product Price
 			//needs error prevention
@@ -812,13 +807,8 @@ public class MainSEF {
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new price");
 			double changePrice = Double.parseDouble(scn.nextLine());
-			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductPrice(changePrice);
-				}
-				i++;
-			}
+			
+			productList.get(i).setProductPrice(changePrice);
 			break;
 		case 4: //Change Product Details
 			//needs error prevention
@@ -826,13 +816,8 @@ public class MainSEF {
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new details");
 			String changeDetails = scn.nextLine();
-			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setProductDetails(changeDetails);
-				}
-				i++;
-			}
+			
+			productList.get(i).setProductDetails(changeDetails);
 			break;
 		case 5: //Set a discount
 			//needs error prevention
@@ -840,24 +825,14 @@ public class MainSEF {
 			productID = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new discount as a number between 0 and 1");
 			double changeDiscount = Double.parseDouble(scn.nextLine());
-			i = 0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setDiscountPrice(changeDiscount);
-				}
-				i++;
-			}
+					
+			productList.get(i).setDiscountPrice(changeDiscount);
 			break;			
 		case 6: //Remove a Discount
 			System.out.println("Enter the ID of the product you want to remove the discount for");
 			productID = Integer.parseInt(scn.nextLine());
-			i=0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setDiscountPrice(1);
-				}
-				i++;
-			}
+
+			productList.get(i).setDiscountPrice(1);
 			break;
 		case 7: //Add a bulk discount
 			//needs error prevention
@@ -867,26 +842,16 @@ public class MainSEF {
 			int changeAmount = Integer.parseInt(scn.nextLine());
 			System.out.println("Enter the new discount (the products will be reduced by this flat number)");
 			double changeBulkDiscount = Double.parseDouble(scn.nextLine());
-			i = 0;
-			while(i < productList.size()){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setBulkAmount(changeAmount);
-					productList.get(i).setbulkDiscount(changeBulkDiscount);
-				}
-				i++;
-			}
+	
+			productList.get(i).setBulkAmount(changeAmount);
+			productList.get(i).setbulkDiscount(changeBulkDiscount);
 			break;
 		case 8://remove a bulk discount
 			System.out.println("Enter the ID of the product you want to remove the bulk discount for");
 			productID = Integer.parseInt(scn.nextLine());
-			i=0;
-			while(productList.get(i) != null){
-				if(productID == productList.get(i).getProductId()){
-					productList.get(i).setBulkAmount(0);
-					productList.get(i).setbulkDiscount(0);
-				}
-				i++;
-			}
+
+			productList.get(i).setBulkAmount(0);
+			productList.get(i).setbulkDiscount(0);
 			break;
 		case 9:
 			backToMenu();
