@@ -1,10 +1,6 @@
 package Class;
 import java.io.*;
 import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.HashMap;
-//import java.util.LinkedList;
-//import java.util.Scanner;
 import java.util.*;
 
 /**
@@ -121,6 +117,7 @@ public class IOmachine {
 				customer.setMoneySpent(Integer.parseInt(customerInfo[2]));
 				customer.setPoints(Integer.parseInt(customerInfo[3]));
 				customer.setTimevisited(Integer.parseInt(customerInfo[5]));
+				customer.addCard(new CreditCard(Integer.parseInt(customerInfo[6]), customer.getName()));
 				// Add card
 				if(customerInfo[6] == "0")	{
 					customer.subscribe();
