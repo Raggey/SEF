@@ -156,12 +156,12 @@ public class Customer {
 		if (subscribe)
 		{
 			subscribe = false;
-			System.out.println("Subscription is now OFF");
+			System.out.println("- SUBSCRIPTION status now: OFF -");
 		}
 		else
 		{
 			subscribe = true;
-			System.out.println("Subscription is now ON");
+			System.out.println("- SUBSCRIPTION status now: ON");
 		}
 		return subscribe;
 	}
