@@ -308,9 +308,11 @@ public class MainSEF {
 
 			case 7: // CheckOut
 				checkOut();
+				break;
 
 			case 8:
 				quit();
+				break;
 
 			default:
 				System.out.println("Please select a valid choice!\n");
@@ -428,16 +430,22 @@ public class MainSEF {
 		
 		if (input.equalsIgnoreCase("Y")) {
 			checkout.PerformSale();
-			currentCustomer.emptyCart();
 			System.out.println("Thank you for shopping with us.");
 			System.out.println("Goodbye!");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			reLogin();
 		}
-		else if(input.equalsIgnoreCase("N")) {
+		
+		if(input.equalsIgnoreCase("N")) {
 			System.out.println("Do you want to keep this sale? (Y/N)");
+			input = stringCheck("Do you want to keep this sale? (Y/N)", input);
 			if (input.equalsIgnoreCase("Y")) {
-				//				backToMenu();
-				System.out.println("e");
+				backToMenu();
 			}
 			else {
 				quit();
@@ -449,16 +457,16 @@ public class MainSEF {
 		}
 
 		//		currentCustomer.emptyCart();
-		currentCustomer = null;
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(" " + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n');
-		login();
+//		currentCustomer = null;
+//
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(" " + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n');
+//		login();
 	}
 
 	// - - - - - - - - - - WAREHOUSE METHOD - - - - - - - - - -
@@ -661,6 +669,7 @@ public class MainSEF {
 
 	// ***** GENERAL METHOD *****
 	public void reLogin() {
+		currentCustomer.emptyCart();
 		currentCustomer = null;
 		currentEmployee = null;
 		newRun = true;
@@ -979,11 +988,11 @@ public class MainSEF {
 						System.out.println("Enter the amount needed to trigger the bulk discount");
 						input = stringCheck("Enter the amount needed to trigger the bulk discount", input);
 						changeAmount = Integer.parseInt(input);
-						
+
 						System.out.println("Enter the new discount (the products will be reduced by this flat number)");
 						input = stringCheck("Enter the new discount (the products will be reduced by this flat number)", input);
 						changeBulkDiscount = Double.parseDouble(input);
-						
+
 						eaProduct.setBulkAmount(changeAmount);
 						eaProduct.setbulkDiscount(changeBulkDiscount);
 						System.out.println("DISCOUNT Succesfully Changed!");
