@@ -749,7 +749,7 @@ public class MainSEF {
 				for(i =0; i < orders.length; i++){
 					System.out.println(orders[i][0]+" : " + orders[i][1]);
 				}
-				*/
+				 */
 				break;
 			case 2: //set up new auto order
 				i=0;
@@ -773,7 +773,7 @@ public class MainSEF {
 				for(i =0; i < orders.length; i++){
 					System.out.println(orders[i][0]+" : " + orders[i][1]);
 				}
-				*/
+				 */
 				break;
 			case 3: //change auto order
 				i=0;
@@ -842,11 +842,11 @@ public class MainSEF {
 				System.out.println("Enter Supplier Name");
 				String supplierName = scn.nextLine();
 				i = 0;
-				while(productList.get(i) != null){
-					i++;
-				}
+
 				productList.add(new Product(productID, productName , productPrice, productStock, supplierName));
 				System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
+				iom.saveProducts(productList);
+
 				break;
 			case 2: //Change Product Name
 				//needs error prevention
@@ -957,6 +957,7 @@ public class MainSEF {
 
 	}
 
+
 	// ***** MANAGER METHOD *****
 	private void manageStaff() {
 		System.out.println("-- - -- - -- - -- MANAGE STAFFS -- - -- - -- - --" );
@@ -972,79 +973,114 @@ public class MainSEF {
 
 			int choice = Integer.parseInt(input);
 			System.out.println();
-			String staffID;
+			String staffID = null , staffPassword = null , staffName = null;
+			String changeName = null;
+			String changePassword = null;
+			int staffLevel = 0;
+			int changeLevel = 0;
+			boolean bool = false;
 			switch(choice) {
 
 			case 1: //Add Staff
-				System.out.println("Enter StaffID");
-				staffID = scn.nextLine();
+				do {
+					System.out.print("Enter Staff ID (FORMAT: E000): ");
+					staffID = stringCheck("Enter Staff ID (FORMAT: E000): ", staffID);
+				}while (staffID.equals(null) || !staffID.toUpperCase().startsWith("E"));
 
-				System.out.println("Enter Staff Name");
-				String staffName = scn.nextLine();
+				System.out.println("Enter Staff NAME");
+				staffName = stringCheck("Enter Staff NAME: ", staffName);
 
-				System.out.println("Enter StaffPassword");
-				String staffPassword = scn.nextLine();
+				System.out.println("Enter Staff PASSWORD");
+				staffPassword = stringCheck("Enter Staff PASSWORD: ", staffPassword);
 
-				System.out.println("Enter Level. Sale Staff = 1, Warehouse = 2, Manager = 3");
-				int staffLevel = Integer.parseInt(scn.nextLine());
+				do {
+					System.out.println("Enter Staff LEVEL\n \nSale Staff = 1 \nWarehouse = 2 \nManager = 3\n:");
+					input = stringCheck("Enter Staff LEVEL: ", input);
+					staffLevel = Integer.parseInt(input);
+				}while (staffLevel > 1 || staffLevel < 3);
 
 				employees.add(new Employee(staffID, staffName ,staffPassword, staffLevel));
+				System.out.println("You made a new Employee: \nID = " + staffID + "\nName = " + staffName + "\nPassword = " + staffPassword + "\n1Level = " + staffLevel);
+
 				try {
 					iom.saveEmployees(employees);
 				} catch (IOException e) {
 					System.out.println("Failed to load from menu.");
 				}
-				System.out.println("You made a new Employee: ID = " + staffID + ", Name =" + staffName + ", Password = " + staffPassword + ", Level = " + staffLevel);
 				break;
 			case 2: //Change Staff Name
-				//needs error prevention
-				System.out.println("Enter the ID of the staff you want to change the name of");
-				staffID = scn.nextLine();
-				System.out.println("Enter the new name");
-				String changeName = scn.nextLine();
+				changeName = null;
+				System.out.print("Enter the ID of staff for NAME change: ");
+				staffID = stringCheck("Enter the ID of staff for NAME change: ", staffID);
+
 				for (Employee eaEmployee : employees) {
 					if (eaEmployee.GetID().equals(staffID)) {
+						System.out.print("Enter the new NAME: ");
+						changeName = stringCheck("Enter the new NAME: ", changeName);
 						eaEmployee.SetName(changeName);
+						System.out.println("NAME Succesfully Changed!");
+						bool = true;
 					}
 				}
-				try {
-					iom.saveEmployees(employees);
-				} catch (IOException e) {
-					System.out.println("Failed to load from menu.");
+				if (bool) {
+					try {
+						iom.saveEmployees(employees);
+					} 
+					catch (IOException e) {
+						System.out.println("Failed to load from menu.");
+					}
+				}
+				else {
+					System.out.println("Staff does not exist..");
 				}
 				break;
 			case 3: //Change Staff Password
-				//needs error prevention
-				System.out.println("Enter the ID of the staff you want to change the password of");
-				staffID = scn.nextLine();
-				System.out.println("Enter the new password");
-				String changePassword = scn.nextLine();
+				System.out.print("Enter the ID of staff for PASSWORD change: ");
+				staffID = stringCheck("Enter the ID of staff for PASSWORD change: ", staffID);
+
 				for (Employee eaEmployee : employees) {
 					if (eaEmployee.GetID().equals(staffID)) {
+						System.out.print("Enter the new PASSWORD: ");
+						changePassword = stringCheck("Enter the new PASSWORD: ", changePassword);
 						eaEmployee.SetPassword(changePassword);
+						System.out.println("PASSWORD Succesfully Changed!");
+						bool = true;
 					}
 				}
-				try {
-					iom.saveEmployees(employees);
-				} catch (IOException e) {
-					System.out.println("Failed to load from menu.");
+				if (bool) {
+					try {
+						iom.saveEmployees(employees);
+					} catch (IOException e) {
+						System.out.println("Failed to load from menu.");
+					}
+				}
+				else {
+					System.out.println("Staff does not exist..");
 				}
 				break;
 			case 4: //Change Staff Level
-				//needs error prevention
-				System.out.println("Enter the ID of the staff you want to change the level of");
-				staffID = scn.nextLine();
-				System.out.println("Enter the new level");
-				int changeLevel = Integer.parseInt(scn.nextLine());
+				System.out.print("Enter the ID of staff for LEVEL change: ");
+				staffID = stringCheck("Enter the ID of staff for LEVEL change: ", staffID);
+
 				for (Employee eaEmployee : employees) {
 					if (eaEmployee.GetID().equals(staffID)) {
+						System.out.print("Enter the new LEVEL: ");
+						input = stringCheck("Enter the new LEVEL: ", input);
+						changeLevel = Integer.parseInt(input);
 						eaEmployee.SetLevel(changeLevel);
+						System.out.println("LEVEL Succesfully Changed!");
+						bool = true;
 					}
 				}
-				try {
-					iom.saveEmployees(employees);
-				} catch (IOException e) {
-					System.out.println("Failed to load from menu.");
+				if (bool) {
+					try {
+						iom.saveEmployees(employees);
+					} catch (IOException e) {
+						System.out.println("Failed to load from menu.");
+					}
+				}
+				else {
+					System.out.println("Staff does not exist..");
 				}
 				break;
 			case 5:
@@ -1056,6 +1092,7 @@ public class MainSEF {
 				break;
 
 			}
+			manageStaff();
 		}
 		catch (NumberFormatException e) {
 			System.out.println("Please input a number only..");
@@ -1111,6 +1148,7 @@ public class MainSEF {
 				displayReportMenu();
 				break;
 			}
+			displayReportMenu();
 		}
 		catch (NumberFormatException e) {
 			System.out.println("Please input a number only..");
