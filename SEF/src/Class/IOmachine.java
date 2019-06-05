@@ -223,8 +223,6 @@ public class IOmachine {
 			for(Employee element : employees)	{
 					writer.write(element.GetID() + "," + element.GetName() + ","
 								+ element.GetPassword() + "," + element.GetLevel() + "\n");
-					System.out.println(element.GetID() + "," + element.GetName() + ","
-								+ element.GetPassword() + "," + element.GetLevel() + "\n");
 			}
 			writer.close();
 		}
@@ -233,8 +231,21 @@ public class IOmachine {
 		}
 	}
 	// - - - - - - - - - - SAVE PRODUCTS - - - - - - - - - -
-	public void saveProducts() {
-
+	public void saveProducts(LinkedList<Product> products) {
+		try	{
+			writer = new FileWriter(productFile);
+			for(Product element : products)	{
+					writer.write(element.getProductId() + "," + element.getProductName() + ","
+								+ element.getProductDetails() + "," + element.getProductStock() + ","
+								+ element.getDiscountPrice()/element.getProductPrice() + ","
+								+ element.getProductPrice() + element.getBulkAmount() + ","
+								+ element.getbulkDiscount() + "\n");
+			}
+			writer.close();
+		}
+		catch(IOException e)	{
+			System.out.println("Problem reading file.");
+		}
 	}
 
 	public void recordConsumption(LinkedList<Product> allProducts) throws IOException	{
