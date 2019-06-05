@@ -94,7 +94,8 @@ public class IOmachine {
 			for(Customer element : customers)	{
 					writer.write(element.getID() + "," + element.getName() + ","
 								+ element.getMoneySpent() + "," + element.getPoint() + ","
-								+ element.getPostCode() + element.getTimeVisited() + element.getCreditCard().getFirst().getNumber()
+								+ element.getPostCode() + "," + element.getTimeVisited() + "," 
+								+ element.getCreditCard().getFirst().getNumber() + ","
 								+ element.getSubscription()+ "\n");
 			}
 			writer.close();
