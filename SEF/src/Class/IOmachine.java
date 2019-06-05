@@ -47,7 +47,6 @@ public class IOmachine {
 				employeeInfo = sc.nextLine().split(",");
 				employee = new Employee(employeeInfo[0],employeeInfo[1],employeeInfo[2],Integer.parseInt(employeeInfo[3]));
 				employees.add(employee);
-				System.out.println(employee.GetID());
 			}	
 			return employees;
 		}
@@ -69,7 +68,6 @@ public class IOmachine {
 			while (sc.hasNextLine())	{
 				customerInfo = sc.nextLine().split(",");
 				customer = new Customer(customerInfo[0],customerInfo[1],Integer.parseInt(customerInfo[4]));
-				System.out.println(customer.getID());
 				customer.setMoneySpent(Integer.parseInt(customerInfo[2]));
 				customer.setPoints(Integer.parseInt(customerInfo[3]));
 				customer.setTimevisited(Integer.parseInt(customerInfo[5]));
@@ -173,7 +171,6 @@ public class IOmachine {
 				try {
 					String record = "";
 					for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
-						System.out.println(i);
 						record += "0," + customer.getCart()[i].getProductName() + "," 
 								+ customer.getCart()[i].getNumberInCart() + ","
 								+ report.get(i)/customer.getCart()[i].getNumberInCart() + "," 
