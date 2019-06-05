@@ -37,35 +37,35 @@ public class IOmachine {
 	 * to generate the report, so all of the methods should take 
 	 * a Manager object or Manager id.
 	 * */
-	private void replaceSelected(String replaceWith, String stuff, int kind) {
-		// kind 1 is record consumption
-		// kind 2 is update staff 
-		// kind 3 is sth...??
-		File change = null;
-		String oldContent = "";
-		BufferedReader reader;
-		if (kind == 1)	{
-			change = new File("Product_Consumption.txt");
-		}
-		else if(kind == 2)	{
-			change = new File("Employees.txt");
-		}
-		try {
-			reader = new BufferedReader(new FileReader(change));
-			String line = reader.readLine();
-			while(line != null)	{
-				oldContent = oldContent + line + System.lineSeparator();
-				line = reader.readLine();
-			}
-			String newContent = oldContent.replaceAll(replaceWith, stuff);
-			writer = new FileWriter(change);
-			writer.write(newContent);
-			reader.close();
-			writer.close();
-		}
-		catch(IOException e)	{
-			System.out.println("Fail to replace the file.");
-		}
+//	private void replaceSelected(String replaceWith, String stuff, int kind) {
+//		// kind 1 is record consumption
+//		// kind 2 is update staff 
+//		// kind 3 is sth...??
+//		File change = null;
+//		String oldContent = "";
+//		BufferedReader reader;
+//		if (kind == 1)	{
+//			change = new File("Product_Consumption.txt");
+//		}
+//		else if(kind == 2)	{
+//			change = new File("Employees.txt");
+//		}
+//		try {
+//			reader = new BufferedReader(new FileReader(change));
+//			String line = reader.readLine();
+//			while(line != null)	{
+//				oldContent = oldContent + line + System.lineSeparator();
+//				line = reader.readLine();
+//			}
+//			String newContent = oldContent.replaceAll(replaceWith, stuff);
+//			writer = new FileWriter(change);
+//			writer.write(newContent);
+//			reader.close();
+//			writer.close();
+//		}
+//		catch(IOException e)	{
+//			System.out.println("Fail to replace the file.");
+//		}
 		
 //		try {
 //			// input the file content to the StringBuffer "input"
@@ -125,7 +125,7 @@ public class IOmachine {
 //		} catch (Exception e) {
 //			System.out.println("Problem reading file.");
 //		}
-	}
+//	}
 
 	// - - - - - - - - - - LOADING IN EMPLOYEE - - - - - - - - - -
 	public LinkedList<Employee> readInEmployee()	{
@@ -218,32 +218,15 @@ public class IOmachine {
 
 	// - - - - - - - - - - SAVE EMPLOYEE - - - - - - - - - -
 	public void saveEmployees(LinkedList<Employee> employees) throws IOException {
-//		try {
-//			file = new File(employeeFile);
-//			Path path = file.toPath();
-//			if(file.exists()){
-//				Files.deleteIfExists(path);
-////				file = new File(employeeFile);
-////				System.out.println(file.createNewFile());
-////			
-//			}
-//		}
-//		catch(IOException e)	{
-//			System.out.println("Problem with first part.");
-//		}
 		try	{
+			writer = new FileWriter(employeeFile);
 			for(Employee element : employees)	{
-					writer = new FileWriter(employeeFile);
 					writer.write(element.GetID() + "," + element.GetName() + ","
 								+ element.GetPassword() + "," + element.GetLevel() + "\n");
-					writer.close();
+					System.out.println(element.GetID() + "," + element.GetName() + ","
+								+ element.GetPassword() + "," + element.GetLevel() + "\n");
 			}
-//			sc = new Scanner(employeeFile);
-//			String current = "";
-//			while(sc.hasNextLine())	{
-//				current = sc.nextLine();
-//				
-//			}
+			writer.close();
 		}
 		catch(IOException e)	{
 			System.out.println("Problem reading file.");
@@ -255,6 +238,7 @@ public class IOmachine {
 	}
 
 	public void recordConsumption(LinkedList<Product> allProducts) throws IOException	{
+		// Bug HERE
 		String replaceWith = "";
 		File temp = new File("Product_Consumption.txt");
 		if(temp.createNewFile()){
@@ -273,7 +257,7 @@ public class IOmachine {
 		else	{
 			for (Product element : allProducts)	{
 				replaceWith += element.getProductId() + "," + element.getProductName() + ",";
-				replaceSelected(replaceWith, String.valueOf(element.getConsumption()), 1);
+//				replaceSelected(replaceWith, String.valueOf(element.getConsumption()), 1);
 			}
 		}
 	}
