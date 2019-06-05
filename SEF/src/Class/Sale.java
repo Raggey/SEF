@@ -36,7 +36,7 @@ public class Sale {
 		int i = 0;
 		person.checkDiscount(totalPrice, true);
 		person.calculatePoints(totalPrice);
-		System.out.println("You have spent " + totalPrice + "\n");
+		System.out.println("You have spent $%.2f" + totalPrice + "\n");
 		
 		while(productCart[i] != null){
 			productCart[i].setProductStock(productCart[i].getProductStock()-productCart[i].getNumberInCart());
