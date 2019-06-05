@@ -26,7 +26,7 @@ public class Sale {
 		}
 		//check the points discount. It is false because we are only checking the price rather than confirming the sale
 		totalPrice = tempPrice - person.checkDiscount(tempPrice, false);	
-		System.out.println("The total price is: " + totalPrice);
+		System.out.printf("The total price is: $%.2f\n", totalPrice );
 		
 	}
 	
