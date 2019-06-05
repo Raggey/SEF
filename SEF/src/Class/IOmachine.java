@@ -154,8 +154,8 @@ public class IOmachine {
 					writer.write(element.getProductId() + "," + element.getProductName() + ","
 								+ element.getProductDetails() + "," + element.getProductStock() + ","
 								+ element.getDiscountPrice()/element.getProductPrice() + ","
-								+ element.getProductPrice() + element.getBulkAmount() + ","
-								+ element.getbulkDiscount() + element.getSupplierName() + "\n");
+								+ element.getProductPrice() + "," + element.getBulkAmount() + ","
+								+ element.getbulkDiscount() + "," + element.getSupplierName() + "\n");
 			}
 			writer.close();
 		}
