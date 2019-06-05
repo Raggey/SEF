@@ -737,26 +737,57 @@ public class MainSEF {
 			int productID;
 			switch(choice) {
 			case 1: //view current auto order
-				while(orders[i] != null){
-					String name = productList.get(i).getProductName();
-					String supplier = productList.get(i).getSupplierName();
-					System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
+				i=0;
+				for(i =0; i < orders.length; i++){
+					if(orders[i][1] != 0){
+						String name = productList.get(orders[i][0] - 1).getProductName();
+						String supplier = productList.get(orders[i][0] - 1).getSupplierName();
+						System.out.println("Product " + name + " is topping up to " + orders[i][1] +  " from " + supplier );
+					}
 				}
+				/*
+				for(i =0; i < orders.length; i++){
+					System.out.println(orders[i][0]+" : " + orders[i][1]);
+				}
+				*/
 				break;
 			case 2: //set up new auto order
+				i=0;
 				System.out.println("Enter Product ID");
 				productID = Integer.parseInt(scn.nextLine());
 				System.out.println("Enter amount it should top up to");
 				int newAmount = Integer.parseInt(scn.nextLine());
-				while(orders[i] != null ){
+				while(orders[i][0] != 0){
 					i++;
 				}
 				orders[i][0] = productID;
 				orders[i][1] = newAmount;
+				int j = 0;
+				while(productID != productList.get(j).getProductId()){
+					j++;
+				}
+				String name = productList.get(j).getProductName();
+				String supplier = productList.get(j).getSupplierName();
+				System.out.println("Product " + name + " is now going to top up to " + orders[i][1] +  " from " + supplier );
+				/*
+				for(i =0; i < orders.length; i++){
+					System.out.println(orders[i][0]+" : " + orders[i][1]);
+				}
+				*/
 				break;
 			case 3: //change auto order
+				i=0;
 				System.out.println("Enter Product ID");
 				productID = Integer.parseInt(scn.nextLine());
+				System.out.println("Enter the number you want it to top up to");
+				int newNumber = Integer.parseInt(scn.nextLine());
+				while(productID != productList.get(i).getProductId()){
+					i++;
+				}
+				orders[i][1] = newNumber;
+				name = productList.get(i).getProductName();
+				supplier = productList.get(i).getSupplierName();
+				System.out.println("Product " + name + " is now topping up to " + orders[i][1] +  " from " + supplier );
 				break;
 			default:
 				System.out.println("Please select a valid choice!\n");
@@ -769,6 +800,7 @@ public class MainSEF {
 			autoOrdering();
 		}
 	}
+
 
 	// ***** MANAGER METHOD *****
 	private void manageProducts() {
