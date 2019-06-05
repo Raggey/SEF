@@ -54,7 +54,9 @@ public class Report {
 			}
 			System.out.println();
 			for(int j = 0; j<pNames.length;j++) {
-				System.out.println("Product: "+pNames[j]+" generated a revenue of: $"+pRevenues[j]);
+				System.out.print("Product: "+pNames[j]+" generated a revenue of: $");
+				System.out.printf("%.2f", pRevenues[j]);
+				System.out.println();
 					
 			}
 			System.out.println();
@@ -193,7 +195,7 @@ public class Report {
 			sc = new Scanner(fileName);
 			
 			String[] pNames = new String[products.size()];
-			int[] pRevenues = new int[products.size()];
+			float[] pRevenues = new float[products.size()];
 			int[] pQuantity = new int[products.size()];
 			while(sc.hasNextLine()) {
 				salesInfo = sc.nextLine().split(",");
@@ -224,7 +226,9 @@ public class Report {
 			System.out.println();
 			for(int i = 0;i<pNames.length;i++) {
 				if(pQuantity[i]>0) {
-					System.out.println("Product: "+pNames[i]+" Sold "+pQuantity[i]+" items, generating  "+pRevenues[i]+" revenue");
+					System.out.print("Product: '"+pNames[i]+"' sold "+pQuantity[i]+" item(s), generating a revenue of: $");
+					System.out.printf("%.2f", pRevenues[i]);
+					System.out.println();
 				}
 			}
 			System.out.println();
@@ -279,7 +283,9 @@ public class Report {
 			}
 			System.out.println();
 			for(int j = 0; j<supplier.size();j++) {
-				System.out.println("Items from Supplier: "+supplier.get(j)+" generated a revenue of: $"+pRevenues[j]);
+				System.out.print("Items from Supplier: "+supplier.get(j)+" generated a revenue of: $");
+				System.out.printf("%.2f", pRevenues[j]);
+				System.out.println();
 			}
 			System.out.println();
 			System.out.println("-- - -- - -- - --END REPORT -- - -- - -- - --" );
