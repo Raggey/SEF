@@ -89,12 +89,14 @@ public class IOmachine {
 	public void saveCustomer(LinkedList<Customer> customers) {
 		try	{
 			writer = new FileWriter(customerFile);
+			int subscription = 0;
 			for(Customer element : customers)	{
+					subscription = element.getSubscription() ? 1 : 0;
 					writer.write(element.getID() + "," + element.getName() + ","
 								+ element.getMoneySpent() + "," + element.getPoint() + ","
 								+ element.getPostCode() + "," + element.getTimeVisited() + "," 
 								+ element.getCreditCard().getFirst().getNumber() + ","
-								+ element.getSubscription()+ "\n");
+								+ subscription + "\n");
 			}
 			writer.close();
 		}
