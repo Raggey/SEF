@@ -226,7 +226,7 @@ public class Report {
 			System.out.println();
 			for(int i = 0;i<pNames.length;i++) {
 				if(pQuantity[i]>0) {
-					System.out.print("Product: '"+pNames[i]+"' sold "+pQuantity[i]+" item(s), generating a revenue of: $");
+					System.out.print("Product: "+pNames[i]+" sold "+pQuantity[i]+" item(s), generating a revenue of: $");
 					System.out.printf("%.2f", pRevenues[i]);
 					System.out.println();
 				}
