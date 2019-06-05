@@ -61,6 +61,10 @@ public class Customer {
 	{
 		return times_visited;
 	}
+	
+	public LinkedList<CreditCard>	getCreditCard()	{
+		return creditCards;
+	}
 
 	public void addProduct(Product product)
 	{
@@ -213,11 +217,15 @@ public class Customer {
 	}
 	
 	public void setCreditCard(int cardNumber)	{
-		
+		creditCards.add(new CreditCard(cardNumber, name));
 	}
 	
 	public int getPostCode() {
 		return this.postcode;
+	}
+	
+	public boolean getSubscription()	{
+		return this.subscribe;
 	}
 }
 

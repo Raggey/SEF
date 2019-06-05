@@ -180,14 +180,21 @@ public class IOmachine {
 		}
 	}
 	// - - - - - - - - - - SAVE CUSTOMERS - - - - - - - - - -
-//	public void saveCustomer() {
-//		/* C0001,Craig,36,5,3171,5,1234,1 */
-//		/* ID| NAME| TOTALMONEYSPENT | POINTS| POSTCODE | TIMESVISITED | CREDITCARD NO. | SUBSCRIPTION */
-//		MainSEF main = new MainSEF();
-//		LinkedList<Customer> cus
-//	tomers = new LinkedList<Customer>();
-//		customers = main.getCustomers();
-//	}
+	public void saveCustomer(LinkedList<Customer> customers) {
+		try	{
+			writer = new FileWriter(customerFile);
+			for(Customer element : customers)	{
+					writer.write(element.getID() + "," + element.getName() + ","
+								+ element.getMoneySpent() + "," + element.getPoint() + ","
+								+ element.getPostCode() + element.getTimeVisited() + element.getCreditCard().getFirst().getNumber()
+								+ element.getSubscription()+ "\n");
+			}
+			writer.close();
+		}
+		catch(IOException e)	{
+			System.out.println("Problem reading file.");
+		}
+	}
 
 	
 	// - - - - - - - - - - LOADING IN PRODUCTS - - - - - - - - - -
@@ -303,11 +310,9 @@ public class IOmachine {
 					String record = "";
 					sc = new Scanner(temp);
 					while(sc.hasNextLine())	{
-						System.out.println();
 						 recordCounter = Integer.parseInt(sc.nextLine().split(",")[0]) + 1;
 					}
 					for(int i = 0; customer.getCart()[i] != null && i != 50; i++)	{
-						System.out.println(i);
 						
 						record += recordCounter+ "," + customer.getCart()[i].getProductName() + "," 
 								+ customer.getCart()[i].getNumberInCart() + ","
