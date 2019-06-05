@@ -424,8 +424,8 @@ public class MainSEF {
 		Sale checkout = new Sale(currentCustomer);
 		checkout.CheckPrice();
 		System.out.println("Do you want to proceed? (Y/N)");
-		input = scn.nextLine();
-
+		input = stringCheck("Do you want to proceed? (Y/N)", input);
+		
 		if (input.equalsIgnoreCase("Y")) {
 			checkout.PerformSale();
 			currentCustomer.emptyCart();
@@ -822,114 +822,198 @@ public class MainSEF {
 
 			int choice = Integer.parseInt(input);
 			System.out.println();
-			int i = 0;
-			int productID;
+			int productID = 0;
+			String productName = null;
+			String changeName = null;
+			String changeDetails = null;
+			double changeDiscount = 0;
+			int changeAmount = 0;
+			double changeBulkDiscount = 0;
+			boolean success = false;
 			switch(choice) {
 
 			case 1: //Add Product
-				System.out.println("Enter Product ID");
-				productID = Integer.parseInt(scn.nextLine());
 
-				System.out.println("Enter Product Name");
-				String productName = scn.nextLine();
+				System.out.print("Enter Product ID: ");
+				input = stringCheck("Enter Product ID: ", input);
+				productID = Integer.parseInt(input);
 
-				System.out.println("Enter Product Price");
-				double productPrice = Double.parseDouble(scn.nextLine());
 
-				System.out.println("Enter Stock Level");
-				int productStock = Integer.parseInt(scn.nextLine());
+				System.out.print("Enter Product NAME: ");
+				productName = null;
+				productName = stringCheck("Enter Product NAME: ", productName);
 
-				System.out.println("Enter Supplier Name");
-				String supplierName = scn.nextLine();
-				i = 0;
+
+				System.out.print("Enter Product PRICE: ");
+				input = stringCheck("Enter Product PRICE: ", input);
+				double productPrice = Double.parseDouble(input);
+
+				System.out.print("Enter Product STOCK level: ");
+				input = stringCheck("Enter Product STOCK level: ", input);
+				int productStock = 0;
+				productStock= Integer.parseInt(input);
+
+				System.out.print("Enter Supplier Name: ");
+				input = stringCheck("Enter Supplier Name: ", input);
+				String supplierName = null;
+				supplierName = input;
+
+
 
 				productList.add(new Product(productID, productName , productPrice, productStock, supplierName));
-				System.out.println("You made a new Product: ID = " + productID + ", Name =" + productName + ", Price = " + productPrice + ", Stock = " + productStock);
+				System.out.println("You made a new Product: ID = " + productID + ", Name = " + productName + ", Price = " + productPrice + ", Stock = " + productStock);
 				iom.saveProducts(productList);
 
 				break;
 			case 2: //Change Product Name
-				//needs error prevention
-				System.out.println("Enter the ID of the product you want to change the name of");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the new name");
-				String changeName = scn.nextLine();
+
+				System.out.print("Enter the ID of product for NAME change: ");
+				input = stringCheck("Enter the ID of product for NAME change: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
+						System.out.println("Enter the new name");
+						changeName = stringCheck("Enter the new NAME: ", changeName);
 						eaProduct.setProductName(changeName);
+						System.out.println("NAME Succesfully Changed!");
+						success = true;
 					}
+				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
 				}
 				break;
 			case 3: //Change Product Price
-				//needs error prevention
-				System.out.println("Enter the ID of the product you want to change the price of");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the new price");
-				double changePrice = Double.parseDouble(scn.nextLine());
-				i = 0;
+				System.out.print("Enter the ID of product for PRICE change: ");
+				input = stringCheck("Enter the ID of product for PRICE change: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
+						System.out.println("Enter the new PRICE");
+						double changePrice = 0;
+						input = stringCheck("Enter the new Price: ", input);
+						changePrice = Double.parseDouble(input);
 						eaProduct.setProductPrice(changePrice);
+						System.out.println("NAME Succesfully Changed!");
+						success = true;
 					}
 				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
+				}
 				break;
+
 			case 4: //Change Product Details
-				//needs error prevention
-				System.out.println("Enter the ID of the product you want to change the details of");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the new details");
-				String changeDetails = scn.nextLine();
-				i = 0;
+				System.out.print("Enter the ID of product for DETAILS change: ");
+				input = stringCheck("Enter the ID of product for DETAILS change: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
+						System.out.println("Enter the new DETAILS");
+						input = stringCheck("Enter the new DETAILS: ", input);
+						changeDetails = input;
 						eaProduct.setProductDetails(changeDetails);
+						System.out.println("DETAILS Succesfully Changed!");
+						success = true;
 					}
 				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
+				}
 				break;
+
 			case 5: //Set a discount
-				//needs error prevention
-				System.out.println("Enter the ID of the product you want to set a discount for");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the new discount as a number between 0 and 1");
-				double changeDiscount = Double.parseDouble(scn.nextLine());
-				i = 0;
+				System.out.print("Enter the ID of product to set DISCOUNT: ");
+				input = stringCheck("Enter the ID of product to set DISCOUNT: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
+						System.out.println("Enter the new discount as a number between 0 and 1");
+						input = stringCheck("Enter the new discount as a number between 0 and 1 ", input);
+						changeDiscount = Double.parseDouble(input);
 						eaProduct.setDiscountPrice(changeDiscount);
+						System.out.println("DISCOUNT Succesfully Changed!");
+						success = true;
 					}
+				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
 				}
 				break;
 			case 6: //Remove a Discount
-				System.out.println("Enter the ID of the product you want to remove the discount for");
-				productID = Integer.parseInt(scn.nextLine());
-
-				productList.get(productID).setDiscountPrice(1);
-				break;
-			case 7: //Add a bulk discount
-				//needs error prevention
-				System.out.println("Enter the ID of the product you want to set a bulk discount for");
-				productID = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the amount needed to trigger the bulk discount");
-				int changeAmount = Integer.parseInt(scn.nextLine());
-				System.out.println("Enter the new discount (the products will be reduced by this flat number)");
-				double changeBulkDiscount = Double.parseDouble(scn.nextLine());
-				i = 0;
+				System.out.print("Enter the ID of product to REMOVE DISCOUNT: ");
+				input = stringCheck("Enter the ID of product to REMOVE DISCOUNT: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
+						productList.get(productID).setDiscountPrice(1);
+						System.out.println("DISCOUNT Succesfully REMOVED!");
+						success = true;
+					}
+				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
+				}
+				break;
+			case 7: //Add a bulk discount
+				System.out.print("Enter the ID of product to set BULK DISCOUNT: ");
+				input = stringCheck("Enter the ID of product to set BULK DISCOUNT: ", input);
+				productID = Integer.parseInt(input);
+				for (Product eaProduct : productList) {
+					if (eaProduct.getProductId() == productID) {
+						System.out.println("Enter the amount needed to trigger the bulk discount");
+						input = stringCheck("Enter the amount needed to trigger the bulk discount", input);
+						changeAmount = Integer.parseInt(input);
+						
+						System.out.println("Enter the new discount (the products will be reduced by this flat number)");
+						input = stringCheck("Enter the new discount (the products will be reduced by this flat number)", input);
+						changeBulkDiscount = Double.parseDouble(input);
+						
 						eaProduct.setBulkAmount(changeAmount);
 						eaProduct.setbulkDiscount(changeBulkDiscount);
+						System.out.println("DISCOUNT Succesfully Changed!");
+						success = true;
 					}
+				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
 				}
 				break;
 			case 8://remove a bulk discount
-				System.out.println("Enter the ID of the product you want to remove the bulk discount for");
-				productID = Integer.parseInt(scn.nextLine());
-				i=0;
+				System.out.print("Enter the ID of product to REMOVE BULK DISCOUNT: ");
+				input = stringCheck("Enter the ID of product to REMOVE BULK DISCOUNT: ", input);
+				productID = Integer.parseInt(input);
 				for (Product eaProduct : productList) {
 					if (eaProduct.getProductId() == productID) {
 						eaProduct.setBulkAmount(0);
 						eaProduct.setbulkDiscount(0);
+						System.out.println("BULK DISCOUNT Succesfully REMOVED!");
+						success = true;
 					}
+				}
+				if (!success) {
+					System.out.println("Product does not exist..");
+				}
+				else {
+					iom.saveProducts(productList);
 				}
 				break;
 			case 9:
@@ -949,6 +1033,7 @@ public class MainSEF {
 				break;
 
 			}
+			manageProducts();
 		}
 		catch (NumberFormatException e) {
 			System.out.println("Please input a number only..");
