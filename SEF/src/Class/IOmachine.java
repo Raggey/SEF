@@ -239,7 +239,7 @@ public class IOmachine {
 								+ element.getProductDetails() + "," + element.getProductStock() + ","
 								+ element.getDiscountPrice()/element.getProductPrice() + ","
 								+ element.getProductPrice() + element.getBulkAmount() + ","
-								+ element.getbulkDiscount() + "\n");
+								+ element.getbulkDiscount() + element.getSupplierName() + "\n");
 			}
 			writer.close();
 		}
